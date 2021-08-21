@@ -1,0 +1,72 @@
+:root {
+    --gold-color: #A5730E;
+}
+
+@font-face { 
+    font-family: "poppins"; 
+    src: url('../../fonts/poppins/Poppins-Regular.ttf'); 
+} 
+@font-face { 
+    font-family: "italianno"; 
+    src: url('../../fonts/Italianno/Italianno-Regular.ttf'); 
+} 
+@font-face { 
+    font-family: "rubik"; 
+    src: url('../../fonts/rubik/static/Rubik-Regular.ttf'); 
+} 
+@font-face { 
+    font-family: "montserrat"; 
+    src: url('../../fonts/montserrat/Montserrat-Regular.ttf'); 
+} 
+@font-face { 
+    font-family: "roboto"; 
+    src: url('../../fonts/roboto/Roboto-Regular.ttf'); 
+} 
+
+.poppins{
+    font-family: "poppins", sans-serif;
+}
+
+.italianno{
+    font-family: "italianno", sans-serif;
+}
+
+.rubik{
+    font-family: "rubik", sans-serif;
+}
+
+.montserrat{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.roboto{
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    font-family: "poppins", sans-serif !important;
+    text-decoration: none;
+}
+
+.noSpace{
+    padding: 0px !important;
+    margin: 0px !important;   
+}
+
+.noStyle{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.clear{
+    clear:both;
+}
