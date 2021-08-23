@@ -4,7 +4,7 @@
             <div class="dialog-header">
                 <h3 class="ht">
                     {{title}}
-                    <a href="#" @click="$emit('closeDialog', 'close')" class="close-dialog right">&times;</a>
+                    <a href="#" @click="$emit('closeDialog', 'close')" class="close-dialog right exclude">&times;</a>
                 </h3>
             </div>
 
@@ -55,6 +55,19 @@
     }
     .dialog-header{
         border-bottom: .5px solid rgba(0,0,0,0.2);
+    }
+
+    @media screen and (max-width: 900px){
+        .dialog-content{
+            width: 90%;
+        }
+        .dialog{
+            width: 100%;
+            margin: 0px auto;
+        }
+        .ht{
+            font-size: 14px;
+        }
     }
 </style>
 

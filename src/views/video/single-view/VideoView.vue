@@ -69,19 +69,7 @@
         }, 
         
         mounted: function(){
-            const toMatch = [
-                /Android/i,
-                /webOS/i,
-                /iPhone/i,
-                /iPad/i,
-                /iPod/i,
-                /BlackBerry/i,
-                /Windows Phone/i
-            ];
-            
-            this.is_mobile = toMatch.some((toMatchItem) => {
-                return navigator.userAgent.match(toMatchItem);
-            });
+            this.is_mobile = window.is_mobile();
         }
     }
 </script>

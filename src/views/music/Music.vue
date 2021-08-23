@@ -1,5 +1,5 @@
 <template>
-    <div class="app-body-content">
+    <div class="app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
         <Notification />
         <br><br><br>
 

@@ -2,11 +2,16 @@
 
 .hooper-next, .hooper-prev{
     background-color: black !important;
-    color: white !important;
     position: absolute !important;
 }
 
+.hooper-next svg{
+    border-radius: 360px !important;
+}
 
+.hooper-list{
+    height: auto !important;
+}
 .slider_img{
     height: 360px !important;
 }
@@ -93,7 +98,7 @@
 
 .trend_count{
     width: 100%;
-    margin-top:45px;
+    margin-top:63px;
 }
 
 .gist_card{
@@ -233,7 +238,6 @@ footer .column li a{
 }
 
 .video_shorts{
-    background-color: red;
     width: 200px;
     height: 270px;
     position: absolute;
@@ -242,11 +246,12 @@ footer .column li a{
 .vshorts{
     width: 180px;
     height: 270px;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     margin-right:10px;
     margin-bottom:10px;
     padding: 10px;
+    padding-bottom: 20px;
 }
 
 .vaction{
@@ -579,6 +584,27 @@ body, html{
 /* Media query */
 
 @media screen and (max-width: 900px) {
+    .notifier{
+        position: fixed !important;
+        width: 90% !important;
+        left: 20px !important;
+        top:-10px !important;
+    }
+    .notifier_container_body{
+        width: 100% !important;
+        height: 100% !important;
+        position: fixed !important;
+        top: 0px !important;
+        left: 0px !important;
+        background-color: black !important;
+    }
+    .close-mobile-notify{
+        position: absolute !important;
+        top:-20px !important;
+        text-align: center !important;
+        width: 100% !important;
+        padding-bottom:10px !important;
+    }
     body, html, .app-body{
         float: none !important;
         background-color: black;
@@ -700,7 +726,7 @@ body, html{
         margin-right: 20px;
     }
     .trend_count{
-        margin-top: 10px;
+        margin-top: 28px;
     }
     .gist_card{
         width: 88%;
@@ -776,10 +802,9 @@ body, html{
     .vcard{
         width: 95% !important;
         margin-bottom: 30px !important;
-        background-color: red !important;
     }
     .suggested-video, .vcard{
-        margin-bottom: 50px !important;;
+        margin-bottom: 80px !important;;
     }
     .video_cover{
         width: 100%;
@@ -826,5 +851,37 @@ body, html{
     }
     .phone-no-input{
         width: 55%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .trend_card{
+        width: 27%;
+        height: 80px;
+        overflow: hidden !important;
+    }
+    .trend_title{
+        font-size: 13px !important;
+        width: 100px !important;
+    }
+    .trend_count{
+        margin-top: 10px;
+    }
+    .pcount{
+        border-radius: 0px 50px 50px 50px;
+        font-size:10px;
+        padding:5px 5px;
+        display: inline-block;
+        min-width: 30px !important;
+    }
+}
+
+@media screen and (max-width: 328px) {
+    .trend_card{
+        margin-right: 10px !important;
+    }
+    .svg-download{
+        width: 10px !important;
+        height: 10px !important;
     }
 }

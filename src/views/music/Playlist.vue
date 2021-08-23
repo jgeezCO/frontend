@@ -1,5 +1,5 @@
 <template>
-    <div class="app-body-content">
+    <div class="app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
         <div class="playlist_container clear">
             <div class="header">
                 <h4 class="left exclude noSpace">PLAYLIST</h4>

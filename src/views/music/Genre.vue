@@ -1,5 +1,5 @@
 <template>
-    <div class="app-body-content">
+    <div class="app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
         <div class="genre_container">
             <h3 class="poppins">Genre</h3>
             <div class="genre_container" :key="genre.id" v-for="genre in genres">

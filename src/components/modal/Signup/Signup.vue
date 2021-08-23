@@ -152,12 +152,18 @@
                 if(this.profile.password !== this.profile.cpassword){
                     alert("Alert password does not match");
                 } else {
-                    axios.post('https://api.jgeez.co/auth/users/', {
+                    let form_data = {
                         email: this.profile.email,
                         username: this.profile.username,
                         password: this.profile.password,
                         country: this.profile.numCode,
                         gender: this.profile.gender
+                    };
+
+                    axios({
+                       method: "POST",
+                       url: "https://api.jgeez.co/auth/users/",
+                       data: form_data
                     })
                     .then(function (response) {
                         console.log(response);

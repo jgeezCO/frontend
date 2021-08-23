@@ -19,7 +19,7 @@
                 enter-active-class="animate__animated animate__zoomIn" 
                 leave-active-class="animate__animated animate__zoomOut" tag="div"
             >
-                <Notifier v-if="notifyVisible == true"/>
+                <Notifier v-if="notifyVisible == true" v-on:toogle-notify="toggleNotifier" />
             </transition>
 
             <a href="#" @click="toggleNotifier" class="left exclude notification-icons" ref="notify_handler" style="margin-right: 15px;color:white;font-size:12px;">

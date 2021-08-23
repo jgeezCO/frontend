@@ -9,10 +9,10 @@
             <ProfileActivities v-on:open-dialog="dialogVisible"/>
 
             <center class="clickable_act">
-                <a href="#" @click="video_menu" data-type="all" :class="upload_switch.all == true ? 'highlight' : ''">ALL UPLOADS</a> 
-                <a href="#" @click="video_menu" data-type="video" :class="upload_switch.video == true ? 'highlight' : ''">VIDEOS</a> 
-                <a href="#" @click="video_menu" data-type="music" :class="upload_switch.music == true ? 'highlight' : ''">MUSIC</a> 
-                <a href="#" @click="video_menu" data-type="gist" :class="upload_switch.gist == true ? 'highlight' : ''">GIST</a> 
+                <a href="#" style="padding:10px 0px;" @click="video_menu" data-type="all" :class="upload_switch.all == true ? 'highlight' : ''">ALL UPLOADS</a> 
+                <a href="#" style="padding:10px 0px;" @click="video_menu" data-type="video" :class="upload_switch.video == true ? 'highlight' : ''">VIDEOS</a> 
+                <a href="#" style="padding:10px 0px;" @click="video_menu" data-type="music" :class="upload_switch.music == true ? 'highlight' : ''">MUSIC</a> 
+                <a href="#" style="padding:10px 0px;" @click="video_menu" data-type="gist" :class="upload_switch.gist == true ? 'highlight' : ''">GIST</a> 
                 <a href="#">
                     <img src="static/svg/search.svg" style="width:15px;color:white;">
                 </a>
@@ -20,11 +20,11 @@
             <div class="clear"></div>
         </div>
 
-        <div class="profile-display app-body-content">
-            <AllUpload v-if="upload_switch.all == true" :idle="!upload_switch.all" />
-            <VideoUpload v-if="upload_switch.video == true" :idle="!upload_switch.video" />
-            <MusicUpload v-if="upload_switch.music == true" :idle="!upload_switch.music" />
-            <GistUpload v-if="upload_switch.gist == true" :idle="!upload_switch.gist" />
+        <div class="profile-display app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
+            <AllUpload key="all_upload" v-if="upload_switch.all == true" :idle="!upload_switch.all" />
+            <VideoUpload key="video_uploa" v-if="upload_switch.video == true" :idle="!upload_switch.video" />
+            <MusicUpload key="music_upload" v-if="upload_switch.music == true" :idle="!upload_switch.music" />
+            <GistUpload key="gist_upload" v-if="upload_switch.gist == true" :idle="!upload_switch.gist" />
         </div>
         
         <Dialog :title="dialog_title" v-if="vdialog == true" v-on:closeDialog="dialogVisible">

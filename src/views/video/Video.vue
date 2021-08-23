@@ -3,20 +3,18 @@
         <div class="app-body-content" style="background-image: url(static/svg/dots.svg) !important;">
             <div class="shorts">
                 <h2 class="poppins">JGEEZ SHORTS</h2>
-                <div v-for="short in shorts" :key="short.id">
-                    <ShortCard :card="short" />
-                </div>
-                <div class="left">
-                    <a href="#" class="anext">
-                        <center>
-                            <img src="static/svg/next.svg" style="width:70px;height:70px;margin-top:80px;">
-                        </center>
-                    </a>
-                </div>
+                <hooper :itemsToShow="slider_items_to_show" pagination="no">
+                    <slide v-for="(short, indx) in shorts" :key="indx" :index="indx">
+                        <ShortCard :card="short" />
+                    </slide>
+                    <hooper-navigation slot="hooper-addons"></hooper-navigation>
+                </hooper>
             </div>
             <div class="clear"></div>
         </div>
         
+        <br><br><br><br><br>
+
         <div class="demarcator"></div>
 
         <div class="app-body-content" style="position:relative;top:-20px;">
@@ -44,17 +42,45 @@
     import uuid from "uuid";
     import ShortCard from "./components/ShortCard.vue";
     import VideoCard from "./components/VideoCard.vue";
+    import { 
+        Hooper, Slide, 
+        Navigation as HooperNavigation 
+    } from 'hooper';
+    import 'hooper/dist/hooper.css';
 
     export default {
         name: 'Video',
         components: {
-            ShortCard, VideoCard
+            ShortCard, VideoCard,
+            Hooper, Slide, HooperNavigation
         },
         data: function(){
             return {
+                slider_items_to_show: 5,
                 shorts: [
+                   {
+                        img: "static/uploads/img/100/v3.png",
+                        time: "3 days ago",
+                        title: "Bryan nolli - Salvation ft. The nation",
+                        user: {
+                            name: "Brian Nolli",
+                            avatar: "static/uploads/img/100/avatar.png",
+                            verified: true,
+                            view: "2.1m"
+                        }
+                    },
                     {
-                        id: uuid.v1(),
+                        img: "static/uploads/img/100/v2.png",
+                        time: "3 days ago",
+                        title: "Bryan nolli - Salvation ft. The nation",
+                        user: {
+                            name: "Brian Nolli",
+                            avatar: "static/uploads/img/100/avatar.png",
+                            verified: true,
+                            view: "2.1m"
+                        }
+                    },
+                    {
                         img: "static/uploads/img/100/v1.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -66,8 +92,7 @@
                         }
                     },
                     {
-                        d: uuid.v1(),
-                        img: "static/uploads/img/100/v1.png",
+                        img: "static/uploads/img/100/v4.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
                         user: {
@@ -78,8 +103,7 @@
                         }
                     },
                     {
-                        d: uuid.v1(),
-                        img: "static/uploads/img/100/v1.png",
+                        img: "static/uploads/img/100/v2.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
                         user: {
@@ -90,8 +114,7 @@
                         }
                     },
                     {
-                        d: uuid.v1(),
-                        img: "static/uploads/img/100/v1.png",
+                        img: "static/uploads/img/100/v3.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
                         user: {
@@ -541,6 +564,9 @@
                     }
                 ]
             }
+        },
+        created(){
+            this.slider_items_to_show = window.is_mobile() == true ? 2 : 5
         }
     }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="app-body-content">
+    <div class="app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
         <h4>{{trends.title}}</h4>
         <div class="view-genre" v-for="trend in trends.data" :key="trend.id">
             <MusicCard :card="trend"/>

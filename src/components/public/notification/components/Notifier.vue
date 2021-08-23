@@ -1,26 +1,31 @@
 <template>
-    <div class="notifier" ref="notifier" :style="'margin-top:40px;left:' + notifier_width + 'px'">
-        <div class="header">
-            <center class="poppins" style="font-size:14px;">My Notifications</center>
-            <div class="right">
-                <img src="static/svg/gear.svg" style="position:relative;top:-20px;width:15px;height:15px;">
+    <div class="notifier_container_body">
+        <div class="notifier" ref="notifier" :style="'margin-top:40px;left:' + notifier_width + 'px'">
+            <center class="mobile-only close-mobile-notify">
+                <a href="#" @click="$emit('toogle-notify')" style="color:red !important;font-weight:bold;">&times; close</a>
+            </center>
+            <div class="header">
+                <center class="poppins" style="font-size:14px;">My Notifications</center>
+                <div class="right">
+                    <img src="static/svg/gear.svg" style="position:relative;top:-20px;width:15px;height:15px;">
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
+            <div class="body">
+                <ul class="notify_list noStyle" v-for="list in notification_lists" :key="list.id">
+                    <li>
+                        <div class="left" style="width:70%;">
+                            {{list.text}}
+                        </div>
+                        <div class="right">
+                            {{list.time}}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+            </div>
+            <br><br><br>
         </div>
-        <div class="body">
-            <ul class="notify_list noStyle" v-for="list in notification_lists" :key="list.id">
-                <li>
-                    <div class="left" style="width:70%;">
-                        {{list.text}}
-                    </div>
-                    <div class="right">
-                        {{list.time}}
-                    </div>
-                    <div class="clear"></div>
-                </li>
-            </ul>
-        </div>
-        <br><br><br>
     </div>
 </template>
 
@@ -81,7 +86,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .notifier{
         position: absolute;
         width: 350px;

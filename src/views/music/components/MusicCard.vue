@@ -18,7 +18,7 @@
             </div>
             <div class="right exclude">
                 <div class="cat_download">
-                    <img src="static/svg/download.svg" :style="'width:12px;height:12px;background-color:' + card.color">
+                    <img src="static/svg/download.svg" class="svg-download" :style="'width:10px;height:10px;background-color:' + card.color">
                 </div>
             </div> <div class="clear"></div>
         </div> 
