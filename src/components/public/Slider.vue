@@ -33,7 +33,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .jgeez-slider{
         margin: 30px auto;
     }
@@ -42,15 +42,21 @@
         transform: scale(1.2);
     }
     
-    .hooper{
-        height: 300px;
-    }
-
     .slider_img{
         width: 100% !important;
         height: 100% !important;
     }
 
+    .hooper-slide{
+        position: relative !important;
+        height: 300px !important;
+    }
+    .hooper-list, .hooper-track, .hooper{
+        position: relative !important;
+        margin: 0px !important;
+        top: 0px !important;
+        clear: both !important;
+    }
     @media screen and (max-width: 900px){
         .hooper{
             height: 150px !important;

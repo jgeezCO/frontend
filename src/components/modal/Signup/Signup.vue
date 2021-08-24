@@ -22,11 +22,11 @@
 
             <div class="control-style">
                 <div style="margin-left:10px;">
-                    <input type="text" :value="email_address" class="flatinput roboto" placeholder="Email Address">
+                    <input type="text" v-model="profile.email" class="flatinput roboto" placeholder="Email Address">
                 </div> 
             </div>
 
-            <div class="control-style">
+            <!-- <div class="control-style">
                 <div class="left exclude" style="margin-left:10px;">
                     <input type="text" class="flatinput roboto" placeholder="Enter Verification Code">
                 </div> 
@@ -34,7 +34,7 @@
                     <a href="#" style="font-size: 11px;margin-top:0px;color: #349dd9;">Get Code</a>
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div> -->
 
             <div class="control-style">
                 <div class="left exclude" style="width:80%;margin-left:10px;">
@@ -83,8 +83,14 @@
             <br><br><br>
 
             <center>
-                <input type="submit" value="Sign Up" style="color:white;font-size:12px;padding:15px;" class="roboto app-btn-block">
+                <input type="submit" :value="submit_props.value" style="color:white;font-size:12px;padding:15px;" class="roboto app-btn-block" :class="submit_props.disabled == true ? 'disabled' : ''">
             </center>
+
+            <div v-if="submit_props.status_report.dialog == true" class="alert alert-success" :class="submit_props.status_report.type == 'success' ? 'alert-success' : 'alert-danger'">
+                <div class="alert-content">
+                    {{submit_props.status_report.msg}}
+                </div>
+            </div>
 
             <br>
 
@@ -123,6 +129,15 @@
         },
         data(){
             return {
+                submit_props: {
+                    disabled: false,
+                    value: "Sign Up",
+                    status_report: {
+                        dialog: false,
+                        type: "success",
+                        msg: ""
+                    }
+                },
                 profile: {
                     numCode: "+234",
                     mobile: "",
@@ -146,31 +161,79 @@
                     this.passvision.cpassword = !this.passvision.cpassword;
                 }
             },
+            formRequestResponse: function(report){
+                this.submit_props.disabled = report[0];
+                this.submit_props.value = report[1];
+
+                this.submit_props.status_report.dialog = report[2];
+                this.submit_props.status_report.type = report[3];
+                this.submit_props.status_report.msg = report[4];
+            },
             handleForm: function(e){
                 e.preventDefault();
 
                 if(this.profile.password !== this.profile.cpassword){
                     alert("Alert password does not match");
                 } else {
-                    let form_data = {
-                        email: this.profile.email,
-                        username: this.profile.username,
-                        password: this.profile.password,
-                        country: this.profile.numCode,
-                        gender: this.profile.gender
+                    let form_data = new FormData();
+                
+                    form_data.append('email', this.profile.email);
+                    form_data.append('username', this.profile.username);
+                    form_data.append('password', this.profile.password);
+                    form_data.append('country', this.profile.numCode);
+                    form_data.append('gender', this.profile.gender);
+                    
+                    // let form_data = {
+                    //     email: this.profile.email,
+                    //     username: this.profile.username,
+                    //     password: this.profile.password,
+                    //     country: this.profile.numCode,
+                    //     gender: this.profile.gender
+                    // }
+
+                    this.submit_props.disabled = true;
+                    this.submit_props.value = "Signing up...";
+
+                    let headers = {
+                        "Content-Type": "application/json"
                     };
 
                     axios({
                        method: "POST",
-                       url: "https://api.jgeez.co/auth/users/",
+                       url: "https://jgeezapi.seconsoft.com/register.php",
                        data: form_data
+                    }, headers)
+                    .then(response => {
+                        this.formRequestResponse([
+                            true, "Sign Up", false, "success", "Account created successfully. Kindly login"
+                        ]);
+
+                        this.profile.numCode = "+234";
+                        this.profile.mobile = "";
+                        this.profile.username = "";
+                        this.profile.email = "";
+                        this.profile.password = "";
+                        this.profile.cpassword = "";
+                        this.profile.gender = "male";
+                        
+                        console.log(response.data);
                     })
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
+                    .catch(error => {      
+                        this.formRequestResponse([
+                            false, "Try again...", true, "failed", "Failed while creating account... Try again"
+                        ]);
+
+                        this.profile.numCode = "+234";
+                        this.profile.mobile = "";
+                        this.profile.username = "";
+                        this.profile.email = "";
+                        this.profile.password = "";
+                        this.profile.cpassword = "";
+                        this.profile.gender = "male";
+
                         console.log(error);
                     });
+                    //https://api.jgeez.co/auth/users/
                 }
             }
         }
@@ -182,5 +245,26 @@
         position:absolute;
         margin-top:-4px;
         margin-left:-20px;
+    }
+    .disabled{
+        cursor: not-allowed;
+        background-color: #c2a44f;
+    }
+    .alert{
+        width: 100%;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-top: 20px;
+    }
+    .alert-content{
+        width: 90%;
+        margin: 10px auto;
+        padding: 15px 0px;
+    }
+    .alert-success{
+        background-color: #398e3c;
+    }
+    .alert-danger{
+        background-color: #f14336;
     }
 </style>
