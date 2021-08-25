@@ -62,5 +62,8 @@
             height: 150px !important;
             width: auto;
         }
+        .hooper-slide{
+            height: 190px !important;
+        }
     }
 </style>
