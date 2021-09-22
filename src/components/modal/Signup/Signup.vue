@@ -22,11 +22,11 @@
 
             <div class="control-style">
                 <div style="margin-left:10px;">
-                    <input type="text" :value="email_address" class="flatinput roboto" placeholder="Email Address">
+                    <input type="text" v-model="profile.email" class="flatinput roboto" placeholder="Email Address">
                 </div> 
             </div>
 
-            <!-- <div class="control-style">
+            <div class="control-style">
                 <div class="left exclude" style="margin-left:10px;">
                     <input type="text" class="flatinput roboto" placeholder="Enter Verification Code">
                 </div> 
@@ -34,7 +34,7 @@
                     <a href="#" style="font-size: 11px;margin-top:0px;color: #349dd9;">Get Code</a>
                 </div>
                 <div class="clear"></div>
-            </div> -->
+            </div>
 
             <div class="control-style">
                 <div class="left exclude" style="width:80%;margin-left:10px;">
@@ -82,11 +82,15 @@
 
             <br><br><br>
 
-            <StatusMessage v-if="status.visible == true" :status="status.type" :message="status.message" />
-
             <center>
-                <input type="submit" value="Sign Up" style="cursor:pointer;color:white;font-size:12px;padding:15px;" class="roboto app-btn-block">
+                <input type="submit" :disabled="submit_props.disabled" :value="submit_props.value" style="color:white;font-size:12px;padding:15px;" class="roboto app-btn-block" :class="submit_props.disabled == true ? 'disabled' : ''">
             </center>
+
+            <div v-if="submit_props.status_report.dialog == true" class="alert" :class="submit_props.status_report.type == 'success' ? 'alert-success' : 'alert-danger'">
+                <div class="alert-content">
+                    {{submit_props.status_report.msg}}
+                </div>
+            </div>
 
             <br>
 
@@ -115,21 +119,24 @@
 
 <script>
     import SocialLogin from "../../public/SideBar/components/SocialLogin.vue";
-    import StatusMessage from "../../public/StatusMessage.vue";
     import axios from "axios";
 
     export default {
         name: "Signup",
         props: ["visible", "email_address"],
         components: {
-            SocialLogin, StatusMessage
+            SocialLogin
         },
         data(){
             return {
-                status: {
-                    visible: false,
-                    type: "",
-                    message: ""
+                submit_props: {
+                    disabled: false,
+                    value: "Sign Up",
+                    status_report: {
+                        dialog: false,
+                        type: "success",
+                        msg: ""
+                    }
                 },
                 profile: {
                     numCode: "+234",
@@ -154,31 +161,61 @@
                     this.passvision.cpassword = !this.passvision.cpassword;
                 }
             },
+            formRequestResponse: function(report){
+                this.submit_props.disabled = report[0];
+                this.submit_props.value = report[1];
+
+                this.submit_props.status_report.dialog = report[2];
+                this.submit_props.status_report.type = report[3];
+                this.submit_props.status_report.msg = report[4];
+            },
             handleForm: function(e){
                 e.preventDefault();
+                this.submit_props.status_report.dialog = false;
 
                 if(this.profile.password !== this.profile.cpassword){
                     alert("Alert password does not match");
                 } else {
                     let form_data = {
-                        "email": "email@gmail.com",
-                        "username": "thePrince",
-                        "password": "12345",
-                        "country": "Nigeria",
-                        "gender": "male"
+                        email: this.profile.email,
+                        username: this.profile.username,
+                        password: this.profile.password,
+                        country: this.profile.numCode,
+                        gender: this.profile.gender
+                    }
+
+                    this.submit_props.disabled = true;
+                    this.submit_props.value = "Signing up...";
+
+                    let headers = {
+                        "Content-Type": "application/json"
                     };
 
-                    console.log(form_data);
-
                     axios({
-                        method: 'POST',
-                        url: 'https://api.jgeez.co/auth/users/',
-                        data: form_data
+                       method: "POST",
+                       url: "https://api.jgeez.co/auth/users/",
+                       data: form_data
+                    }, headers)
+                    .then(response => {
+                        this.formRequestResponse([
+                            true, "Sign Up", true, "success", "Account created successfully. Kindly login"
+                        ]);
+
+                        this.profile.numCode = "+234";
+                        this.profile.mobile = "";
+                        this.profile.username = "";
+                        this.profile.email = "";
+                        this.profile.password = "";
+                        this.profile.cpassword = "";
+                        this.profile.gender = "male";
+                        
+                        console.log(response.data);
                     })
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
+                    .catch(error => {      
+                        this.formRequestResponse([
+                            false, "Try again...", true, "failed", "Failed while creating account... Try again"
+                        ]);
+
                         console.log(error);
                     });
                 }

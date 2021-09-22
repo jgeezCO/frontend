@@ -1,25 +1,18 @@
 <template>
     <div class="sign_in_container" :style="visible == true ? 'display:block;' : 'display:none;'">
-        <form action="">
+        <form action="" @submit="handleForm" method="post">
             <div class="control-style">
-                <div class="left exclude" style="margin-top:5px;width:80px;border-right:2px solid rgba(255, 255, 255, 0.74)">
-                    <img src="../assets/nigeria.svg" style="width:20px;height:20px;">
-                    <select class="roboto flat-select" style="font-size:11px;position:relative;top:-5px;">
-                        <option>+234</option>
-                    </select>
-                </div>
-                <div class="left exclude phone-no-input" style="margin-left:10px;margin-top:4px;">
-                    <input type="text" class="flatinput roboto" placeholder="Enter phone number">
+                <div style="margin-left:10px;">
+                    <input type="text" v-model="profile.username" class="flatinput roboto" placeholder="Username">
                 </div> 
-                <div class="clear"></div>
             </div>
 
             <div class="control-style">
                 <div class="left exclude flatinput-container" style="width:80%;margin-left:10px;">
-                    <input type="text" class="flatinput roboto" placeholder="Password (Atleast 6 characters)">
+                    <input :type="passvision.password == false ? 'password' : 'text'" v-model="profile.password" class="flatinput roboto" placeholder="Password (Atleast 6 characters)">
                 </div> 
                 <div class="right exclude" style="margin-top:6px;">
-                    <a href="#" class="eyes-open" style="font-size: 12px;color: rgba(7, 17, 251, 1);">
+                    <a href="#" @click="tooglePasswordVisibility()" class="eyes-open" style="font-size: 12px;color: rgba(7, 17, 251, 1);">
                         <img src="../assets/eye-hide.svg" style="width:20px;"> 
                     </a>
                 </div>
@@ -33,8 +26,14 @@
             <br><br><br>
 
             <center>
-                <input type="submit" value="Login" style="color:white;font-size:12px;padding:15px;" class="roboto app-btn-block">
+                <input type="submit" :disabled="submit_props.disabled" :value="submit_props.value" style="color:white;font-size:12px;padding:15px;" class="roboto app-btn-block" :class="submit_props.disabled == true ? 'disabled' : ''">
             </center>
+
+            <div v-if="submit_props.status_report.dialog == true" class="alert" :class="submit_props.status_report.type == 'success' ? 'alert-success' : 'alert-danger'">
+                <div class="alert-content">
+                    {{submit_props.status_report.msg}}
+                </div>
+            </div>
 
             <br>
 
@@ -52,14 +51,90 @@
 
 <script>
     import SocialLogin from "../../public/SideBar/components/SocialLogin.vue";
-    import { mapGetters } from "vuex";
+    import axios from "axios";
 
     export default {
         name: "Login",
         props: ["visible", "email_address"],
+        data(){
+            return {
+                submit_props: {
+                    disabled: false,
+                    value: "Login",
+                    status_report: {
+                        dialog: false,
+                        type: "success",
+                        msg: ""
+                    }
+                },
+                profile: {
+                    username: "Hello world",
+                    password: ""
+                },
+                passvision: {
+                    password: false,
+                }
+            }
+        },
         components: {
             SocialLogin
         },
-        computed: mapGetters(["user_profile"])
+        methods: {
+            redirect: function(){
+                this.submit_props.value = "Logged In";
+
+            },
+            tooglePasswordVisibility: function(){
+                this.passvision.password = !this.passvision.password;
+            },
+            formRequestResponse: function(report){
+                this.submit_props.disabled = report[0];
+                this.submit_props.value = report[1];
+
+                this.submit_props.status_report.dialog = report[2];
+                this.submit_props.status_report.type = report[3];
+                this.submit_props.status_report.msg = report[4];
+            },
+            handleForm: function(e){
+                e.preventDefault();
+
+                let str_username = this.profile.username;
+                let str_password = this.profile.password;
+
+                this.submit_props.status_report.dialog = false;
+
+                if(str_username.length <= 0 || str_password.length <= 0){
+                    alert("Password cannot be empty");
+                } else {
+                    let form_data = {
+                        username: str_username,
+                        password: str_password,
+                    }
+
+                    this.submit_props.disabled = true;
+                    this.submit_props.value = "Signing in...";
+
+                    axios({
+                       method: "POST",
+                       url: "http://localhost/api/test.php",
+                       data: form_data
+                    })
+                    .then(response => {
+                        this.profile.username = "";
+                        this.profile.password = "";
+                        console.log(response.data);
+
+                        this.redirect();
+                    })
+                    .catch(error => {      
+                        this.formRequestResponse([
+                            false, "Try again...", true, "failed", "Failed to login... Try again"
+                        ]);
+
+                        console.log(error);
+                    });
+                }
+            }
+        }
     }
 </script>

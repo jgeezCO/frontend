@@ -3,7 +3,7 @@
         <Chooser v-if="selects.selector==true" v-on:changeHandler="changeSelected" />
         <GistBody v-if="selects.gist==true" />
         <MusicBody v-if="selects.music==true" />
-        <VideoBody v-if="selects.video==true" />
+        <VideoBody v-on:dialog_title="handleEmit" v-if="selects.video==true" />
         <RadioBody v-if="selects.radio==true" />
     </div>
 </template>
@@ -33,6 +33,9 @@
             }
         },
         methods: {
+            handleEmit: function(payload){
+                this.$emit("dialogTitle", payload);
+            },
             capitalize(text){
                 return text.charAt(0).toUpperCase() + text.slice(1);
             },
@@ -90,5 +93,7 @@
     .cradio .checkmark{ border: 1px solid #A5730E !important;  }
     .cradio .container:hover input ~ .checkmark { background-color: #A5730E; }
     .container input:checked ~ .checkmark { background-color: #A5730E; }
+
+    
 </style>
 

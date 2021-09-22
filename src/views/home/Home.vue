@@ -1,6 +1,10 @@
 <template>
     <div class="home">
-        <Slider />
+        <div class="home_slider">
+            <Slider />
+        </div>
+        
+        <br><br><br class="desktop-only"><br class="desktop-only"><br class="desktop-only">
         <div class="app-background-image" style="background-image:url(static/svg/triangle.svg) !important;">
             <div class="remove_padding_on_mobile container_padding">
                 <Category />
