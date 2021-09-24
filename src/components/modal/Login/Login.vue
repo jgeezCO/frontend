@@ -51,7 +51,7 @@
 
 <script>
     import SocialLogin from "../../public/SideBar/components/SocialLogin.vue";
-    import axios from "axios";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "Login",
@@ -68,7 +68,7 @@
                     }
                 },
                 profile: {
-                    username: "Hello world",
+                    username: "",
                     password: ""
                 },
                 passvision: {
@@ -79,10 +79,13 @@
         components: {
             SocialLogin
         },
+        computed: {
+            ...mapGetters(["getProfile"]), 
+        },
         methods: {
+            ...mapActions(["authenticate"]),
             redirect: function(){
                 this.submit_props.value = "Logged In";
-
             },
             tooglePasswordVisibility: function(){
                 this.passvision.password = !this.passvision.password;
@@ -100,39 +103,21 @@
 
                 let str_username = this.profile.username;
                 let str_password = this.profile.password;
-
                 this.submit_props.status_report.dialog = false;
 
                 if(str_username.length <= 0 || str_password.length <= 0){
                     alert("Password cannot be empty");
                 } else {
-                    let form_data = {
-                        username: str_username,
-                        password: str_password,
-                    }
-
                     this.submit_props.disabled = true;
                     this.submit_props.value = "Signing in...";
 
-                    axios({
-                       method: "POST",
-                       url: "http://localhost/api/test.php",
-                       data: form_data
-                    })
-                    .then(response => {
-                        this.profile.username = "";
-                        this.profile.password = "";
-                        console.log(response.data);
-
-                        this.redirect();
-                    })
-                    .catch(error => {      
-                        this.formRequestResponse([
-                            false, "Try again...", true, "failed", "Failed to login... Try again"
-                        ]);
-
-                        console.log(error);
-                    });
+                    let form_data = {
+                        username: str_username,
+                        password: str_password
+                    }
+                    
+                    window.localStorage.removeItem("login");
+                    this.authenticate(form_data);
                 }
             }
         }

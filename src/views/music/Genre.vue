@@ -121,7 +121,12 @@
         text-decoration: none;
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (min-width: 1100px) {
+        .genre_card{
+            width: 17%;
+        }
+    }
+    @media screen and (max-width: 1090px) {
         .genre_card{
             width: 75%;
             margin-bottom: 20px;

@@ -17,6 +17,7 @@ import Gist from "../views/gist/Gist.vue";
 import ViewGenre from "../views/music/ViewGenre.vue";
 import RadioStation from "../views/radio/Radio.vue";
 import SearchPage from "../views/search/Search.vue";
+import MusicPlayer from "../views/music/Player.vue";
 
 Vue.use(Router);
 
@@ -89,6 +90,11 @@ const routes = [
     path: "/search",
     name: "Search",
     component: SearchPage
+  },
+  {
+    path: "/player",
+    name: "Player",
+    component: MusicPlayer
   }
 ];
 

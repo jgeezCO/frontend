@@ -34,13 +34,21 @@
 
             <perfect-scrollbar>
                 <div class="sidebar_pad">
-                    <Reminder v-on:authorization="authorization" v-on:create_account="account" />
+                    <Reminder 
+                        v-if="isLogin == false"
+                        v-on:authorization="authorization" 
+                        v-on:create_account="account" 
+                    />
 
-                    <div class="desktop-only" style="margin:10px 0px;">
-                        <img class="noSpace left user-avatar" style="width:50px;height:50px;" src="../assets/avatar.svg">
+                    <div v-if="isLogin == true" class="desktop-only" style="margin:10px 0px;">
+                        <img class="noSpace left user-avatar" style="width:50px;height:50px;" 
+                            :src="profile.avatar.length > 0 
+                            ? profile.avatar 
+                            : './assets/avatar.svg'"
+                        >
                         <div class="left user-profile-data" style="margin-top:7px;margin-left:8px;">
-                            <a href="#" @click="authorization('login')" style="font-size:13px;color:rgba(250,250,250,0.8);">Princewill</a>
-                            <p class="noSpace"><a href="#" style="font-size:11px;color:#f14336;font-weight:bold;">Logout</a></p>
+                            <a href="#" @click="authorization('login')" style="font-size:13px;color:rgba(250,250,250,0.8);">{{profile.name}}</a>
+                            <p class="noSpace"><a href="#" @click="logout(profile.token)" style="font-size:11px;color:#f14336;font-weight:bold;">Logout</a></p>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -62,7 +70,7 @@
             leave-active-class="animate__animated animate__zoomOut" 
             tag="div"
         >           
-            <Authorization key="authorization-modal" :email="email_address" :authorization="visible" :login="isLogin" v-on:close-modal="closeModal"/>
+            <Authorization key="authorization-modal" :email="profile.email" :authorization="visible" :login="isLogin" v-on:close-modal="closeModal"/>
         </transition>
     </div>
 </template>
@@ -72,6 +80,7 @@
     import Authorization from "../Authorization.vue";
     import Reminder from "./components/Reminder.vue";
     import SearchBar from "../SearchBar.vue";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "SideBar",
@@ -81,8 +90,13 @@
         data(){
             return {
                 visible: false,
-                isLogin: true,
-                email_address: "",
+                isLogin: false,
+                profile: {
+                    token: "",
+                    name: "",
+                    email: "",
+                    avatar: ""
+                },
                 menus: {
                     id: 1,
                     title: "Music",
@@ -122,6 +136,7 @@
             }
         },
         methods: {
+            ...mapGetters(["getProfile", "isLoggedIn"]),
             authorization: function(type){
                 this.visible = true;
                 this.isLogin = type == "login" ? true : false;
@@ -130,9 +145,22 @@
                 this.visible = false;
             },
             account: function(email_address){
-                this.email_address = email_address;
+                this.profile.email = email_address;
                 this.visible = true;
+            },
+            logout: function(token){
+                if(token.length > 0){
+                    window.localStorage.clear();
+                    setTimeout(() => {
+                        location.reload();
+                    }, 100);
+                }
             }
+        },
+        created(){
+            this.profile = this.getProfile();
+            this.isLogin = this.isLoggedIn();
+            console.log(this.isLoggedIn());
         }
     }
 </script>

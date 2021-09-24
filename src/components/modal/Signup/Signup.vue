@@ -26,7 +26,7 @@
                 </div> 
             </div>
 
-            <div class="control-style">
+            <!-- <div class="control-style">
                 <div class="left exclude" style="margin-left:10px;">
                     <input type="text" class="flatinput roboto" placeholder="Enter Verification Code">
                 </div> 
@@ -34,7 +34,7 @@
                     <a href="#" style="font-size: 11px;margin-top:0px;color: #349dd9;">Get Code</a>
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div> -->
 
             <div class="control-style">
                 <div class="left exclude" style="width:80%;margin-left:10px;">
@@ -177,6 +177,7 @@
                     alert("Alert password does not match");
                 } else {
                     let form_data = {
+                        phone_number: this.profile.numCode + this.profile.mobile,
                         email: this.profile.email,
                         username: this.profile.username,
                         password: this.profile.password,
