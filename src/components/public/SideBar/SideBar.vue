@@ -42,9 +42,7 @@
 
                     <div v-if="isLogin == true" class="desktop-only" style="margin:10px 0px;">
                         <img class="noSpace left user-avatar" style="width:50px;height:50px;" 
-                            :src="profile.avatar.length > 0 
-                            ? profile.avatar 
-                            : './assets/avatar.svg'"
+                            :src="profile.avatar"
                         >
                         <div class="left user-profile-data" style="margin-top:7px;margin-left:8px;">
                             <a href="#" @click="authorization('login')" style="font-size:13px;color:rgba(250,250,250,0.8);">{{profile.name}}</a>
@@ -80,7 +78,7 @@
     import Authorization from "../Authorization.vue";
     import Reminder from "./components/Reminder.vue";
     import SearchBar from "../SearchBar.vue";
-    import {mapGetters} from "vuex";
+    import { mapGetters } from "vuex";
 
     export default {
         name: "SideBar",
@@ -92,10 +90,12 @@
                 visible: false,
                 isLogin: false,
                 profile: {
+                    id: "", 
                     token: "",
+                    email: "", 
                     name: "",
-                    email: "",
-                    avatar: ""
+                    avatar: "",
+                    isverified: false
                 },
                 menus: {
                     id: 1,
@@ -160,7 +160,8 @@
         created(){
             this.profile = this.getProfile();
             this.isLogin = this.isLoggedIn();
-            console.log(this.isLoggedIn());
+            
+            console.log(this.getProfile());
         }
     }
 </script>

@@ -4,9 +4,13 @@ const state = {
     isLoggedIn: false,
     loginAttempt: "",
     profile: {
-        id: "", token: "",
-        email: "", name: "",
-        avatar: ""
+        id: "", 
+        token: "",
+        email: "", 
+        name: "",
+        avatar: "",
+        phone: "",
+        isverified: false
     }
 }
 
@@ -17,17 +21,23 @@ const getters = {
 
 const actions = {
     async authenticate({commit}, authentication){
-        await axios.post(
-            'http://localhost/jgeez/login.php', 
-            JSON.stringify(authentication)
-        ).then(response => { 
+        await axios({
+            method: 'post',
+            url: 'https://api.jgeez.co/auth/token',
+            data:  authentication,
+            headers: {
+                'content-type': 'application/json',
+            }
+        })
+        .then(response => { 
             let authent_stats = {
                 data: response.data,
                 status: "Authentication successful",
                 status_type: true
             }
             commit("setUserProfile", authent_stats);
-        }).catch(error => {
+        })
+        .catch(error => {
             let authent_stats = {
                 data: error,
                 status: "Invalid authentication, try gain...",
@@ -39,24 +49,42 @@ const actions = {
 }
 
 const mutations = {
+    updateProfileState: function(newState){
+        if(Object.keys(newState).length > 0){
+            this.profile = newState;
+        }
+    },
     setUserProfile: (state, authent_stats) => {
         let isLoggin = false; 
         let loginAttempt = "";
-        let userProfile = [];
+        let userProfile = state.profile;
 
         if(Object.keys(authent_stats.data).length > 0 && authent_stats.status_type == true){
-            isLoggin = authent_stats.data.status == "ok" ? true : false;
-            userProfile = authent_stats.data.user;
-            loginAttempt = authent_stats.status_type;
-        }
+            isLoggin = true;
 
+            userProfile = {
+                id: authent_stats.data.user.id, 
+                token: authent_stats.data.access_token,
+                email: authent_stats.data.user.email, 
+                name: authent_stats.data.user.username,
+                avatar: authent_stats.data.user.profile.profile_picture,
+                isverified: authent_stats.data.user.profile.is_verified
+            }
+            
+            loginAttempt = authent_stats.status;
+        }    
+        
         state.isLoggedIn = isLoggin;
         state.profile = userProfile;
         state.loginAttempt = loginAttempt
 
-        setTimeout(() => {
-            location.reload();
-        }, 100);
+        if(isLoggin == true){
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+        } else {
+            alert("Username or password incorrect");
+        }
     }
 };
 

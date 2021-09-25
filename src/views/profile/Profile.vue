@@ -6,7 +6,10 @@
 
         <div class="profiling">
             <ProfileBackground background="static/assets/img/ub.png"/>
-            <ProfileActivities v-on:open-dialog="dialogVisible"/>
+            <ProfileActivities 
+                v-on:open-dialog="dialogVisible" 
+                v-on:manage-profile="manageProfile"
+            />
 
             <center class="clickable_act">
                 <a href="#" style="padding:10px 0px;" @click="video_menu" data-type="all" :class="upload_switch.all == true ? 'highlight' : ''">ALL UPLOADS</a> 
@@ -25,6 +28,7 @@
             <VideoUpload key="video_uploa" v-if="upload_switch.video == true" :idle="!upload_switch.video" />
             <MusicUpload key="music_upload" v-if="upload_switch.music == true" :idle="!upload_switch.music" />
             <GistUpload key="gist_upload" v-if="upload_switch.gist == true" :idle="!upload_switch.gist" />
+            <ManageProfile v-if="manage_profile == true"/>
         </div>
         
         <Dialog :title="dialog_title" v-if="vdialog == true" v-on:closeDialog="dialogVisible">
@@ -42,6 +46,8 @@
     import MusicUpload from "./components/upload/MusicUpload.vue";
     import GistUpload from "./components/upload/GistUpload.vue";
     
+    import ManageProfile from "./components/ManageProfile.vue";
+
     import Dialog from "../../modal/Dialog.vue";
     import Selector from "./components/modal/Selector.vue";
 
@@ -52,12 +58,14 @@
         components: {
             ProfileBackground, ProfileActivities, 
             AllUpload,VideoUpload, MusicUpload, GistUpload,
+            ManageProfile,
             Selector, Dialog,
             Notification
         },
         data: function(){
             return {
                 vdialog: false,
+                manage_profile: false,
                 dialog_title: "Choose content to upload",
                 upload_switch: {
                     all: true,
@@ -74,21 +82,25 @@
             dialogVisible: function(type){
                 this.vdialog = type == "open" ? true : false;
             },
+            manageProfile: function(){
+                this.manage_profile = !this.manage_profile;
+                this.upload_switch.gist = this.upload_switch.all = this.upload_switch.video = this.upload_switch.music = false;
+            },
             video_menu: function(event){
                 event.preventDefault();
                 let attribute = event.target.getAttribute("data-type");
                 if(attribute == "all"){
                     this.upload_switch.all = true;
-                    this.upload_switch.video = this.upload_switch.music = this.upload_switch.gist = false;
+                    this.manage_profile = this.upload_switch.video = this.upload_switch.music = this.upload_switch.gist = false;
                 } else if(attribute == "video"){
                     this.upload_switch.video = true;
-                    this.upload_switch.all = this.upload_switch.music = this.upload_switch.gist = false;
+                    this.manage_profile = this.upload_switch.all = this.upload_switch.music = this.upload_switch.gist = false;
                 } else if(attribute == "music"){
                     this.upload_switch.music = true;
-                    this.upload_switch.all = this.upload_switch.video = this.upload_switch.gist = false;
+                    this.manage_profile = this.upload_switch.all = this.upload_switch.video = this.upload_switch.gist = false;
                 } else if(attribute == "gist"){
                     this.upload_switch.gist = true;
-                    this.upload_switch.all = this.upload_switch.video = this.upload_switch.music = false;
+                    this.manage_profile = this.upload_switch.all = this.upload_switch.video = this.upload_switch.music = false;
                 }
             }
         }

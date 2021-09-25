@@ -9,8 +9,8 @@
         <div class="modal-container">
             <div class="inner-modal">
                 <h5 class="noSpace">
-                    <a href="#" @click="toggleSign('signup')" :class="visibility.login == false ? 'mactive' : 'minactive'">SIGN UP</a> &nbsp;
-                    <a href="#" @click="toggleSign('login')" :class="visibility.login == true ? 'mactive' : 'minactive'">LOGIN IN</a>
+                    <a href="#" @click="toggleSign('signup')" class='authent-con' :class="visibility.login == false ? 'mactive' : 'minactive'">SIGN UP</a> &nbsp;
+                    <a href="#" @click="toggleSign('login')" class='authent-con' :class="visibility.login == true ? 'mactive' : 'minactive'">LOGIN IN</a>
                 </h5>
 
                 <br><br>

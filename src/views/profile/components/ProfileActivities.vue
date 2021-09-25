@@ -10,7 +10,7 @@
             </div>
             <div class="right exclude" style="margin-top:10px;">
                 <a href="#" class="upload_btn" @click="$emit('open-dialog', 'open')">Upload</a> 
-                <a href="#" class="upload_btn">Manage</a> 
+                <a href="#" class="upload_btn" @click="$emit('manage-profile')">Manage</a> 
             </div>
             <div class="clear"></div>
         </div>

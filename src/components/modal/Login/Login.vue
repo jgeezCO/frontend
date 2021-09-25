@@ -110,12 +110,11 @@
                 } else {
                     this.submit_props.disabled = true;
                     this.submit_props.value = "Signing in...";
-
-                    let form_data = {
-                        username: str_username,
-                        password: str_password
-                    }
                     
+                    let form_data = new FormData();
+                    form_data.append("username", str_username);
+                    form_data.append("password", str_password);
+
                     window.localStorage.removeItem("login");
                     this.authenticate(form_data);
                 }

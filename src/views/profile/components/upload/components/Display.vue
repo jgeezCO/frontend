@@ -5,7 +5,13 @@
             <h3 class="noSpace">{{text}}</h3>
             <p class="noSpace" style="width: 300px;font-size:12px;">{{desc}}</p>
             <div style="margin-top:20px;">
-                <a href="#" class="upload_btn">Upload</a>
+                <a href="#" @click.prevent="triggerAuthentication()" v-if="this.$store.getters.isLoggedIn == false" class="upload_btn">
+                    Sign-Up / Sign-In
+                </a>
+
+                <a href="#" v-if="this.$store.getters.isLoggedIn == true" class="upload_btn">
+                    Upload
+                </a>
             </div>
         </center>
         <br><br><br>
@@ -27,6 +33,14 @@
             desc: {
                 type: String,
                 required: true
+            }
+        },
+        methods: {
+            triggerAuthentication: function(){
+                // var element = document.getElementsByClassName("authent-con");
+                // if(element.length > 0){
+                //     element.click();
+                // }
             }
         }
     }

@@ -47,7 +47,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-
+            
             <div class="control-style">
                 <div class="left exclude" style="width:80%;margin-left:10px;">
                     <input :type="passvision.cpassword == false ? 'password' : 'text'" v-model="profile.cpassword" class="flatinput roboto" placeholder="Confirm Password">

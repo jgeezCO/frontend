@@ -25,7 +25,7 @@
         data: function () {
             return {
                 dropzoneOptions: {
-                    url: `https://httpbin.org/post`,
+                    url: '#',
                     maxFilesize: 102400000,
                     dictDefaultMessage: "Drag and drop your files here to upload",
                     includeStyling: false,

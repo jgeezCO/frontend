@@ -5,28 +5,28 @@
                 <h3 class="noSpace">Details</h3>
                 <div class="simple-input">
                     <p class="faded-text noSpace">Title</p>
-                    <textarea cols="40" rows="3" v-model="dialogTitle" @keyup="$emit('dialog_title', dialogTitle)"></textarea>
+                    <textarea cols="40" rows="3" v-model="dialogTitle"></textarea>
                 </div>
             </div>
             <div class="left">
                 <h3 class="noSpace">&nbsp;</h3>
                 <div class="video-uploading">
                     <div class="video-uploading-content">
-                        <b class="faded-text" style="font-size:14px;">Video Uploading...</b>
-                        <p style="margin: 5px 0px 0px 0px;"><b>80%.... 30 seconds left</b></p>
+                        <b class="faded-text" style="font-size:14px;">Video attached...</b>
                     </div>
                 </div>
             </div>
             <div class="left" style="margin-left:10px;">
-                <h3 class="noSpace">&nbsp;</h3>
+                <!-- <h3 class="noSpace">&nbsp;</h3>
                 <p class="faded-text noSpace">Video Link</p>
                 <div class="left">
-                    <a style="font-size:13px;" :href="videos.url">{{videos.url}}</a>
+                    <a v-if="videos.url.length > 5" style="font-size:13px;" :href="videos.url">{{videos.url}}</a>
+                    <span style="font-size:12px;" v-if="videos.url.length < 5"><i><u>waiting for url</u></i></span>
                 </div>
                 <div class="left" style="font-size:12px;margin-left:10px;">
                     <img class="noSpace" src="static/svg/copy.svg"> 
                     <span style="position:relative;top:-12px;left:3px;">copy</span>
-                </div>
+                </div> -->
                 <br>
                 <p class="faded-text noSpace">File name</p>
                 <div class="left">
@@ -74,14 +74,15 @@
 
 <script>
     export default {
-        name: "ProfileUploadVideo",
+        name: "ProfileUploadVideo", 
+        props: ["binary"],
         data(){
             return {
                 dialogTitle: "",
                 desc_total_count: 100,
                 current_count: 0,
                 videos: {
-                    url: "http://jgeez.com/fgyjsahfsn",
+                    url: "",
                     length: "7:30",
                     desc: "",
                     prev_desc: ""
