@@ -28,7 +28,8 @@
 .category{
     height: 140px !important;
     border-radius: 11.047619819641113px;
-    box-shadow: 4px 3px 10px rgba(248,245,240,0.4);
+    box-shadow: 4px 3px 
+    10px rgba(248,245,240,0.4);
 }
 
 .category_body{

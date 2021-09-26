@@ -175,21 +175,13 @@
                 if(this.profile.password !== this.profile.cpassword){
                     alert("Alert password does not match");
                 } else {
-                    let form_data = new FormData();
-                
-                    form_data.append('email', this.profile.email);
-                    form_data.append('username', this.profile.username);
-                    form_data.append('password', this.profile.password);
-                    form_data.append('country', this.profile.numCode);
-                    form_data.append('gender', this.profile.gender);
-                    
-                    // let form_data = {
-                    //     email: this.profile.email,
-                    //     username: this.profile.username,
-                    //     password: this.profile.password,
-                    //     country: this.profile.numCode,
-                    //     gender: this.profile.gender
-                    // }
+                    let form_data = {
+                        email: this.profile.email,
+                        username: this.profile.username,
+                        password: this.profile.password,
+                        country: this.profile.numCode,
+                        gender: this.profile.gender
+                    }
 
                     this.submit_props.disabled = true;
                     this.submit_props.value = "Signing up...";
@@ -200,12 +192,12 @@
 
                     axios({
                        method: "POST",
-                       url: "https://jgeezapi.seconsoft.com/register.php",
+                       url: "https://api.jgeez.co/auth/users/",
                        data: form_data
                     }, headers)
                     .then(response => {
                         this.formRequestResponse([
-                            true, "Sign Up", false, "success", "Account created successfully. Kindly login"
+                            true, "Sign Up", true, "success", "Account created successfully. Kindly login"
                         ]);
 
                         this.profile.numCode = "+234";
@@ -223,17 +215,9 @@
                             false, "Try again...", true, "failed", "Failed while creating account... Try again"
                         ]);
 
-                        this.profile.numCode = "+234";
-                        this.profile.mobile = "";
-                        this.profile.username = "";
-                        this.profile.email = "";
-                        this.profile.password = "";
-                        this.profile.cpassword = "";
-                        this.profile.gender = "male";
-
                         console.log(error);
                     });
-                    //https://api.jgeez.co/auth/users/
+                    //https://jgeezapi.seconsoft.com/register.php
                 }
             }
         }
