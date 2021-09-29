@@ -78,16 +78,29 @@
         props: ["vprops", "who"],
         data(){
             return {
-                thumbnail: "",
+                duration_title: "",
+                thumbnail: "static/uploads/img/80/1.png",
                 publishedOn: "Published 21st July 2021"
             }
         },
-        mounted(){
-            this.thumbnail = "static/uploads/img/80/1.png"
-            this.$emit("dialog_title", "Video Published!");
-        },
         methods:{
-            
+            calculateLength: function(){
+                if(this.vprops.length > 0){
+                    let duration = this.vprops.length;
+                    if(duration > 60){
+                        duration = duration / 60;
+                        this.duration_title = "mins";
+                        if(duration > 60.9){
+                            duration = duration / 60;
+                            this.duration_title = "hrs";
+                        }
+                    }
+                    this.vprops.length = duration;
+                }
+            }
+        },
+        created(){
+            this.calculateLength();
         }
     }
 </script>

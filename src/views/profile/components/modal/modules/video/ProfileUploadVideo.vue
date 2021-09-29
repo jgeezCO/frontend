@@ -10,7 +10,7 @@
             </div>
             <div class="left">
                 <h3 class="noSpace">&nbsp;</h3>
-                <div class="video-uploading">
+                <div class="video-uploading" style="padding: 20px 30px 30px 10px;">
                     <div class="video-uploading-content">
                         <b class="faded-text" style="font-size:14px;">Video attached...</b>
                     </div>
@@ -52,8 +52,10 @@
             </div>
             <div class="left">
                 <div class="video-uploading" style="margin-top:8px;width: 220px;height:150px !important;">
-                    <div class="video-uploading-content" style="margin-top:20px;width: 100%;height:auto !important;">
-                        <center>
+                    <img v-if="thumbnail != null" :src="thumbnail" style="z-index:0;position:absolute;display:inline-block;width: 220px;height:150px;">
+                    <div class="video-uploading-content" style="position:relative;z-index:1;margin-top:20px;width: 100%;height:100% !important;border-radius:10px;background-color:rgba(165,115,14,0.5);">
+                        <center style="padding-top:20px;">
+                            <input accept="image/*" @change="previewImage" type="file" style="opacity:0;position:absolute;margin-top:0px;width:50px;height:35px;background-color:white;">
                             <img src="static/svg/add.svg">
                             <p style="font-weight:bold;font-size:12px;">Upload content art / thumbnail</p>
                         </center>
@@ -66,30 +68,35 @@
         <br><br><br>
 
         <center>
-            <a href="#" class="upload_btn" @click="$emit('vprops', dialogTitle, videos.url, videos.length)" style="display:inline-block;width:200px;padding: 10px 50px;">Next</a>
+            <button :disabled="btn_disabled == true ? 'disabled' : ''" class="upload_btn" @click="handleVideoUpload" style="display:inline-block;width:200px;padding: 10px 50px;border:none;">Next</button>
         </center>
         <br><br>
     </div>
 </template>
 
 <script>
+    import axios from "axios";
+    import {mapActions} from "vuex";
     export default {
         name: "ProfileUploadVideo", 
-        props: ["binary"],
         data(){
             return {
+                btn_disabled: true,
+                thumbnail: null,
+                binary: null,
                 dialogTitle: "",
                 desc_total_count: 100,
                 current_count: 0,
                 videos: {
                     url: "",
-                    length: "7:30",
+                    length: 0.0,
                     desc: "",
                     prev_desc: ""
                 }
             }
         },
         methods:{
+            ...mapActions(["updatePosterState"]),
             handleTextCount: function(){
                 let description = this.videos.desc;
                 this.current_count = description.length;
@@ -99,7 +106,63 @@
                 } else {
                     this.videos.desc = this.videos.prev_desc;
                 }
+            },
+            getVideoLength: function(){
+                var video = document.createElement('video');
+                video.preload = 'metadata';
+
+                var currentScope = this;
+
+                video.onloadedmetadata = function() {
+                    window.URL.revokeObjectURL(video.src);
+                    currentScope.videos.length = video.duration;
+                }                
+
+                video.src = URL.createObjectURL(currentScope.binary);
+            },
+            previewImage: function(e){
+                const image = e.target.files[0];
+                const reader = new FileReader();
+                reader.readAsDataURL(image);
+                this.profileImgRaw = image;
+                reader.onload = e =>{
+                    this.thumbnail = e.target.result;
+                    this.updatePosterState(this.thumbnail);
+                };
+            },
+            handleVideoUpload: function(){
+                var form_data = new FormData();
+                var currentScope = this;
+
+                form_data.append("title", this.dialogTitle);
+                form_data.append("text", this.desc);
+                form_data.append("category_id", 1);
+                form_data.append("albumArt", this.thumbnail);
+                form_data.append("videoFile", this.binary);
+
+                axios({
+                    method: 'post',
+                    url: 'https://api.jgeez.co/api/post/video/create/',
+                    withCredentials: false,
+                    data:  form_data,
+                    headers: {
+                        'Access-Control-Allow-Origin' : '*',
+                        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                        'content-type': 'multipart/form-data',
+                        'Authorization': 'Bearer ' + currentScope.$store.getters.getProfile.token
+                    }
+                })
+                .then(response => { 
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+                currentScope.$emit('vprops', this.dialogTitle, this.videos.url, this.videos.length);
             }
+        },
+        created(){
+            this.binary = this.$store.getters.getVideo;
         }
     }
 </script>
@@ -109,7 +172,6 @@
         height: 50px;
         background-color: rgba(107, 102, 102, 0.2);
         border-radius: 20px;
-        padding: 20px 30px 30px 10px;
         width: 200px;
     }
     .video-uploading-content{
@@ -122,5 +184,9 @@
         display: inline-block;
         width: auto !important;
         height: auto !important;
+    }
+    .upload_btn:disabled{
+        background-color: rgba(165,115,14, 0.6);
+        cursor: not-allowed;
     }
 </style>

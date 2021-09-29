@@ -49,9 +49,9 @@ const actions = {
 }
 
 const mutations = {
-    updateProfileState: function(newState){
+    updateProfileState: function(state, newState){
         if(Object.keys(newState).length > 0){
-            this.profile = newState;
+            state.profile = newState;
         }
     },
     setUserProfile: (state, authent_stats) => {

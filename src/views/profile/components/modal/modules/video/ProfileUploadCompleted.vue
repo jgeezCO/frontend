@@ -119,15 +119,37 @@
         props: ["vprops", "who"],
         data(){
             return {
-                thumbnail: ""
+                thumbnail: null
             }
         },
         mounted(){
-            this.thumbnail = "static/uploads/img/80/1.png"
             this.$emit("dialog_title", "Video Published!")
         },
         methods:{
-            
+            calculateLength: function(){
+                if(this.vprops.length > 0){
+                    let duration = this.vprops.length;
+                    if(duration > 60){
+                        duration = duration / 60;
+                        this.duration_title = "mins";
+                        if(duration > 60.9){
+                            duration = duration / 60;
+                            this.duration_title = "hrs";
+                        }
+                    }
+                    this.vprops.length = this.video_length = duration.toFixed(2);
+                }
+            },
+            createPoster: function() {
+                // var canvas = document.createElement("canvas");
+                // canvas.width = 350; canvas.height = 200;
+                // canvas.getContext("2d").drawImage(video_binary, 0, 0, canvas.width, canvas.height);
+                // this.thumbnail = canvas.toDataURL("image/jpeg");
+            }
+        },
+        created(){
+            this.calculateLength();
+            // this.createPoster();
         }
     }
 </script>

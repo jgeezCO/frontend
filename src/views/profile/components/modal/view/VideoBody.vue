@@ -23,7 +23,6 @@
             v-on:vprops="handleVProps" 
             :who="upload_progress" 
             v-if="upload_progress == 1" 
-            :binary="video_binary"
         />
         <ProfileUploadCompleted 
             v-on:switch_dialog="switch_dialog" 
@@ -35,12 +34,13 @@
             v-on:dialog_title="handleEmit" 
             :vprops="video_attr" 
             :who="upload_progress" 
-            v-if="upload_progress == 3"
+            v-if="upload_progress == 3" 
         />
     </div>
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import Dropzone from "./Dropzone.vue";
     import ProfileUploadVideo from "../modules/video/ProfileUploadVideo.vue";
     import ProfileUploadCompleted from "../modules/video/ProfileUploadCompleted.vue";
@@ -51,7 +51,6 @@
         data(){
             return {
                 upload_progress: 0,
-                video_binary: null,
                 upload_endpoint: "",
                 video_attr: {
                     url: "",
@@ -65,6 +64,7 @@
             ProfileUploadPublish
         },
         methods: {
+            ...mapActions(["updateVideoState"]),
             handleEmit: function(payload){
                 this.$emit("dialog_title", payload);
             },
@@ -81,8 +81,9 @@
                 this.upload_progress = 2;
             },
             handleVideoUpload: function(e){
-                this.video_binary = e.target.files[0];
+                let video_binary = e.target.files[0];
                 setTimeout(() => {
+                    this.updateVideoState(video_binary);
                     this.upload_progress = 1;
                 }, 30);
             }

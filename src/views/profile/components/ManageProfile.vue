@@ -30,7 +30,7 @@
                                 }}
                             </a>
                             <div v-if="save_btn.visible == true" class="confirm-upload" style="margin-top:5px;">
-                                <a @click.prevent="handleProfileUpload" href="#" style="display:inline-block;margin-top:4px;padding: 1px 8px;font-size:12px;background-color:white;border:2px solid #a5730e;color:#a5730e;">
+                                <a @click.prevent="handleProfileUpload" disabled="disabled" href="#" style="display:inline-block;margin-top:4px;padding: 1px 8px;font-size:12px;background-color:white;border:2px solid #a5730e;color:#a5730e;">
                                     {{save_btn.title}}
                                 </a>
                             </div>
@@ -80,7 +80,10 @@
         },
         data(){
             return {
+                upload_success: false,
                 profileImgRaw: null,
+                profileImgString: null,
+                previousImg: null,
                 save_btn: {
                     title: "Save",
                     visible: false,
@@ -103,6 +106,7 @@
                 this.profileImgRaw = image;
                 reader.onload = e =>{
                     this.profile.avatar = e.target.result;
+                    this.profileImgString = e.target.result;
                     this.save_btn.visible = true;
                     this.save_btn.disabled = false;
                 };
@@ -110,40 +114,47 @@
             handleProfileUpload: function(){
                 var currentScope = this;
                 var form_data = new FormData();
+
+                currentScope.upload_success == false
                 form_data.append("profile_picture", this.profileImgRaw);
                 
+                this.previousImg = this.$store.getters.getProfile.avatar;
                 this.save_btn.title = "Saving...";
                 this.save_btn.disabled = true;
 
                 axios({
                     method: 'post',
-                    url: 'https://api.jgeez.co/auth/users/profile/picture/upload',
+                    url: 'https://api.jgeez.co/auth/users/profile/picture/upload/',
                     withCredentials: false,
                     data:  form_data,
                     headers: {
                         'Access-Control-Allow-Origin' : '*',
                         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
                         'content-type': 'multipart/form-data',
-                        'Authorization': 'Bearer ' + this.$store.getters.getProfile.token
+                        'Authorization': 'Bearer ' + currentScope.$store.getters.getProfile.token
                     }
                 })
                 .then(response => { 
-                    console.log(response);
-                    currentScope.update_savebtn_state(true);
+                    let status_code = response.status == 204 ? true : false;
+                    if(status_code == true){
+                        currentScope.upload_success = status_code;
+                    }
+                    currentScope.update_savebtn_state(status_code, currentScope.profileImgString);
                 })
                 .catch(error => {
-                    console.log(error);
-                    currentScope.update_savebtn_state(false);
+                    if(currentScope.upload_success == false){
+                        console.log(error);
+                        currentScope.update_savebtn_state(false);
+                    }
                 });
-                console.log(form_data);
             },
-            update_savebtn_state: function(status, response){
+            update_savebtn_state: function(status, profileRawString){
                 this.save_btn.title = status == true ? "Saved" : "Failed! Try again...";
                 this.save_btn.disabled = status == true ? true : false;
-                
+
                 if(status == true){
                     let newState = this.$store.getters.getProfile;
-                    newState.avatar = response.profile_url;
+                    newState.avatar = profileRawString;
                     this.$store.commit('updateProfileState', newState);
                 }
             },
