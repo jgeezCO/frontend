@@ -45,7 +45,7 @@
                             :src="profile.avatar"
                         >
                         <div class="left user-profile-data" style="margin-top:7px;margin-left:8px;">
-                            <a href="#" @click="authorization('login')" style="font-size:13px;color:rgba(250,250,250,0.8);">{{profile.name}}</a>
+                            <a href="/profile" style="font-size:13px;color:rgba(250,250,250,0.8);">{{profile.name}}</a>
                             <p class="noSpace"><a href="#" @click="logout(profile.token)" style="font-size:11px;color:#f14336;font-weight:bold;">Logout</a></p>
                         </div>
                         <div class="clear"></div>

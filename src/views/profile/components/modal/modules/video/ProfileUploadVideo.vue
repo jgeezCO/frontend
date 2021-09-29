@@ -68,7 +68,7 @@
         <br><br><br>
 
         <center>
-            <button :disabled="btn_disabled == true ? 'disabled' : ''" class="upload_btn" @click="handleVideoUpload" style="display:inline-block;width:200px;padding: 10px 50px;border:none;">Next</button>
+            <button :disabled="btn_disabled == true ? 'disabled' : false" class="upload_btn" @click="handleVideoUpload" style="display:inline-block;width:200px;padding: 10px 50px;border:none;">Next</button>
         </center>
         <br><br>
     </div>
@@ -81,7 +81,7 @@
         name: "ProfileUploadVideo", 
         data(){
             return {
-                btn_disabled: true,
+                btn_disabled: false,
                 thumbnail: null,
                 binary: null,
                 dialogTitle: "",
@@ -134,6 +134,8 @@
                 var form_data = new FormData();
                 var currentScope = this;
 
+                this.btn_disabled = true;
+
                 form_data.append("title", this.dialogTitle);
                 form_data.append("text", this.desc);
                 form_data.append("category_id", 1);
@@ -154,11 +156,11 @@
                 })
                 .then(response => { 
                     console.log(response);
+                    currentScope.$emit('vprops', this.dialogTitle, this.videos.url, this.videos.length);
                 })
                 .catch(error => {
                     console.log(error);
                 });
-                currentScope.$emit('vprops', this.dialogTitle, this.videos.url, this.videos.length);
             }
         },
         created(){
