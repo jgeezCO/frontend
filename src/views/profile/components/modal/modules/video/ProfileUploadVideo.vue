@@ -150,10 +150,11 @@
                 current_count: 0,
                 videos: {
                     url: "",
-                    length: 0.0,
+                    length: "0.0",
                     desc: "",
                     prev_desc: "",
-                    visibility: "public"
+                    visibility: "public",
+                    poster: null
                 }
             }
         },
@@ -178,6 +179,7 @@
                 video.onloadedmetadata = function() {
                     window.URL.revokeObjectURL(video.src);
                     currentScope.videos.length = video.duration;
+                    currentScope.calculateLength(video.duration);
                 }                
 
                 video.src = URL.createObjectURL(currentScope.binary);
@@ -188,9 +190,24 @@
                 reader.readAsDataURL(image);
                 this.profileImgRaw = image;
                 reader.onload = e =>{
+                    this.videos.poster = image;
                     this.thumbnail = e.target.result;
                     this.updatePosterState(this.thumbnail);
                 };
+            },
+            calculateLength: function(duration){
+                let duration_title = "sec";
+
+                if(duration > 60){
+                    duration = duration / 60;
+                    duration_title = "mins";
+                    if(duration > 60.9){
+                        duration = duration / 60;
+                        duration_title = "hrs";
+                    }
+                }
+
+                this.videos.length = duration.toFixed(2) + duration_title;
             },
             handleVideoUpload: function(){
                 var form_data = new FormData();
@@ -199,17 +216,17 @@
                 this.btn_disabled = true;
 
                 form_data.append("title", this.dialogTitle);
-                form_data.append("text", this.desc);
+                form_data.append("text", this.videos.desc);
                 form_data.append("category_id", 1);
-                form_data.append("albumArt", this.thumbnail);
+                form_data.append("albumArt", this.videos.poster);
                 form_data.append("videoFile", this.binary);
                 form_data.append("visibility", this.videos.visibility);
                 form_data.append("duration", this.videos.length);
 
                 axios({
                     method: 'post',
-                    url: 'https://api.jgeez.co/api/post/video/create/',
-                    withCredentials: false,
+                    url: 'https://api.jgeez.co/api/post/video/create',
+                    withCredentials: true,
                     data:  form_data,
                     headers: {
                         'Access-Control-Allow-Origin' : '*',
@@ -220,9 +237,11 @@
                 })
                 .then(response => { 
                     if(response.status == 200){
+                        console.log(response);
                         currentScope.$emit('vprops', 
                             currentScope.dialogTitle, 
-                            response.data.post.post_url, 
+                            response.data.post.video.album_art,
+                            response.data.post.video.post_url, 
                             currentScope.videos.length,
                             response.data.post.created
                         );
@@ -237,6 +256,9 @@
         },
         created(){
             this.binary = this.$store.getters.getVideo;
+            setTimeout(() => {
+                this.getVideoLength();
+            }, 100);
         }
     }
 </script>

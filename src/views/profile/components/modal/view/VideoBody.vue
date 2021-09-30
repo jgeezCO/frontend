@@ -56,6 +56,7 @@
                     url: "",
                     title: "",
                     length: "",
+                    poster: "",
                     created: ""
                 }
             }
@@ -72,14 +73,14 @@
             switch_dialog: function(prev){
                 this.upload_progress = prev;
             },
-            handleVProps: function(title, url, length, created){
+            handleVProps: function(title, poster, url, length, created){
                 this.$emit("dialog_title", title);
 
                 this.video_attr.url = url;
                 this.video_attr.title = title;
                 this.video_attr.length = length;
                 this.video_attr.created = created;
-
+                this.video_attr.poster = poster;
                 this.upload_progress = 2;
             },
             handleVideoUpload: function(e){

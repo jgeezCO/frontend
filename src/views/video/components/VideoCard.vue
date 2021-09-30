@@ -1,15 +1,17 @@
 <template>
     <div class="vc">
         <div class="left vcard">
-            <CardActions :id="card.id" v-on:video-edit="handleEdit"/>
             <img class="video_cover" :src="card.img">
             <div class="vcard_act">
                 <h6>{{card.time}} <span class="right exclude">{{card.vtime_frame}}</span></h6>
                 <div class="vcard_act_profile">
                     <img class="left exclude user_profile noSpace" :src="card.user.avatar">
                     <div class="left exclude" style="width:70%;margin-left:10px;">
-                        <h6 class="noSpace">{{card.title}}</h6>
-
+                        <h6 class="noSpace left exclude" style="width: 88%;">{{card.title}}</h6>
+                        <div class="right exclude" style="width: 10%;margin-top:-10px;">
+                            <CardActions :id="card.id" v-on:video-edit="handleEdit"/>
+                        </div>
+                        
                         <div class="userp" style="clear:both;">
                             <h6 class="noSpace left exclude" style="color: rgba(255, 255, 255, 0.72);">{{card.user.name}}</h6>
                             <img 

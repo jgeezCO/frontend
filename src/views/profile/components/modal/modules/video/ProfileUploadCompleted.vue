@@ -139,17 +139,10 @@
                     }
                     this.vprops.length = this.video_length = duration.toFixed(2);
                 }
-            },
-            createPoster: function() {
-                // var canvas = document.createElement("canvas");
-                // canvas.width = 350; canvas.height = 200;
-                // canvas.getContext("2d").drawImage(video_binary, 0, 0, canvas.width, canvas.height);
-                // this.thumbnail = canvas.toDataURL("image/jpeg");
             }
         },
         created(){
             this.calculateLength();
-            // this.createPoster();
         }
     }
 </script>

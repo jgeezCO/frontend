@@ -79,30 +79,17 @@
         data(){
             return {
                 duration_title: "",
-                thumbnail: "static/uploads/img/80/1.png",
-                publishedOn: "Published 21st July 2021"
+                thumbnail: "",
+                publishedOn: ""
             }
         },
         methods:{
-            calculateLength: function(){
-                if(this.vprops.length > 0){
-                    let duration = this.vprops.length;
-                    if(duration > 60){
-                        duration = duration / 60;
-                        this.duration_title = "mins";
-                        if(duration > 60.9){
-                            duration = duration / 60;
-                            this.duration_title = "hrs";
-                        }
-                    }
-                    this.vprops.length = duration;
-                }
-            }
+            
         },
         created(){
-            this.thumbnail = this.vprops.title;
+            console.log(this.vprops);
+            this.thumbnail = this.vprops.poster;
             this.publishedOn = this.vprops.created;
-            this.calculateLength();
         }
     }
 </script>
