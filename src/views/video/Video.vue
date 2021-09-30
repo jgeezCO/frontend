@@ -23,7 +23,7 @@
                     <div class="new_v">
                         <h2 class="poppins">{{video.title}}</h2>
                         <div v-for="video_data in video.data" :key="video_data.id">
-                            <VideoCard :card="video_data"/>
+                            <VideoCard :card="video_data" v-on:video-edit="handleEdit"/>
                         </div>
                         
                         <div class="clear"></div>
@@ -35,6 +35,8 @@
                 <div class="clear"></div>
             </div>
         </div>
+
+        <ProfileUploadVideo />
     </div>
 </template>
 
@@ -42,6 +44,8 @@
     import uuid from "uuid";
     import ShortCard from "./components/ShortCard.vue";
     import VideoCard from "./components/VideoCard.vue";
+    import ProfileUploadVideo from "../profile/components/modal/modules/video/ProfileUploadVideo.vue";
+
     import { 
         Hooper, Slide, 
         Navigation as HooperNavigation 
@@ -52,13 +56,16 @@
         name: 'Video',
         components: {
             ShortCard, VideoCard,
-            Hooper, Slide, HooperNavigation
+            Hooper, Slide, HooperNavigation,
+            ProfileUploadVideo
         },
         data: function(){
             return {
                 slider_items_to_show: 5,
+                selected_video: -1,
                 shorts: [
                    {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v3.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -70,6 +77,7 @@
                         }
                     },
                     {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v2.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -81,6 +89,7 @@
                         }
                     },
                     {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v1.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -92,6 +101,7 @@
                         }
                     },
                     {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v4.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -103,6 +113,7 @@
                         }
                     },
                     {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v2.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -114,6 +125,7 @@
                         }
                     },
                     {
+                        id: uuid.v1(),
                         img: "static/uploads/img/100/v3.png",
                         time: "3 days ago",
                         title: "Bryan nolli - Salvation ft. The nation",
@@ -563,6 +575,11 @@
                         ]
                     }
                 ]
+            }
+        },
+        methods: {
+            handleEdit: function(e){
+                console.log(e);
             }
         },
         created(){

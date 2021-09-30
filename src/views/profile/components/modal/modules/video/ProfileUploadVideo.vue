@@ -63,12 +63,73 @@
                 </div>
             </div>
         </div>
+
         <div class="clear"></div>
 
-        <br><br><br>
+        <div class="row" style="margin-top:30px;">
+            <div class="left" style="margin-right:20px;">
+                <h4 class="noSpace">Visibility and Preview</h4>
+                <div class="border-holder">
+                    <p style="font-size:12px;margin:0px;padding:0px;padding-bottom:20px;">Make your video <b>public, private or unlisted</b></p>
+                    
+                    <div class="ccheckbox left">
+                        <label style="font-size:12px;margin-right:20px;">
+                            <h4 class="noSpace left exclude vis-text">Private &nbsp;&nbsp;</h4>
+                            <div class="left exclude">
+                                <label class="container">
+                                    <input type="radio" value="private" v-model="videos.visibility" name="visibility">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="clear">
+                                <p style="position:relative;top:5px;" class="faded-text">Only those you choose can see your content</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="ccheckbox left">
+                        <label style="font-size:12px;margin-right:20px;">
+                            <h4 class="noSpace left exclude vis-text">Public &nbsp;&nbsp;</h4>
+                            <div class="left exclude">
+                                <label class="container">
+                                    <input type="radio" value="public" v-model="videos.visibility" checked name="visibility">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="clear">
+                                <p style="position:relative;top:5px;" class="faded-text">Anyone can watch your video</p>
+                            </div>
+                        </label>
+                    </div>
+
+                   <div class="ccheckbox left">
+                        <label style="font-size:12px;margin-right:20px;">
+                            <h4 class="noSpace left exclude vis-text">Unlisted &nbsp;&nbsp;</h4>
+                            <div class="left exclude">
+                                <label class="container">
+                                    <input type="radio" v-model="videos.visibility" value="unlisted" name="visibility">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="clear">
+                                <p style="position:relative;top:5px;" class="faded-text">Only those that have the video link can view</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+
+        <br><br>
 
         <center>
-            <button :disabled="btn_disabled == true ? 'disabled' : false" class="upload_btn" @click="handleVideoUpload" style="display:inline-block;width:200px;padding: 10px 50px;border:none;">Next</button>
+            <button :disabled="btn_disabled == true ? 'disabled' : false" class="upload_btn" @click="handleVideoUpload" style="display:inline-block;width:200px;padding: 10px 50px;border:none;">
+                <img v-if="btn_disabled == true" src="static/svg/loading.svg" class="left" style="width:30px;height:30px;"> 
+                <p :class="btn_disabled == true ? 'left' : ''" :style="btn_disabled == true ? 'margin-top:-21px;margin-left:28px;' : ''">{{btn_disabled == true ? 'Uploading...' : 'Next' }}</p>
+                <div class="clear" style="width:0px;height:0px;position:absolute;top:0px;"></div>
+            </button>
         </center>
         <br><br>
     </div>
@@ -91,7 +152,8 @@
                     url: "",
                     length: 0.0,
                     desc: "",
-                    prev_desc: ""
+                    prev_desc: "",
+                    visibility: "public"
                 }
             }
         },
@@ -141,6 +203,8 @@
                 form_data.append("category_id", 1);
                 form_data.append("albumArt", this.thumbnail);
                 form_data.append("videoFile", this.binary);
+                form_data.append("visibility", this.videos.visibility);
+                form_data.append("duration", this.videos.length);
 
                 axios({
                     method: 'post',
@@ -155,11 +219,19 @@
                     }
                 })
                 .then(response => { 
-                    console.log(response);
-                    currentScope.$emit('vprops', this.dialogTitle, this.videos.url, this.videos.length);
+                    if(response.status == 200){
+                        currentScope.$emit('vprops', 
+                            currentScope.dialogTitle, 
+                            response.data.post.post_url, 
+                            currentScope.videos.length,
+                            response.data.post.created
+                        );
+                    }
                 })
                 .catch(error => {
                     console.log(error);
+                    this.btn_disabled = false;
+                    alert("Oops! Something went wrong");
                 });
             }
         },
@@ -190,5 +262,8 @@
     .upload_btn:disabled{
         background-color: rgba(165,115,14, 0.6);
         cursor: not-allowed;
+    }
+    .ccheckbox{
+        margin-right:20px;
     }
 </style>

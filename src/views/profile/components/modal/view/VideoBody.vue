@@ -24,17 +24,17 @@
             :who="upload_progress" 
             v-if="upload_progress == 1" 
         />
+         <ProfileUploadPublish 
+            v-on:dialog_title="handleEmit" 
+            :vprops="video_attr" 
+            :who="upload_progress" 
+            v-if="upload_progress == 2" 
+        />
         <ProfileUploadCompleted 
             v-on:switch_dialog="switch_dialog" 
             :vprops="video_attr" 
             :who="upload_progress" 
-            v-if="upload_progress == 2"
-        />
-        <ProfileUploadPublish 
-            v-on:dialog_title="handleEmit" 
-            :vprops="video_attr" 
-            :who="upload_progress" 
-            v-if="upload_progress == 3" 
+            v-if="upload_progress == 3"
         />
     </div>
 </template>
@@ -55,7 +55,8 @@
                 video_attr: {
                     url: "",
                     title: "",
-                    length: ""
+                    length: "",
+                    created: ""
                 }
             }
         },
@@ -71,12 +72,13 @@
             switch_dialog: function(prev){
                 this.upload_progress = prev;
             },
-            handleVProps: function(title, url, length){
+            handleVProps: function(title, url, length, created){
                 this.$emit("dialog_title", title);
 
                 this.video_attr.url = url;
                 this.video_attr.title = title;
                 this.video_attr.length = length;
+                this.video_attr.created = created;
 
                 this.upload_progress = 2;
             },

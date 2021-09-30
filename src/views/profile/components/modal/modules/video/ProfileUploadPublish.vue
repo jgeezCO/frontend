@@ -100,6 +100,8 @@
             }
         },
         created(){
+            this.thumbnail = this.vprops.title;
+            this.publishedOn = this.vprops.created;
             this.calculateLength();
         }
     }
