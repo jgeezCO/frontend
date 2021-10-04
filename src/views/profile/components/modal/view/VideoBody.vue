@@ -23,18 +23,21 @@
             v-on:vprops="handleVProps" 
             :who="upload_progress" 
             v-if="upload_progress == 1" 
+            type="video" 
         />
          <ProfileUploadPublish 
             v-on:dialog_title="handleEmit" 
             :vprops="video_attr" 
             :who="upload_progress" 
             v-if="upload_progress == 2" 
+            type="video"
         />
         <ProfileUploadCompleted 
             v-on:switch_dialog="switch_dialog" 
             :vprops="video_attr" 
             :who="upload_progress" 
-            v-if="upload_progress == 3"
+            v-if="upload_progress == 3" 
+            type="video"
         />
     </div>
 </template>

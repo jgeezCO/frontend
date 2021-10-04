@@ -12,7 +12,7 @@
                 <h3 class="noSpace">&nbsp;</h3>
                 <div class="video-uploading" style="padding: 20px 30px 30px 10px;">
                     <div class="video-uploading-content">
-                        <b class="faded-text" style="font-size:14px;">Video attached...</b>
+                        <b class="faded-text" style="font-size:14px;">{{type == "video" ? "Video" : "Music"}} attached...</b>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,9 @@
                                 </label>
                             </div>
                             <div class="clear">
-                                <p style="position:relative;top:5px;" class="faded-text">Anyone can watch your video</p>
+                                <p style="position:relative;top:5px;" class="faded-text">
+                                    {{type == "video" ? 'Anyone can watch your video' : 'Anyone can play your music'}}
+                                </p>
                             </div>
                         </label>
                     </div>
@@ -112,7 +114,9 @@
                                 </label>
                             </div>
                             <div class="clear">
-                                <p style="position:relative;top:5px;" class="faded-text">Only those that have the video link can view</p>
+                                <p style="position:relative;top:5px;" class="faded-text">
+                                    {{type == "music" ? "Only those that have the link can play your music" : "Only those that have the video link can view"}}
+                                </p>
                             </div>
                         </label>
                     </div>
@@ -140,6 +144,7 @@
     import {mapActions} from "vuex";
     export default {
         name: "ProfileUploadVideo", 
+        props: ["type"],
         data(){
             return {
                 btn_disabled: false,
@@ -167,7 +172,8 @@
                 if(this.current_count <= this.desc_total_count){
                     this.videos.prev_desc = description;
                 } else {
-                    this.videos.desc = this.videos.prev_desc;
+                    let cutpost = this.videos.desc.substr(0, this.desc_total_count - 1);
+                    this.videos.desc = cutpost;
                 }
             },
             getVideoLength: function(){
@@ -212,20 +218,26 @@
             handleVideoUpload: function(){
                 var form_data = new FormData();
                 var currentScope = this;
+                var post_url = this.type == "music" 
+                    ? "https://api.jgeez.co/api/post/audio/create/" 
+                    : "https://api.jgeez.co/api/post/video/create";
 
                 this.btn_disabled = true;
-
                 form_data.append("title", this.dialogTitle);
                 form_data.append("text", this.videos.desc);
                 form_data.append("category_id", 1);
                 form_data.append("albumArt", this.videos.poster);
-                form_data.append("videoFile", this.binary);
+
+                if(this.type == "video")
+                    form_data.append("videoFile", this.binary);
+                else form_data.append("audioFile", this.binary);  
+
                 form_data.append("visibility", this.videos.visibility);
                 form_data.append("duration", this.videos.length);
 
                 axios({
                     method: 'post',
-                    url: 'https://api.jgeez.co/api/post/video/create',
+                    url: post_url,
                     withCredentials: true,
                     data:  form_data,
                     headers: {

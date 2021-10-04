@@ -75,7 +75,7 @@
 <script>
     export default {
         name: "ProfileUploadPublish",
-        props: ["vprops", "who"],
+        props: ["vprops", "who", "type"],
         data(){
             return {
                 duration_title: "",

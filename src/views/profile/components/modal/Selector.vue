@@ -1,7 +1,7 @@
 <template>
     <div class="select_container">
         <Chooser v-if="selects.selector==true" v-on:changeHandler="changeSelected" />
-        <GistBody v-if="selects.gist==true" />
+        <GistBody v-on:dialog_title="handleEmit" v-if="selects.gist==true" />
         <MusicBody v-if="selects.music==true" />
         <VideoBody v-on:dialog_title="handleEmit" v-if="selects.video==true" />
         <RadioBody v-if="selects.radio==true" />

@@ -14,7 +14,6 @@
         </div>
         
         <br><br><br><br><br>
-
         <div class="demarcator"></div>
 
         <div class="app-body-content" style="position:relative;top:-20px;">
@@ -29,14 +28,11 @@
                         <div class="clear"></div>
                         <br>
                         <div class="demarcator"></div>
-                        
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
-
-        <ProfileUploadVideo />
     </div>
 </template>
 
@@ -44,7 +40,6 @@
     import uuid from "uuid";
     import ShortCard from "./components/ShortCard.vue";
     import VideoCard from "./components/VideoCard.vue";
-    import ProfileUploadVideo from "../profile/components/modal/modules/video/ProfileUploadVideo.vue";
 
     import { 
         Hooper, Slide, 
@@ -57,7 +52,6 @@
         components: {
             ShortCard, VideoCard,
             Hooper, Slide, HooperNavigation,
-            ProfileUploadVideo
         },
         data: function(){
             return {
