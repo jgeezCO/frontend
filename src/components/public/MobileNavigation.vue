@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-navigation">
+  <div class="mobile-navigation" v-if="is_mobile == true">
       <ul>
         <li>
             <router-link to="/music">
