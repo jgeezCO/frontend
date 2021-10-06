@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-navigation" v-if="is_mobile == true">
+  <div class="mobile-navigation" ref="navigation" :style="'top: ' + top_position" v-if="is_mobile == true">
       <ul>
         <li>
             <router-link to="/music">
@@ -42,11 +42,17 @@
         name: "MobileNavigation",
         data(){
             return {
-                is_mobile: false
+                is_mobile: window.is_mobile(),
+                top_position: (window.innerHeight - 120) + "px"
             }
         },
-        created(){
-            this.is_mobile = window.is_mobile();
+        mounted(){
+            let window_height = window.innerHeight;
+            let dom_height = this.$refs.navigation.clientHeight;
+
+            let difference = (window_height - dom_height) + 27;
+
+            this.top_position = difference + "px !important;"
         }
     }
 </script>
