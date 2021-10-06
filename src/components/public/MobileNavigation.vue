@@ -29,7 +29,7 @@
             <router-link to="/profile">
                 <center>
                     <img src="static/svg/mobile-profile.svg" class="mobile-nav-icon"> 
-                    <h4>Sign Up</h4> 
+                    <h4>Profile</h4> 
                 </center>
             </router-link>
         </li>
