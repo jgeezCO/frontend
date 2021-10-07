@@ -13,27 +13,47 @@
                 </h4>
                 <div class="listing">
                     <ul v-bind:key="follower_data.id" v-for="follower_data in follower.data">
-                        <FollowerCard :profile="follower_data" />
+                        <FollowerCard 
+                            :profile="follower_data" 
+                            v-on:is_logged_in="authentication"
+                        />
                     </ul>
                     <div class="clear"></div>
                 </div>
             </div>
         </div><div class="clear"></div>
+        
         <br>
+
+        <Dialog 
+            title="Authentication Required" 
+            v-if="vdialog == true" 
+            v-on:closeDialog="dialogVisible">
+
+            <Display 
+                img="static/assets/img/authorized.jpg" 
+                text="Oops! Unauthorized Access" 
+                desc="Hello there, kindly create an account or login to manage your profile"
+            />
+        </Dialog>
     </div>
 </template>
 
 <script>
     import uuid from "uuid";
     import FollowerCard from "./components/FollowerCard.vue";
+    import Dialog from "../../modal/Dialog.vue";
+    import Display from "../profile/components/upload/components/Display.vue";
 
     export default {
         name: "Follower",
         components: {
-            FollowerCard
+            FollowerCard, 
+            Dialog, Display
         },
         data: function(){
             return {
+                vdialog: false,
                 followers: [
                     {
                         id: uuid.v1(),
@@ -194,6 +214,14 @@
                         ]
                     }
                 ]
+            }
+        },
+        methods: {
+            dialogVisible: function(type){
+                this.vdialog = type == "open" ? true : false;
+            },
+            authentication: function(payload){
+                this.vdialog = !payload;
             }
         }
     }

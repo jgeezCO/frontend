@@ -66,6 +66,7 @@
                     title: "Shorts",
                     data: [
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v3.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -77,6 +78,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v2.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -88,6 +90,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v1.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -99,6 +102,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v4.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -110,6 +114,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v2.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -121,6 +126,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v3.png",
                             time: "3 days ago",
                             title: "Bryan nolli - Salvation ft. The nation",
@@ -138,6 +144,7 @@
                     title: "My Videos",
                     data: [
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v5.png",
                             time: "3 days ago",
                             vtime_frame: "7:13",
@@ -150,6 +157,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v5.png",
                             time: "3 days ago",
                             vtime_frame: "7:13",
@@ -162,6 +170,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v5.png",
                             time: "3 days ago",
                             vtime_frame: "7:13",
@@ -174,6 +183,7 @@
                             }
                         },
                         {
+                            id: uuid.v1(),
                             img: "static/uploads/img/100/v5.png",
                             time: "3 days ago",
                             vtime_frame: "7:13",

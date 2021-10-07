@@ -1,5 +1,10 @@
 <template>
-    <a href="#" @click.prevent="toggleFollow(id)" class="artist-follow">{{isFollowing == true ? "Followed" : "Follow"}}</a>
+    <a href="#" 
+        @click.prevent="toggleFollow(id)" 
+        class="artist-follow"
+    >
+        {{isFollowing == true ? "Followed" : follow_status}}
+    </a>
 </template>
 
 <script>
@@ -7,13 +12,24 @@
     export default {
         name: "FollowerButton",
         props: ["id", "isFollowing"],
+        data(){
+            return {
+                follow_status: "Follow"
+            }
+        },
         methods: {
             toggleFollow: function(id){
-                id = 6;
-                this.handleRequest(id);
+                let is_logged_in = this.$store.getters.isLoggedIn;
+                if(is_logged_in == true){
+                    this.handleRequest(id);
+                } else {
+                    this.$emit("is_logged_in", false);
+                }
             },
             async handleRequest(id){
-                let url = this.isFollowing == true 
+                this.follow_status = "Following...";
+                let currentScope = this;
+                let url = this.isFollowing == true
                 ? 'https://api.jgeez.co/auth/users/unfollow' 
                 : 'https://api.jgeez.co/auth/users/follow/';
 
@@ -29,10 +45,12 @@
                     }
                 })
                 .then(response => { 
+                    currentScope.follow_status = "Followed";
                     alert(response.data + "=== response data from follow")
                 })
                 .catch(error => {
-                    alert(error)
+                    currentScope.follow_status = "Follow";
+                    alert(error);
                 });
             }
         }

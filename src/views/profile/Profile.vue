@@ -23,7 +23,7 @@
             <div class="clear"></div>
         </div>
 
-        <div class="profile-display app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
+        <div v-if="this.$store.getters.isLoggedIn == true" class="profile-display app-body-content" style="background-image:url(static/svg/dots.svg) !important;">
             <AllUpload key="all_upload" v-if="upload_switch.all == true" :idle="!upload_switch.all" />
             <VideoUpload key="video_uploa" v-if="upload_switch.video == true" :idle="!upload_switch.video" />
             <MusicUpload key="music_upload" v-if="upload_switch.music == true" :idle="!upload_switch.music" />
@@ -31,8 +31,25 @@
             <ManageProfile v-if="manage_profile == true"/>
         </div>
         
+        <Display 
+            v-if="this.$store.getters.isLoggedIn == false" 
+            img="static/assets/img/authorized.jpg" 
+            text="Oops! Unauthorized Access" 
+            desc="Hello there, kindly create an account or login to manage your profile"
+        />
+
         <Dialog :title="dialog_title" v-if="vdialog == true" v-on:closeDialog="dialogVisible">
-            <Selector v-on:dialogTitle="dialogTitle" />
+            <Selector 
+                v-if="this.$store.getters.isLoggedIn == true" 
+                v-on:dialogTitle="dialogTitle" 
+            />
+
+            <Display 
+                v-if="this.$store.getters.isLoggedIn == false" 
+                img="static/assets/img/authorized.jpg" 
+                text="Oops! Unauthorized Access" 
+                desc="Hello there, kindly create an account or login to manage your profile"
+            />
         </Dialog>
     </div>
 </template>
@@ -53,6 +70,8 @@
 
     import Notification from "../../components/public/notification/Notification.vue";
 
+    import Display from "./components/upload/components/Display.vue";
+
     export default {
         name: "Profile",
         components: {
@@ -60,7 +79,8 @@
             AllUpload,VideoUpload, MusicUpload, GistUpload,
             ManageProfile,
             Selector, Dialog,
-            Notification
+            Notification,
+            Display
         },
         data: function(){
             return {

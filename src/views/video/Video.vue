@@ -22,7 +22,10 @@
                     <div class="new_v">
                         <h2 class="poppins">{{video.title}}</h2>
                         <div v-for="video_data in video.data" :key="video_data.id">
-                            <VideoCard :card="video_data" v-on:video-edit="handleEdit"/>
+                            <VideoCard 
+                                :card="video_data" 
+                                v-on:video_edit="handleEdit" 
+                            />
                         </div>
                         
                         <div class="clear"></div>
@@ -33,6 +36,11 @@
                 <div class="clear"></div>
             </div>
         </div>
+
+        <VideoEdit 
+            :vdialog="vdialog" 
+            edit_video="Hello world.... Here" 
+        />
     </div>
 </template>
 
@@ -40,6 +48,7 @@
     import uuid from "uuid";
     import ShortCard from "./components/ShortCard.vue";
     import VideoCard from "./components/VideoCard.vue";
+    import VideoEdit from "./components/VideoEdit.vue";
 
     import { 
         Hooper, Slide, 
@@ -51,12 +60,20 @@
         name: 'Video',
         components: {
             ShortCard, VideoCard,
-            Hooper, Slide, HooperNavigation,
+            Hooper, Slide, HooperNavigation, 
+            VideoEdit
         },
         data: function(){
             return {
+                vdialog: false,
                 slider_items_to_show: 5,
                 selected_video: -1,
+                editting_data: {
+                    id: 0,
+                    title: '',
+                    desc: '',
+                    thumbnail: ''
+                },
                 shorts: [
                    {
                         id: uuid.v1(),
@@ -572,8 +589,13 @@
             }
         },
         methods: {
-            handleEdit: function(e){
-                console.log(e);
+            handleEdit: function(id, card){
+                this.editting_data.id = id
+                this.editting_data.title = card.title;
+                this.editting_data.desc = card.desc;
+                this.editting_data.thumbnail = card.img;
+
+                this.vdialog = true;
             }
         },
         created(){

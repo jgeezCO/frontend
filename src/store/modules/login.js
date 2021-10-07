@@ -23,7 +23,7 @@ const actions = {
     async authenticate({commit}, authentication){
         await axios({
             method: 'post',
-            url: 'https://api.jgeez.co/auth/token',
+            url: 'https://api.jgeez.co/auth/login',
             data:  authentication,
             headers: {
                 'content-type': 'application/json',

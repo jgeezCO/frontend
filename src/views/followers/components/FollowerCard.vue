@@ -9,7 +9,11 @@
                 <b class="gold-color">{{profile.follower}}</b> new fans
             </p>
             
-            <FollowerButton :id="profile.id" :isFollowing="profile.isFollowing" />
+            <FollowerButton 
+                v-on:is_logged_in="$emit('is_logged_in', is_logged_in)" 
+                :id="profile.id" 
+                :isFollowing="profile.isFollowing" 
+            />
         </div>
     </li>
 </template>
@@ -19,6 +23,11 @@
     export default {
         name: "FollowerCard",
         props: ["profile"],
+        data(){
+            return {
+                is_logged_in: this.$store.getters.isLoggedIn
+            }
+        },
         components: {
             FollowerButton
         }

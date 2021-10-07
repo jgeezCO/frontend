@@ -47,12 +47,14 @@
             }
         },
         mounted(){
-            let window_height = window.innerHeight;
-            let dom_height = this.$refs.navigation.clientHeight;
+            if(this.is_mobile == true){
+                let window_height = window.innerHeight;
+                let dom_height = this.$refs.navigation.clientHeight;
 
-            let difference = (window_height - dom_height) + 27;
+                let difference = (window_height - dom_height) + 27;
 
-            this.top_position = difference + "px !important;"
+                this.top_position = difference + "px !important;"
+            }
         }
     }
 </script>

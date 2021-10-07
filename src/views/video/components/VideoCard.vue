@@ -9,7 +9,10 @@
                     <div class="left exclude" style="width:70%;margin-left:10px;">
                         <h6 class="noSpace left exclude" style="width: 88%;">{{card.title}}</h6>
                         <div class="right exclude" style="width: 10%;margin-top:-10px;">
-                            <CardActions :id="card.id" v-on:video-edit="handleEdit"/>
+                            <CardActions 
+                                :id="card.id" 
+                                v-on:video_edit="$emit('video_edit', card.id, edit_data)" 
+                            />
                         </div>
                         
                         <div class="userp" style="clear:both;">
@@ -21,7 +24,7 @@
                                 src="static/svg/verified.svg"
                             >  
                         </div>
-
+                        
                         <div class="right exclude" style="margin-top:7px;">
                             <p class="noSpace" style="font-weight:bold;font-size:12px;margin-top:10px;color: rgba(255, 255, 255, 0.72);">
                                 {{card.views}}
@@ -43,9 +46,9 @@
         components: {
             CardActions
         },
-        methods: {
-            handleEdit: function(video_id){
-                this.$emit("video-edit", video_id);
+        computed: {
+            edit_data: function(){
+                return this.card;
             }
         }
     }

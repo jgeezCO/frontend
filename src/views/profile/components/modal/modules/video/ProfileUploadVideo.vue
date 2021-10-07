@@ -8,7 +8,7 @@
                     <textarea cols="40" rows="3" v-model="dialogTitle"></textarea>
                 </div>
             </div>
-            <div class="left">
+            <div class="left" v-if="edit == false">
                 <h3 class="noSpace">&nbsp;</h3>
                 <div class="video-uploading" style="padding: 20px 30px 30px 10px;">
                     <div class="video-uploading-content">
@@ -144,7 +144,17 @@
     import {mapActions} from "vuex";
     export default {
         name: "ProfileUploadVideo", 
-        props: ["type"],
+        props: {
+            type: String,
+            edit: {
+                type: Boolean,
+                default: false
+            },
+            edit_data: {
+                type: Object,
+                default: null
+            }
+        },
         data(){
             return {
                 btn_disabled: false,
@@ -231,7 +241,7 @@
                 if(this.type == "video")
                     form_data.append("videoFile", this.binary);
                 else form_data.append("audioFile", this.binary);  
-
+                
                 form_data.append("visibility", this.videos.visibility);
                 form_data.append("duration", this.videos.length);
 
@@ -267,10 +277,23 @@
             }
         },
         created(){
-            this.binary = this.$store.getters.getVideo;
-            setTimeout(() => {
-                this.getVideoLength();
-            }, 100);
+            if(this.edit == false){
+                this.binary = this.$store.getters.getVideo;
+                setTimeout(() => {
+                    this.getVideoLength();
+                }, 100);
+            }
+        },
+        mounted(){
+            if(this.edit_data != null){
+                this.videos.title = this.edit_data.title;
+                this.videos.desc = this.edit_data.desc;
+                this.thumbnail = this.edit_data.poster;
+
+                console.log(this.edit_data);
+            } else {
+                alert("Hello world");
+            }
         }
     }
 </script>
