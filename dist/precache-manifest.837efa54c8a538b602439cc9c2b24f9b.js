@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "162dfc56d660e55f5e1b",
-    "url": "/css/app.402c55e5.css"
+    "revision": "97f2ad04fa12dab49f86",
+    "url": "/css/app.b141520e.css"
   },
   {
-    "revision": "d8b3f3e563723bc3ad8d",
+    "revision": "7413794636393016e11e",
     "url": "/css/chunk-vendors.d34d499c.css"
   },
   {
@@ -28,16 +28,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "db3a43e5ff2e3c271e192c6db3519170",
+    "revision": "bc81a0afb7f8be538cce686bd7cb3c0e",
     "url": "/index.html"
   },
   {
-    "revision": "162dfc56d660e55f5e1b",
-    "url": "/js/app.da6c4779.js"
+    "revision": "97f2ad04fa12dab49f86",
+    "url": "/js/app.bac39a19.js"
   },
   {
-    "revision": "d8b3f3e563723bc3ad8d",
-    "url": "/js/chunk-vendors.c3c6075f.js"
+    "revision": "7413794636393016e11e",
+    "url": "/js/chunk-vendors.edb98bdb.js"
   },
   {
     "revision": "cc4aad07fb3f5198276bb2b776bc884a",
@@ -1604,7 +1604,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/assets/slick-1.8.1/slick/slick.scss"
   },
   {
-    "revision": "434323194323d8c6e43a42d6d3fb5b18",
+    "revision": "8f5fed61f709b5e8decdf7a925bc1d12",
     "url": "/static/dev/css/app.css"
   },
   {
@@ -2064,6 +2064,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/svg/mobile-video.svg"
   },
   {
+    "revision": "f372b6b85af4b6b63107b36689abcc6f",
+    "url": "/static/svg/music-headset.svg"
+  },
+  {
     "revision": "4e9fb7a16710ffc1108eba025de00320",
     "url": "/static/svg/music.svg"
   },
@@ -2078,6 +2082,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "7adf33f576edfa83ae6fb9c3949b2425",
     "url": "/static/svg/notify.svg"
+  },
+  {
+    "revision": "49c54eadb4427adb2cffecf5ad77f7db",
+    "url": "/static/svg/play-circle.svg"
   },
   {
     "revision": "126ed8654eef51a3013171dc89457281",
