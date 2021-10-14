@@ -22,80 +22,80 @@ import MusicPlayer from "../views/music/Player.vue";
 Vue.use(Router);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/music",
-    name: "Music",
-    component: Music,
-  },
-  {
-    path: "/chart",
-    name: "Chart",
-    component: Chart,
-  },
-  {
-    path: "/library",
-    name: "Library",
-    component: Library,
-  },
-  {
-    path: "/artist",
-    name: "Artist",
-    component: Artist,
-  },
-  {
-    path: "/playlist",
-    name: "Playlist",
-    component: Playlist,
-  },
-  {
-    path: "/genre",
-    name: "Genre",
-    component: Genre,
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    component: Profile,
-  },
-  {
-    path: "/video",
-    name: "Video",
-    component: Video,
-  },
-  {
-    path: "/view",
-    name: "VideoView",
-    component: VideoView,
-  },
-  {
-    path: "/gist",
-    name: "Gist",
-    component: Gist
-  },
-  {
-    path: "/view-genre",
-    name: "ViewGenre",
-    component: ViewGenre
-  },{
-    path: "/radio",
-    name: "RadioStation",
-    component: RadioStation
-  },
-  {
-    path: "/search",
-    name: "Search",
-    component: SearchPage
-  },
-  {
-    path: "/player",
-    name: "Player",
-    component: MusicPlayer
-  }
+    {
+        path: "/",
+        name: "Home",
+        component: Home,
+    },
+    {
+        path: "/music",
+        name: "Music",
+        component: Music,
+    },
+    {
+        path: "/chart",
+        name: "Chart",
+        component: Chart,
+    },
+    {
+        path: "/library",
+        name: "Library",
+        component: Library,
+    },
+    {
+        path: "/artist",
+        name: "Artist",
+        component: Artist,
+    },
+    {
+        path: "/playlist",
+        name: "Playlist",
+        component: Playlist,
+    },
+    {
+        path: "/genre",
+        name: "Genre",
+        component: Genre,
+    },
+    {
+        path: "/profile",
+        name: "Profile",
+        component: Profile,
+    },
+    {
+        path: "/video",
+        name: "Video",
+        component: Video,
+    },
+    {
+        path: "/view/:slug?",
+        name: "view",
+        component: VideoView,
+    },
+    {
+        path: "/gist",
+        name: "Gist",
+        component: Gist
+    },
+    {
+        path: "/view-genre",
+        name: "ViewGenre",
+        component: ViewGenre
+    },{
+        path: "/radio",
+        name: "RadioStation",
+        component: RadioStation
+        },
+    {
+        path: "/search",
+        name: "Search",
+        component: SearchPage
+    },
+    {
+        path: "/player",
+        name: "Player",
+        component: MusicPlayer
+    }
 ];
 
 const router = new Router({

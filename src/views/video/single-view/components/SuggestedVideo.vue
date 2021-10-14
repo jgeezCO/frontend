@@ -20,7 +20,7 @@
                 suggestions: [
                     {
                         id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
+                        img: "/static/uploads/img/100/v5.png",
                         time: "3 days ago",
                         vtime_frame: "7:13",
                         title: "Bryan nolli - Salvation ft. The nation",

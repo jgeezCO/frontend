@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "791b4547699aa21002ca",
-    "url": "/css/app.244b8c0f.css"
+    "revision": "162dfc56d660e55f5e1b",
+    "url": "/css/app.402c55e5.css"
   },
   {
     "revision": "d8b3f3e563723bc3ad8d",
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "065aafbb500b65f492f8cd5732be14f4",
+    "revision": "db3a43e5ff2e3c271e192c6db3519170",
     "url": "/index.html"
   },
   {
-    "revision": "791b4547699aa21002ca",
-    "url": "/js/app.0e356a20.js"
+    "revision": "162dfc56d660e55f5e1b",
+    "url": "/js/app.da6c4779.js"
   },
   {
     "revision": "d8b3f3e563723bc3ad8d",

@@ -45,6 +45,15 @@ const actions = {
             }
             commit("setUserProfile", authent_stats);
         });
+    },
+
+    logout: function(token){
+        if(token.length > 0){
+            window.localStorage.clear();
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+        }
     }
 }
 

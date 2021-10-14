@@ -62,7 +62,7 @@
                 default: "GUEST POSTS"
             },
             mainGist: {
-                type: Boolean,
+                type: [Boolean, String],
                 default: true
             }
         },

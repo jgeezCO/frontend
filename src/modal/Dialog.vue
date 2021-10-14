@@ -9,7 +9,7 @@
                             <a href="#">
                                 <img style="width: 15px;margin-right:5px;" src="static/svg/question.svg">
                             </a>
-                            <a href="#" @click="$emit('closeDialog', 'close')" class="close-dialog">&times;</a>
+                            <a href="#" style="color:black;" @click.prevent="$emit('closeDialog', 'close')" class="close-dialog">&times;</a>
                         </span>
                     </h2>
                 </div>
@@ -35,8 +35,8 @@
         margin:20px 0px 0px 0px;
     }
     .close-dialog{
-        font-size: 20px;
-        color: black;
+        font-size: 20px !important;
+        color: black !important;
     }
     .dc{
         width: auto;
@@ -59,7 +59,7 @@
     }
     .dialog-content{
         width: 600px;
-        min-height: 300px;
+        min-height: 200px;
         border-radius: 5px;
         background-color: white;
         color: black;

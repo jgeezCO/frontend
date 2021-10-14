@@ -15,10 +15,19 @@
             <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div>
 
             <div class="body">
-                <div class="music_card" v-for="music in music_types" :key="music.tag">
-                    <div v-if="music.tag == 'music'">
-                        <div v-for="music_data in music.data" :key="music_data.id">
-                            <MusicCard  :card="music_data"/>
+                <div class="loading-placeholder" v-if="music_loading == true">
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="music_card_wrapper" v-if="music_loading == false">
+                    <div class="music_card" v-for="music in music_types" :key="music.tag">
+                        <div v-if="music.tag == 'music'">
+                            <div v-for="music_data in music.data" :key="music_data.id">
+                                <MusicCard  :card="music_data"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,10 +49,19 @@
             <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div>
 
             <div class="body">
-                <div class="playlist_card" v-for="playlist in music_types" :key="playlist.tag">
-                    <div v-if="playlist.tag == 'playlist'">
-                        <div v-for="playlist_data in playlist.data" :key="playlist_data.id">
-                            <PlaylistCard  :card="playlist_data" />
+                <div class="loading-placeholder" v-if="playlist_loading == true">
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <div class="clear"></div>
+                </div>
+
+                <div class="playlist_wrapper" v-if="playlist_loading == false">
+                    <div class="playlist_card" v-for="playlist in music_types" :key="playlist.tag">
+                        <div v-if="playlist.tag == 'playlist'">
+                            <div v-for="playlist_data in playlist.data" :key="playlist_data.id">
+                                <PlaylistCard  :card="playlist_data" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,11 +78,20 @@
 
             <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div>
 
+            <div class="loading-placeholder" v-if="album_loading == true">
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+                <div class="clear"></div>
+            </div>
+
             <div class="body">
-                <div class="album_card" v-for="album in music_types" :key="album.tag">
-                    <div v-if="album.tag == 'album'">
-                        <div v-for="album_data in album.data" :key="album_data.id">
-                            <AlbumCard  :card="album_data"/>
+                <div class="album_card_wrapper" v-if="album_loading == false">
+                    <div class="album_card" v-for="album in music_types" :key="album.tag">
+                        <div v-if="album.tag == 'album'">
+                            <div v-for="album_data in album.data" :key="album_data.id">
+                                <AlbumCard  :card="album_data"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,6 +107,8 @@
 
 <script>
     import uuid from "uuid";
+    
+    import {mapActions} from "vuex";
     import MusicCard from "./components/MusicCard.vue";
     import PlaylistCard from "./components/PlaylistCard.vue";
     import AlbumCard from "./components/AlbumCard.vue";
@@ -88,177 +117,151 @@
     import CreatePlaylist from "./components/CreatePlaylist.vue";
 
     import Notification from "../../components/public/notification/Notification.vue";
+    import Placeholder from '../../components/public/Placeholder.vue';
 
     export default {
         name: 'Music',
         components: {
             MusicCard, PlaylistCard, AlbumCard,
-            Dialog, CreatePlaylist, Notification
+            Dialog, CreatePlaylist, Notification,
+            Placeholder
         },
         data: function(){
             return {
+                music_loading: true,
+                playlist_loading: true,
+                album_loading: true,
                 vdialog: false,
                 music_types: [
                     {
                         tag: "music",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/2.png",
-                                name: "Demi Bealy",
-                                playcount: "80.4k",
-                                color: "#6600CC"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/3.png",
-                                name: "Bryan miles",
-                                playcount: "89k",
-                                color: "#898081"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/4.png",
-                                name: "Femi Koku",
-                                playcount: "1.2M",
-                                color: "#A5730E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/5.png",
-                                name: "Dwight hussel",
-                                playcount: "1.2M",
-                                color: "#92221D"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/6.png",
-                                name: "Kore Ida",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/3.png",
-                                name: "Bryan miles",
-                                playcount: "1.2M",
-                                color: "#898081"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/4.png",
-                                name: "Femi Koku",
-                                playcount: "1.2M",
-                                color: "#6600CC"
-                            }
-                        ]
+                        data: []
                     }, 
                     {
                         tag: "playlist",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                time: "Created 1month ago",
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                time: "Created 1month ago",
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                time: "Created 1month ago",
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                time: "Created 1month ago",
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                time: "Created 1month ago",
-                            }
-                        ]
+                        data: []
                     },
                     {
                         tag: "album",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                title: "Bello Konan",
-                                sub_title: "Full Belly",
-                                creator: "Bello Konan",
-                                verified: true,
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                title: "Bello Konan",
-                                sub_title: "Full Belly",
-                                creator: "Bello Konan",
-                                verified: true,
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                title: "Bello Konan",
-                                sub_title: "Full Belly",
-                                creator: "Bello Konan",
-                                verified: true,
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                title: "Bello Konan",
-                                sub_title: "Full Belly",
-                                creator: "Bello Konan",
-                                verified: true,
-                            }
-                        ]
+                        data: []
                     }
                 ]
             }
         },
         methods: {
+            ...mapActions(["fetch_music"]),
             dialogVisible: function(type){
                 this.vdialog = type == "open" ? true : false;
             },
             createPlaylistModal: function(){
                 this.dialogVisible("open");
+            },
+            loadMusic: function(){
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_music(user_token);
+                    this.music_types[0].data = this.$store.getters.get_music;
+                }
+                setTimeout(() => {
+                    this.music_loading = false;
+                }, 1000);
+            },
+            loadPlaylist: function(){
+                setTimeout(() => {
+                    this.playlist_loading = false;
+                }, 1000);
+
+                let playlist_placeholder_data = [
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        name: "Reekado Banks",
+                        time: "Created 1month ago",
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        name: "Reekado Banks",
+                        time: "Created 1month ago",
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        name: "Reekado Banks",
+                        time: "Created 1month ago",
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        name: "Reekado Banks",
+                        time: "Created 1month ago",
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        name: "Reekado Banks",
+                        time: "Created 1month ago",
+                    }
+                ];
+
+                console.log(playlist_placeholder_data);
+            },
+            loadAlbum: function(){
+                setTimeout(() => {
+                    this.album_loading = false;
+                }, 1000);
+
+                let album_placeholder_data =  [
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        title: "Bello Konan",
+                        sub_title: "Full Belly",
+                        creator: "Bello Konan",
+                        verified: true,
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        title: "Bello Konan",
+                        sub_title: "Full Belly",
+                        creator: "Bello Konan",
+                        verified: true,
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        title: "Bello Konan",
+                        sub_title: "Full Belly",
+                        creator: "Bello Konan",
+                        verified: true,
+                    },
+                    {
+                        id: uuid.v1(),
+                        url: "",
+                        img: "static/uploads/img/80/1.png",
+                        title: "Bello Konan",
+                        sub_title: "Full Belly",
+                        creator: "Bello Konan",
+                        verified: true,
+                    }
+                ];
+
+                console.log(album_placeholder_data);
             }
+        },
+        created(){
+            this.loadMusic();
+            this.loadPlaylist();
+            this.loadAlbum();
         }
     }
 </script>

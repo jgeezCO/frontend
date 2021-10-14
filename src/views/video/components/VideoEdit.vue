@@ -6,7 +6,7 @@
             v-on:closeDialog="dialogVisible">
 
             <ProfileUploadVideo 
-                :edit_data="edit_data" 
+                :data="editting_data" 
                 edit 
             />
         </Dialog>
@@ -19,15 +19,7 @@
     
     export default {
         name: "VideoEdit",
-        props: {
-            vdialog: {
-                type: [String, Boolean]
-            },
-            edit_data: {
-                type: [String, Object],
-                default: null
-            }
-        },
+        props: ["vdialog", "edit_data"],
         components: {
             ProfileUploadVideo, 
             Dialog
@@ -37,9 +29,11 @@
                 this.vdialog = type == "open" ? true : false;
             },
         },
-        created(){
-            console.log("Hello world");
-            console.log(this.edit_data);
+        computed: {
+            editting_data: function(){
+                console.log(this.edit_data);
+                return this.edit_data;
+            }
         }
     }
 </script>

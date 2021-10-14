@@ -5,7 +5,7 @@
                 <div class="sidebar_pad" style="margin-left:20px;">
                     <div class="left exclude">
                         <router-link to="/">
-                            <h2 class="desktop-only poppins brand_name">JGeez<img src="static/svg/gsound.svg"></h2>
+                            <h2 class="desktop-only poppins brand_name">JGeez<img src="/static/svg/gsound.svg"></h2>
                         </router-link>
                         
                         <h3 class="mobile-only">

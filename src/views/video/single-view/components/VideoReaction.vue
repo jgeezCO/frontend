@@ -6,17 +6,17 @@
                 <p class="noSpace poppins video-desc" style="font-size:13px;">{{attr.views}} views   .   {{attr.date}}</p>
             </div>
             <div class="mobile-only mobile-right">
-                <img src="static/svg/expand-down.svg">
+                <img src="/static/svg/expand-down.svg">
             </div>
             
             <span class="mobile-clear"></span>
 
             <div class="right exclude vreaction" style="margin-right:30px;">
-                <a :href="attr.id"> <img class="thumbs-up" src="static/svg/thumbs-up.svg" style="width:15px;"> </a> 
+                <a :href="attr.id"> <img class="thumbs-up" src="/static/svg/thumbs-up.svg" style="width:15px;"> </a> 
                 &nbsp;&nbsp;&nbsp;
-                <a :href="attr.id"> <img class="thumbs-down" src="static/svg/thumbs-down.svg" style="width:15px;"> </a> 
+                <a :href="attr.id"> <img class="thumbs-down" src="/static/svg/thumbs-down.svg" style="width:15px;"> </a> 
                 &nbsp;
-                <a href="#" :data-id="attr.id" @click.prevent="menu" style="padding:0px 20px;"> <img class="menu-icon" src="static/svg/menu.svg"> </a> 
+                <a href="#" :data-id="attr.id" @click.prevent="menu" style="padding:0px 20px;"> <img class="menu-icon" src="/static/svg/menu.svg"> </a> 
                 <ActionMenu v-if="action_menu_is_active == true"/>
             </div>
             <div class="clear"></div>

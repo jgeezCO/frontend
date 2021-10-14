@@ -57,6 +57,7 @@
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import uuid from "uuid";
     import Category from "../../components/public/Category.vue"
     import MusicCard from "../music/components/MusicCard.vue";
@@ -78,72 +79,7 @@
                         id: uuid.v1(),
                         headline: "Latest Music",
                         icon: "static/svg/music_list.svg",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/1.png",
-                                name: "Reekado Banks",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/2.png",
-                                name: "Demi Bealy",
-                                playcount: "80.4k",
-                                color: "#6600CC"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/3.png",
-                                name: "Bryan miles",
-                                playcount: "89k",
-                                color: "#898081"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/4.png",
-                                name: "Femi Koku",
-                                playcount: "1.2M",
-                                color: "#A5730E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/5.png",
-                                name: "Dwight hussel",
-                                playcount: "1.2M",
-                                color: "#92221D"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/6.png",
-                                name: "Kore Ida",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/3.png",
-                                name: "Bryan miles",
-                                playcount: "1.2M",
-                                color: "#898081"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/4.png",
-                                name: "Femi Koku",
-                                playcount: "1.2M",
-                                color: "#6600CC"
-                            },
-                        ]
+                        data: []
                     },
 
                     {
@@ -257,6 +193,20 @@
                     }
                 ]
             }
+        },
+        methods: {
+            ...mapActions(["fetch_music"]),
+            loadMusic: function(){
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_music(user_token);
+                    this.trends[0].data = this.$store.getters.get_music;
+                }
+            }
+        },
+        created(){
+            this.loadMusic();
         }
+        
     }
 </script>

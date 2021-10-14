@@ -14,6 +14,7 @@ Vue.use(PerfectScrollbar);
 Vue.use(UUID);
 Vue.use(VueCoreVideoPlayer);
 
+
 new Vue({
     store,
     router,

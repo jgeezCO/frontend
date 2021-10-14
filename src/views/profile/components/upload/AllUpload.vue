@@ -26,10 +26,20 @@
             </div>
 
             <h4 class="clear"><br><br> {{music_list.title}}</h4>
-            <div v-for="music in music_list.data" :key="music.id">
-                <MusicCard :card="music"/>
+            
+            <div class="loading-placeholder" v-if="music_loading == true">
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+                <div class="clear"></div>
             </div>
 
+            <div class="music_wrapper" v-if="music_loading == false">
+                <div v-for="music in music_list.data" :key="music.id">
+                    <MusicCard :card="music"/>
+                </div>
+            </div>
+            
             <h4 class="clear"><br><br> {{gist_list.title}}</h4>
             <div v-for="gist in gist_list.data" :key="gist.id">
                 <GistCard :gist="gist"/>
@@ -40,6 +50,7 @@
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import { 
         Hooper, Slide, 
         Navigation as HooperNavigation 
@@ -51,15 +62,18 @@
     import ShortCard from "../../../video/components/ShortCard.vue";
     import VideoCard from "../../../video/components/VideoCard.vue";
     import Display from "./components/Display.vue";
-
+    import Placeholder from '../../../../components/public/Placeholder.vue';
+    
     export default {
         name: "AllUpload",
         components: {
             Display, GistCard, MusicCard, ShortCard, VideoCard,
-            Hooper, Slide, HooperNavigation
+            Hooper, Slide, HooperNavigation,
+            Placeholder
         },
         data: function(){
             return {
+                music_loading: true,
                 slider_items_to_show: 5,
                 short_videos: {
                     tag: "shorts",
@@ -200,72 +214,7 @@
                 music_list: {
                     tag: "music",
                     title: "My Music",
-                    data: [
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/1.png",
-                            name: "Reekado Banks",
-                            playcount: "1.2M",
-                            color: "#D7732E"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/2.png",
-                            name: "Demi Bealy",
-                            playcount: "80.4k",
-                            color: "#6600CC"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/3.png",
-                            name: "Bryan miles",
-                            playcount: "89k",
-                            color: "#898081"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/4.png",
-                            name: "Femi Koku",
-                            playcount: "1.2M",
-                            color: "#A5730E"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/5.png",
-                            name: "Dwight hussel",
-                            playcount: "1.2M",
-                            color: "#92221D"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/6.png",
-                            name: "Kore Ida",
-                            playcount: "1.2M",
-                            color: "#D7732E"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/3.png",
-                            name: "Bryan miles",
-                            playcount: "1.2M",
-                            color: "#898081"
-                        },
-                        {
-                            id: uuid.v1(),
-                            url: "",
-                            img: "static/uploads/img/80/4.png",
-                            name: "Femi Koku",
-                            playcount: "1.2M",
-                            color: "#6600CC"
-                        }
-                    ]
+                    data: []
                 },
                 gist_list: {
                     tag: "gist",
@@ -330,8 +279,22 @@
                 }
             }
         },
+        methods: {
+            ...mapActions(["fetch_music"]),
+            loadMusic: function(){
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_music(user_token);
+                    this.music_list.data = this.$store.getters.get_music;
+                }
+                setTimeout(() => {
+                    this.music_loading = false;
+                }, 1000);
+            }
+        },
         created(){
-            this.slider_items_to_show = window.is_mobile() == true ? 2 : 5
+            this.slider_items_to_show = window.is_mobile() == true ? 2 : 5;
+            this.loadMusic();
         }
     }
 </script>

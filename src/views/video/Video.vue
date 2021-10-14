@@ -17,7 +17,15 @@
         <div class="demarcator"></div>
 
         <div class="app-body-content" style="position:relative;top:-20px;">
-            <div class="new_vides video_header">
+            
+            <div class="loading-placeholder" v-if="loading == true">
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+                <div class="clear"></div>
+            </div>
+            
+            <div class="new_vides video_header" v-if="loading == false">
                 <div v-for="video in videos" :key="video.id">
                     <div class="new_v">
                         <h2 class="poppins">{{video.title}}</h2>
@@ -25,6 +33,7 @@
                             <VideoCard 
                                 :card="video_data" 
                                 v-on:video_edit="handleEdit" 
+                                v-on:delete_id="handleDelete"
                             />
                         </div>
                         
@@ -38,17 +47,20 @@
         </div>
 
         <VideoEdit 
+            v-if="vdialog == true" 
             :vdialog="vdialog" 
-            edit_video="Hello world.... Here" 
-        />
+            :edit_video="edit_data" 
+        /> 
     </div>
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import uuid from "uuid";
     import ShortCard from "./components/ShortCard.vue";
     import VideoCard from "./components/VideoCard.vue";
     import VideoEdit from "./components/VideoEdit.vue";
+    import Placeholder from '../../components/public/Placeholder.vue';
 
     import { 
         Hooper, Slide, 
@@ -61,14 +73,15 @@
         components: {
             ShortCard, VideoCard,
             Hooper, Slide, HooperNavigation, 
-            VideoEdit
+            VideoEdit, Placeholder
         },
         data: function(){
             return {
                 vdialog: false,
                 slider_items_to_show: 5,
                 selected_video: -1,
-                editting_data: {
+                loading: true,
+                edit_data: {
                     id: 0,
                     title: '',
                     desc: '',
@@ -151,112 +164,7 @@
                 videos: [
                     {
                         title: "NEW VIDEOS",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/100/v5.png",
-                                time: "3 days ago",
-                                vtime_frame: "7:13",
-                                title: "Bryan nolli - Salvation ft. The nation",
-                                views: "2.1m",
-                                user: {
-                                    avatar: "static/uploads/img/100/avatar.png",
-                                    name: "Brian Nolli",
-                                    verified: true
-                                }
-                            }
-                        ]
+                        data: []
                     },
                     {
                         title: "SUBSCRIPTIONS",
@@ -589,17 +497,45 @@
             }
         },
         methods: {
+            ...mapActions(["fetch_video"]),
             handleEdit: function(id, card){
-                this.editting_data.id = id
-                this.editting_data.title = card.title;
-                this.editting_data.desc = card.desc;
-                this.editting_data.thumbnail = card.img;
+                this.edit_data.id = id
+                this.edit_data.title = card.title;
+                this.edit_data.desc = card.desc;
+                this.edit_data.thumbnail = card.img;
 
                 this.vdialog = true;
+            },
+            handleDelete: function(v_id){
+                this.videos.data.filter(video => video.id != v_id);
+            },
+            bigVideoLoad: function(type = null){
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_video(user_token, type);
+                    this.videos[0].data = this.$store.getters.get_videos;
+
+                    setTimeout(() => {
+                        this.loading = false;
+                    }, 1000);
+                }
+            },
+            loadVideo: function(){
+                this.bigVideoLoad();
+            },
+            loadSubscription: function(){
+                this.bigVideoLoad("subscription");
+            },
+            loadTrends: function(){
+                this.bigVideoLoad("trends");
+            },
+            loadFavourite: function(){
+                this.bigVideoLoad("favourite");
             }
         },
         created(){
-            this.slider_items_to_show = window.is_mobile() == true ? 2 : 5
+            this.slider_items_to_show = window.is_mobile() == true ? 2 : 5;
+            this.loadVideo();
         }
     }
 </script>

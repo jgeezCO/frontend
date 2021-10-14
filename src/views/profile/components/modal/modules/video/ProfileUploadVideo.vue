@@ -291,8 +291,6 @@
                 this.thumbnail = this.edit_data.poster;
 
                 console.log(this.edit_data);
-            } else {
-                alert("Hello world");
             }
         }
     }

@@ -1,5 +1,11 @@
 @import url(base.css);
 
+.video_background_cover{
+    position:absolute;
+    width: 219.2px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .simple-input{
     padding: 10px;
     border: 2px solid rgba(107, 102, 102, 0.8);
