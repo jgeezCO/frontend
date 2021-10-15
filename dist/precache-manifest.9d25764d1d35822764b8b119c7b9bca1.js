@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "97f2ad04fa12dab49f86",
+    "revision": "eee969aaae6fe2ed7b6e",
     "url": "/css/app.b141520e.css"
   },
   {
@@ -8,32 +8,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-vendors.d34d499c.css"
   },
   {
-    "revision": "c85872f08936df9c7a387347535399f5",
-    "url": "/img/apple.c85872f0.svg"
-  },
-  {
     "revision": "b92362ea1dbe1cf081b07872c5889121",
     "url": "/img/eye-hide.b92362ea.svg"
-  },
-  {
-    "revision": "51673a511cdc2d369dab6b8b074c102a",
-    "url": "/img/facebook.51673a51.svg"
-  },
-  {
-    "revision": "ae5e26fe66be0f8eb59415948baaef92",
-    "url": "/img/google.ae5e26fe.svg"
   },
   {
     "revision": "ab1a220a219a0af8a1f3d105daa2080b",
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "bc81a0afb7f8be538cce686bd7cb3c0e",
+    "revision": "17e51a9065f9b484c72886f50935a2da",
     "url": "/index.html"
   },
   {
-    "revision": "97f2ad04fa12dab49f86",
-    "url": "/js/app.bac39a19.js"
+    "revision": "eee969aaae6fe2ed7b6e",
+    "url": "/js/app.3afd2968.js"
   },
   {
     "revision": "7413794636393016e11e",
