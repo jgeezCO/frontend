@@ -54,7 +54,7 @@
                         <div class="clear"></div>
                     </div>
 
-                    <img src="static/svg/line.svg" class="noSpace" style="width:90%;height:10px;">
+                    <img src="/static/svg/line.svg" class="noSpace" style="width:90%;height:10px;">
                     
                     <div class="scroll-bar">
                         <SideMenu v-bind:menus="menus" />
@@ -62,7 +62,7 @@
                     <div class="sb"><br><br><br><br><br><br></div>
                 </div>
 
-                <img src="static/svg/line.svg" class="noSpace mobile-only" style="width:90%;height:10px;">
+                <img src="/static/svg/line.svg" class="noSpace mobile-only" style="width:90%;height:10px;">
             </perfect-scrollbar>
         </div>
 

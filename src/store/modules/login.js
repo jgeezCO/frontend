@@ -11,12 +11,14 @@ const state = {
         avatar: "",
         phone: "",
         isverified: false
-    }
+    },
+    external_user_profile: {}
 }
 
 const getters = {
     isLoggedIn: (state) => state.isLoggedIn,
-    getProfile: (state) => state.profile
+    getProfile: (state) => state.profile,
+    externalProfile: (state) => state.external_user_profile
 }
 
 const actions = {
@@ -47,6 +49,26 @@ const actions = {
         });
     },
 
+    async get_user_profile({commit}, params){
+        await axios({
+            method: 'get',
+            url: 'https://api.jgeez.co/auth/users/' + params.id,
+            data:  null,
+            headers: {
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'content-type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + params.token
+            }
+        })
+        .then(response => { 
+            commit("setExternalProfile", response.data);
+        })
+        .catch(error => {
+           console.log(error);
+        });
+    },
+
     logout: function(token){
         if(token.length > 0){
             window.localStorage.clear();
@@ -70,14 +92,18 @@ const mutations = {
 
         if(Object.keys(authent_stats.data).length > 0 && authent_stats.status_type == true){
             isLoggin = true;
+            
+            let user_profile_pics = authent_stats.data.user.profile.profile_picture;
 
             userProfile = {
                 id: authent_stats.data.user.id, 
                 token: authent_stats.data.access_token,
                 email: authent_stats.data.user.email, 
                 name: authent_stats.data.user.username,
-                avatar: authent_stats.data.user.profile.profile_picture,
-                isverified: authent_stats.data.user.profile.is_verified
+                isverified: authent_stats.data.user.profile.is_verified,
+                avatar: user_profile_pics == null || user_profile_pics.length <= 0 
+                    ? "/static/svg/avatar.svg" 
+                    : user_profile_pics
             }
             
             loginAttempt = authent_stats.status;
@@ -94,6 +120,9 @@ const mutations = {
         } else {
             alert("Username or password incorrect");
         }
+    },
+    setExternalProfile: (state, userProfile) => {
+        state.external_user_profile = userProfile
     }
 };
 

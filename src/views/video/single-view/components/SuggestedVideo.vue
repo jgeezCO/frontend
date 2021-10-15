@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    import uuid from "uuid";
+    import { mapActions } from 'vuex';
     import VideoCard from "../../components/VideoCard.vue";
-
+    
     export default {
         name: "SuggestedVideos",
         components: {
@@ -17,87 +17,18 @@
         },
         data: function(){
             return {
-                suggestions: [
-                    {
-                        id: uuid.v1(),
-                        img: "/static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/100/v5.png",
-                        time: "3 days ago",
-                        vtime_frame: "7:13",
-                        title: "Bryan nolli - Salvation ft. The nation",
-                        views: "2.1m",
-                        user: {
-                            avatar: "static/uploads/img/100/avatar.png",
-                            name: "Brian Nolli",
-                            verified: true
-                        }
-                    }
-                ]
+                suggestions: []
             }
+        },
+        methods: {
+            ...mapActions(["fetch_video"])
+        },
+        created(){
+            let token = this.$store.getters.getProfile.token;
+            this.fetch_video(token, null);
+        },
+        mounted(){
+            this.suggestions = this.$store.getters.get_videos;
         }
     }
 </script>

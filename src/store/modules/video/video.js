@@ -35,6 +35,7 @@ const actions = {
                 if(temp_data.length > 0){
                     temp_data.forEach(element => {
                         profile_url = element.post.author.profile.profile_picture;
+                        
                         video_data.push({
                             id: element.post.id, 
                             artist: "jgeez",
@@ -47,7 +48,7 @@ const actions = {
                             vtime_frame:  element.post.video.content_length,
                             slug: "view/" + element.post.id,
                             user: {
-                                avatar: profile_url.length > 0 ? profile_url : "./static/svg/avatar.svg",
+                                avatar: profile_url != null && profile_url.length > 0 ? profile_url : "/static/svg/avatar.svg",
                                 name: element.post.author.username,
                                 verified: element.post.author.profile.is_verified
                             }

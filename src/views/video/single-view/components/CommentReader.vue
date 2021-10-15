@@ -14,11 +14,11 @@
                         <a href="#" style="color:white;" @click="makeFavorite">
                             <div class="left">
                                 <transition enter-active-class="animate__animated animate__fadeIn"> 
-                                    <img v-if="reader.data.favorite == false" src="static/svg/heart.svg" style="width:13px;">
+                                    <img v-if="reader.data.favorite == false" src="/static/svg/heart.svg" style="width:13px;">
                                 </transition>
                                 
                                 <transition enter-active-class="animate__animated animate__bounceIn" > 
-                                    <img v-if="reader.data.favorite == true" src="static/svg/rheart.svg" style="width:13px;"> 
+                                    <img v-if="reader.data.favorite == true" src="/static/svg/rheart.svg" style="width:13px;"> 
                                 </transition>
                             </div>
                             <span class="left exclude" style="position:relative;top:-1px;left:5px;">

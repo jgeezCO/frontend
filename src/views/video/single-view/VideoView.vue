@@ -16,8 +16,8 @@
                         :cover="video_data.video_poster" 
                         :src="video_data.video_url" 
                         :title="video_props.title" 
-                        auto=false 
-                        autoplay=false 
+                        :auto="false" 
+                        :autoplay="false" 
                     >
                     </vue-core-video-player>
                 </div>
@@ -37,9 +37,12 @@
 
                 <SuggestedVideos limit="10" />
             </div>
-
+        
             <div class="right comment_side">
-                <Comment v-if="is_mobile == false" />
+                <Comment 
+                    v-if="is_mobile == false" 
+                    :comment_id="video_props.id" 
+                />
             </div>
             
             <div class="clear"></div>
@@ -81,9 +84,12 @@
                 video_data: {
                     video_url: "",
                     video_poster: "",
+                    video_comment: [],
+                    video_like: 0,
+                    video_unlike: 0
                 },
                 video_props: {
-                    id: 1,
+                    id: 0,
                     title: "",
                     views: "",
                     date: ""
@@ -91,7 +97,7 @@
                 subscribe: {
                     id: 1,
                     title: "The Aqua band",
-                    avatar: "static/uploads/img/100/v1.png"
+                    avatar: "/static/uploads/img/100/v1.png"
                 },
             }
         },
@@ -115,14 +121,19 @@
                 }).then(response => {
                     if(response.status == 200){
                         let rd = response.data;
-
+                        
                         currentScope.video_data.video_url = rd.video.post_url;
                         currentScope.video_data.video_poster = rd.video.album_art;
                         
+                        currentScope.video_props.id =  rd.id;
                         currentScope.video_props.title =  rd.title;
                         currentScope.video_props.views = rd.view_count;
+                        currentScope.video_data.video_like = rd.likes;
 
-
+                        currentScope.video_data.video_unlike = rd.unlikes != undefined 
+                            ? rd.unlikes
+                            : 0;
+                        
                         let date_obj = new Date(rd.created).toISOString();
                         let dstring = moment(date_obj).format("YYYY MMM Do");
 

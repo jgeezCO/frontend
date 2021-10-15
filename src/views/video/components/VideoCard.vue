@@ -1,7 +1,7 @@
 <template>
     <div class="vc">
         <div class="left vcard">
-            <router-link :to="{path: 'view/' + card.id}">
+            <router-link :to="{path: 'view/' + card.id}" style="color:white;">
                 <div 
                     class="video_background_cover" 
                     :style="client_style">
