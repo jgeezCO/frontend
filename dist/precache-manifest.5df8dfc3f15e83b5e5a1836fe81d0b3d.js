@@ -1,31 +1,47 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "eee969aaae6fe2ed7b6e",
-    "url": "/css/app.b141520e.css"
+    "revision": "bc541ce3f7c75a7d827f",
+    "url": "/css/app.671d9034.css"
   },
   {
     "revision": "7413794636393016e11e",
     "url": "/css/chunk-vendors.d34d499c.css"
   },
   {
+    "revision": "c85872f08936df9c7a387347535399f5",
+    "url": "/img/apple.c85872f0.svg"
+  },
+  {
     "revision": "b92362ea1dbe1cf081b07872c5889121",
     "url": "/img/eye-hide.b92362ea.svg"
+  },
+  {
+    "revision": "51673a511cdc2d369dab6b8b074c102a",
+    "url": "/img/facebook.51673a51.svg"
+  },
+  {
+    "revision": "ae5e26fe66be0f8eb59415948baaef92",
+    "url": "/img/google.ae5e26fe.svg"
   },
   {
     "revision": "ab1a220a219a0af8a1f3d105daa2080b",
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "17e51a9065f9b484c72886f50935a2da",
+    "revision": "24fceb6cbc09d725a1d0e5c87dcba14e",
     "url": "/index.html"
   },
   {
-    "revision": "eee969aaae6fe2ed7b6e",
-    "url": "/js/app.3afd2968.js"
+    "revision": "bc541ce3f7c75a7d827f",
+    "url": "/js/app.aee0ecfe.js"
   },
   {
     "revision": "7413794636393016e11e",
     "url": "/js/chunk-vendors.edb98bdb.js"
+  },
+  {
+    "revision": "58c59e9953d0f40d83176750bc983e20",
+    "url": "/logo.png"
   },
   {
     "revision": "cc4aad07fb3f5198276bb2b776bc884a",
@@ -1592,7 +1608,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/assets/slick-1.8.1/slick/slick.scss"
   },
   {
-    "revision": "8f5fed61f709b5e8decdf7a925bc1d12",
+    "revision": "ad37255dc1a339c2e5070c3c43b99923",
     "url": "/static/dev/css/app.css"
   },
   {

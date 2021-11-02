@@ -18,11 +18,19 @@
         </div>
 
         <div class="creader_wrapper" v-if="comment_loading == false">
-            <div class="creader" v-for="comment in comments" :key="comment.id">
-                <CommentReader 
-                    :reader="comment" 
-                />
+            <div v-if="comments.length > 0">
+                <div class="creader" v-for="comment in comments" :key="comment.id">
+                    <CommentReader 
+                        :reader="comment" 
+                    />
+                </div>
             </div>
+
+            <h6 v-if="comments.length == 0" style="padding:0px;margin:0px;">
+                <center>
+                    <i>be the first to comment</i>
+                </center>
+            </h6>
         </div>
     </div>
 </template>
@@ -156,6 +164,8 @@
                         
                         currentScope.comment_loading = false;
                     })
+                } else {
+                    currentScope.comment_loading = false;
                 }
             }).catch(error => {
                 console.log(error)

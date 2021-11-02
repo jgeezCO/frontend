@@ -24,10 +24,21 @@
                                 <h4 class="noSpace">more <img src="static/svg/extend-right.svg" style="width:30px;position:relative;top:10px;left:-8px;"></h4>
                             </a>
                         </div>
+
                         <div class="clear"></div>
-                        <div class="square-card" v-bind:key="trend_card.id" v-for="trend_card in trend.data">
-                            <MusicCard :card="trend_card"/>
-                        </div> <div class="clear"></div>
+
+                        <div class="loading-placeholder" v-if="music_loading == true">
+                            <Placeholder />
+                            <Placeholder />
+                            <Placeholder />
+                            <div class="clear"></div>
+                        </div>
+                        
+                        <div class="music_card_container_player" v-if="music_loading == false">
+                            <div class="square-card" v-bind:key="trend_card.id" v-for="trend_card in trend.data">
+                                <MusicCard :card="trend_card"/>
+                            </div> <div class="clear"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +49,7 @@
 
             <Follower />
         </div>
-
+        
         <div class="demarcator"></div>
 
         <div class="app-body-content">
@@ -57,6 +68,7 @@
 </template>
 
 <script>
+
     import {mapActions} from "vuex";
     import uuid from "uuid";
     import Category from "../../components/public/Category.vue"
@@ -65,15 +77,17 @@
     import Follower from "../followers/Follower.vue";
     import RadioCard from "../radio/components/RadioCard.vue";
     import Slider from "../../components/public/Slider.vue";
+   import Placeholder from '../../components/public/Placeholder.vue';
 
     export default {
         name: 'Home',
         components: {
             Category, MusicCard, Gist, Follower, RadioCard,
-            Slider
+            Slider, Placeholder
         },
         data: function(){
             return {
+                music_loading: true,
                 trends:[
                     {
                         id: uuid.v1(),
@@ -86,72 +100,7 @@
                         id: uuid.v1(),
                         headline: "Latest Videos",
                         icon: "static/svg/video_list.svg",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/v1.png",
-                                name: "Vera Lang",
-                                playcount: "1.2M",
-                                color: "#6600CC"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/v2.png",
-                                name: "Brook eddy",
-                                playcount: "80.4k",
-                                color: "#898081"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/v3.png",
-                                name: "Brook eddy",
-                                playcount: "89k",
-                                color: "#A5730E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/v3.png",
-                                name: "Brook eddy",
-                                playcount: "1.2M",
-                                color: "#6600CC"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/v4.png",
-                                name: "Brook eddy",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/6.png",
-                                name: "Kore Ida",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/3.png",
-                                name: "Bryan miles",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                            {
-                                id: uuid.v1(),
-                                url: "",
-                                img: "static/uploads/img/80/4.png",
-                                name: "Femi Koku",
-                                playcount: "1.2M",
-                                color: "#D7732E"
-                            },
-                        ]
+                        data:[]
                     }
                 ],
                 radios: [
@@ -197,11 +146,14 @@
         methods: {
             ...mapActions(["fetch_music"]),
             loadMusic: function(){
-                let user_token = this.$store.getters.getProfile.token;
-                if(user_token != null && user_token.length > 0){
-                    this.fetch_music(user_token);
-                    this.trends[0].data = this.$store.getters.get_music;
-                }
+                this.fetch_music(null);
+                this.trends[0].data = this.$store.getters.get_music;
+                setTimeout(() => {
+                    this.music_loading = false;
+                }, 1000);
+            }, 
+            loadVideos: function(){
+                this.trends[0].data = [];
             }
         },
         created(){

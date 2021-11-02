@@ -12,18 +12,25 @@ const getters = {
 const actions = {
     async fetch_music({commit}, token){
         let music_data = [];
+        
+        let headers = {
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            'content-type': 'multipart/form-data'
+        };
+
+        if(token != null){
+            headers["Authorization"] = 'Bearer ' + token;
+        }
 
         await axios({
             method: 'GET',
-            url: 'https://api.jgeez.co/api/post/audio/get/',
+            url: token != null 
+                ? 'https://api.jgeez.co/api/post/audio/get/' 
+                : 'https://api.jgeez.co/api/post/audio/',
             withCredentials: true,
             data:  null,
-            headers: {
-                'Access-Control-Allow-Origin' : '*',
-                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'content-type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + token
-            }
+            headers: headers
         })
         .then(response => { 
             let temp_data = response.data;
@@ -45,7 +52,6 @@ const actions = {
                     commit("update_music_data", music_data);
                 }
             }
-
         }).catch(error => {
             if(error.response.status == 401){
                 if(login.state.isLoggedIn == true){

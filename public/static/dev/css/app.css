@@ -323,6 +323,13 @@ footer .column li a{
 .vcard_act_profile{
     clear:both;
 }
+input.flatinput:-webkit-autofill,
+input.flatinput:-webkit-autofill:hover, 
+input.flatinput:-webkit-autofill:focus, 
+input.flatinput:-webkit-autofill:active  {
+-webkit-background-clip: text;
+-webkit-text-fill-color: #fff !important;
+}
 body, html{
     padding: 0px;
     margin:0px;

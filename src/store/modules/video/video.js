@@ -13,19 +13,26 @@ const actions = {
     async fetch_video({commit}, token, type){
         let video_data = [];
 
+        let headers = {
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            'content-type': 'multipart/form-data'
+        };
+
+        if(token != null){
+            headers["Authorization"] = 'Bearer ' + token;
+        }
+
         await axios({
             method: 'GET',
-            url: 'https://api.jgeez.co/api/post/video/get/',
+            url: token != null 
+                ? 'https://api.jgeez.co/api/post/video/get/' 
+                : 'https://api.jgeez.co/api/post/video/',
             withCredentials: true,
             data:  {
                 type: type
             },
-            headers: {
-                'Access-Control-Allow-Origin' : '*',
-                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'content-type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + token
-            }
+            headers: headers
         })
         .then(response => { 
             let temp_data = response.data;

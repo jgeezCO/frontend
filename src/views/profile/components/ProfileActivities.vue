@@ -1,13 +1,18 @@
 <template>
     <div class="profile-activities">
         <div class="inner">
-            <div class="left exclude">
-                <img src="static/uploads/img/80/profile.png" class="left proimg">
+            <div class="left exclude" v-if="this.$store.getters.isLoggedIn == true" >
+                <img :src="avatar" class="left proimg">
                 <div class="left exclude profile-img-body" style="margin-left: 8px;margin-top:5px;">
-                    <h5 class="noSpace">Ben Igwe</h5>
-                    <p class="noSpace" style="font-size: 12px;">12.5k followers</p>
+                    <h5 class="noSpace">{{profile}}</h5>
+                    <p class="noSpace" style="font-size: 12px;">{{follower}} followers</p>
                 </div>
             </div>
+            
+            <div class="left exclude" v-if="this.$store.getters.isLoggedIn == false">
+                <a href="#" style="display:inline-block;margin-top:10px;" class="upload_btn">Sign In / Sign up</a>
+            </div>
+
             <div class="right exclude" style="margin-top:10px;">
                 <a href="#" class="upload_btn" @click="$emit('open-dialog', 'open')">Upload</a> 
                 <a href="#" class="upload_btn" @click="$emit('manage-profile')">Manage</a> 
@@ -19,7 +24,14 @@
 
 <script>
     export default {
-        name: "ProfileActivities"
+        name: "ProfileActivities",
+        data(){
+            return {
+                profile: this.$store.getters.getProfile.name,
+                avatar: this.$store.getters.getProfile.avatar,
+                follower: "0"
+            }
+        }
     }
 </script>
 

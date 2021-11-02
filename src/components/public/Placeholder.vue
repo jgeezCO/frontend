@@ -146,4 +146,10 @@
         left: 300px;
         top: 88px;
     }
+
+    @media only screen and (max-width: 900px){
+        .background-masker, .timeline-item{
+            background: black !important;
+        }
+    }
 </style>

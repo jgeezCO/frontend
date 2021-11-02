@@ -26,7 +26,9 @@
                     <div class="music_card" v-for="music in music_types" :key="music.tag">
                         <div v-if="music.tag == 'music'">
                             <div v-for="music_data in music.data" :key="music_data.id">
-                                <MusicCard  :card="music_data"/>
+                                <MusicCard 
+                                    :card="music_data"
+                                />
                             </div>
                         </div>
                     </div>
@@ -128,6 +130,9 @@
         },
         data: function(){
             return {
+                user_token: this.$store.getters.isLoggedIn == true 
+                    ? this.$store.getters.getProfile.token 
+                    : null,
                 music_loading: true,
                 playlist_loading: true,
                 album_loading: true,
@@ -157,11 +162,9 @@
                 this.dialogVisible("open");
             },
             loadMusic: function(){
-                let user_token = this.$store.getters.getProfile.token;
-                if(user_token != null && user_token.length > 0){
-                    this.fetch_music(user_token);
-                    this.music_types[0].data = this.$store.getters.get_music;
-                }
+                this.fetch_music(null);
+                this.music_types[0].data = this.$store.getters.get_music;
+                
                 setTimeout(() => {
                     this.music_loading = false;
                 }, 1000);

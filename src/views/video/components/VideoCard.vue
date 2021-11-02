@@ -17,7 +17,9 @@
                     <div class="vcard_act_profile">
                         <img class="left exclude user_profile noSpace" :src="card.user.avatar">
                         <div class="left exclude" style="width:70%;margin-left:10px;">
-                            <h6 class="noSpace left exclude" style="width: 88%;">{{card.title}}</h6>
+                            <h6 class="noSpace left exclude" style="width: 90%;height:30px;overflow:hidden;">
+                                {{video_title}}
+                            </h6>
                             <div class="right exclude" style="width: 10%;margin-top:-10px;">
                                 <CardActions 
                                     type="video" 
@@ -62,7 +64,8 @@
         },
         data(){
             return {
-                client_style: ""
+                client_style: "",
+                video_title: this.process_title(this.card.title)
             }
         },
         computed: {
@@ -71,16 +74,32 @@
             },
             cover_style: function(){
                 let img_width = this.$refs.image_ref.clientWidth;
-                let img_height = this.$refs.image_ref.clientHeight;
 
                 return {
                     width: img_width + "px",
-                    height: (img_height + 0.2) + "px",
+                    height:  "130px",
                 }
             }
+        },
+        methods: {
+            process_title: function(title){
+                let newTitle = title;
+
+                if(title.length > 30){
+                    newTitle = title.substr(0, 27) + "..";
+                }
+                
+                return newTitle;
+            },
         },
         mounted(){
             this.client_style = this.cover_style;
         }
     }
 </script>
+
+<style scoped>
+.video_cover{
+    height: 130px;
+}
+</style>

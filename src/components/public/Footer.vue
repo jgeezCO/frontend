@@ -2,19 +2,19 @@
     <footer>
         <br>   
         <div class="mobile-only">
-            <img src="static/svg/line.svg" style="width:90%;">
+            <img src="/static/svg/line.svg" style="width:90%;">
             <br>
         </div>
         <div class="left column follow-us-footer">
             <h4>Follow Us</h4>
             <a href="#">
-                <img src="static/assets/img/facebook.png" class="social-handle"> 
+                <img src="/static/assets/img/facebook.png" class="social-handle"> 
             </a> &nbsp;
             <a href="#">
-                <img src="static/assets/img/instagram.png" class="social-handle">
+                <img src="/static/assets/img/instagram.png" class="social-handle">
             </a> &nbsp;
             <a href="#">
-                <img src="static/assets/img/twitter.png" class="social-handle">
+                <img src="/static/assets/img/twitter.png" class="social-handle">
             </a>
         </div>
 
@@ -43,7 +43,7 @@
         </div><div class="clear"></div>
         
         <br>
-        <img src="static/svg/line.svg" style="width:90%;">
+        <img src="/static/svg/line.svg" style="width:90%;">
         <br>
         
         <h5 class="poppins gold-color" style="text-align:center;"> {{copyright}} </h5>

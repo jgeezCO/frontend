@@ -38,12 +38,12 @@
             <perfect-scrollbar>
                 <div class="sidebar_pad">
                     <Reminder 
-                        v-if="isLogin == false"
+                        v-if="this.$store.getters.isLoggedIn == false"
                         v-on:authorization="authorization" 
                         v-on:create_account="account" 
                     />
 
-                    <div v-if="isLogin == true" class="desktop-only" style="margin:10px 0px;">
+                    <div v-if="this.$store.getters.isLoggedIn == true" class="desktop-only" style="margin:10px 0px;">
                         <img class="noSpace left user-avatar" style="width:50px;height:50px;" 
                             :src="profile.avatar"
                         >

@@ -72,6 +72,7 @@
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import axios from "axios";
 
     export default {
@@ -93,6 +94,7 @@
             }
         },
         methods:{
+            ...mapActions(["logout"]),
             handleTextCount: function(){
                 let description = this.gist.desc;
                 this.current_count = description.length;
@@ -123,15 +125,16 @@
                 }
             },
             submitGist: function(){
-                var form_data = new FormData();
                 var currentScope = this;
                 var post_url = "https://api.jgeez.co/api/post/gist/create/";
                 this.btn_disabled = true;
 
+                var form_data = new FormData();
                 form_data.append("title", this.dialogTitle);
                 form_data.append("text", this.gist.desc);
-                form_data.append("featuredImg", this.gist.poster);
-
+                // form_data.append("featuredImg", this.gist.poster);
+                
+               
                 axios({
                     method: 'post',
                     url: post_url,
@@ -140,7 +143,8 @@
                     headers: {
                         'Access-Control-Allow-Origin' : '*',
                         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                        'content-type': 'multipart/form-data',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Accept': 'application/json',
                         'Authorization': 'Bearer ' + currentScope.$store.getters.getProfile.token
                     }
                 })
@@ -156,9 +160,15 @@
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    let status = error.response.status;
                     this.btn_disabled = false;
-                    alert("Oops! Something went wrong");
+
+                    if(status == 401){
+                        alert("Kindly login again");
+                        this.logout();
+                    } else {
+                        alert("Oops! Something went wrong");
+                    }
                 });
             }
         },
@@ -169,6 +179,5 @@
     .container_holder{
         padding: 10px;
     }
-    
 </style>
 
