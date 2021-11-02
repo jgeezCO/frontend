@@ -34,25 +34,20 @@
                 recorded_count: false,
                 audio: null,
                 is_pause: false,
-                left_position: "60%",
+                left_position: "65%",
                 top_position: "500px",
-                is_player_active: this.$store.getters.player_is_active
+                is_mounted: false
             }
         },
-        mounted(){
-            if(this.is_player_active == true){
-                
-                let player_width = this.$refs.music_player.clientWidth;
-                let player_height = this.$refs.music_player.clientHeight;
+        computed: {
+            is_player_active: function(){
+                let is_active = this.$store.getters.player_is_active;
 
-                let window_width = window.innerWidth;
-                let window_height = window.innerHeight;
+                // if(is_active == true && this.audio != null){
+                //     this.playMusic();
+                // }
 
-                let differenceWidth = window_width - player_width;
-                let differenceHeight = window_height - player_height;
-
-                this.left_position = differenceWidth + "px";
-                this.top_position = (differenceHeight - 23) + "px";
+                return is_active;
             }
         },
         methods: {
@@ -105,6 +100,37 @@
                 .catch(error => {
                     console.log(error);
                 });
+            },
+            player_position: function(){
+                let is_mobile = window.is_mobile();
+
+                if(is_mobile == false){
+                    let player_width = this.$refs.music_player.clientWidth;
+                    let player_height = this.$refs.music_player.clientHeight;
+
+                    let window_width = window.innerWidth;
+                    let window_height = window.innerHeight;
+                    
+                    let differenceWidth = window_width - player_width;
+                    let differenceHeight = window_height - player_height;
+                    
+                    if(this.is_mounted == false){
+                        this.left_position = differenceWidth + "px";
+                        this.top_position = (differenceHeight) + "px";
+                    }
+
+                    this.is_mounted = true;
+
+                } else {
+                    this.left_position = "0px";
+
+                    let player_height = this.$refs.music_player.clientHeight;
+                    let window_height = window.innerHeight;
+
+                    let differenceHeight = window_height - player_height;
+
+                    this.top_position = (differenceHeight - 105) + "px";
+                }
             }
         },
         watch: {
@@ -124,7 +150,15 @@
                         }, 100);
                     }
                 }
+            },
+            is_player_active(is_active){
+                if(is_active == true){
+                    this.player_position();
+                }
             }
+        },
+        mounted(){
+            this.player_position();
         }
     }
 </script>
@@ -154,5 +188,10 @@
     .play_btn{
         margin: 10px 0px;
         font-size: 20px;
+    }
+    @media screen and (max-width: 900px) {
+        .music-player{
+            width: 95%;
+        }
     }
 </style>

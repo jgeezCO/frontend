@@ -32,13 +32,13 @@
         },
         computed: {
             title: function(){
-                return this.$store.getters.get_music_name
+                return this.$store.getters.get_music_name;
             },
             artist: function(){
-                return this.$store.getters.get_artist_name
+                return this.$store.getters.get_artist_name;
             },
             url: function(){
-                return this.$store.getters.get_music_path
+                return this.$store.getters.get_music_path;
             }
         }
     }

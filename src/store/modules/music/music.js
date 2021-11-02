@@ -69,6 +69,7 @@ const actions = {
 const mutations = {
     update_music_data: function(state, new_music_data){
         if(Object.keys(new_music_data).length > 0){
+            console.log(new_music_data);
             state.music_data = new_music_data;
         }
     },

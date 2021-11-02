@@ -70,7 +70,7 @@
                 };
                 
                 this.set_music_params(music_object);
-
+                
                 if(this.record_count == false){
                     this.play_counter = this.play_counter++;
                     this.record_count = true;

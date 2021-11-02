@@ -1,3 +1,4 @@
+import Vue from "vue";
 
 const state = {
     is_player_active: false,
@@ -24,16 +25,15 @@ const mutations = {
         if(music_payload != null && Object.keys(music_payload).length > 0){
             
             if(music_payload.music_url != null && music_payload.music_url.length > 0){
-                state.artist = music_payload.music_artist;
-                state.music_name = music_payload.music_name;
-                state.music_url = music_payload.music_url;
-                
-                state.is_player_active = true;
+                Vue.set(state, "artist", music_payload.music_artist);
+                Vue.set(state, "music_name", music_payload.music_name);
+                Vue.set(state, "music_url", music_payload.music_url);
+                Vue.set(state, "is_player_active", true);
             } else {
-                state.is_player_active = false;
+                Vue.set(state, "is_player_active", false);
             }
         } else {
-            state.is_player_active = false;
+            Vue.set(state, "is_player_active", false);
         }
     }
 }
