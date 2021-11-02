@@ -43,9 +43,9 @@
             is_player_active: function(){
                 let is_active = this.$store.getters.player_is_active;
 
-                // if(is_active == true && this.audio != null){
-                //     this.playMusic();
-                // }
+                if(is_active == true && this.audio != null){
+                    this.playMusic();
+                }
 
                 return is_active;
             }
