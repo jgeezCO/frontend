@@ -1,5 +1,179 @@
 @import url(base.css);
 
+body, html{
+    padding: 0px;
+    margin:0px;
+    background-color: #333333;
+    color: white;
+    font-family: "montserrat", sans-serif;
+}
+.sidebar{
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    float: left;
+}
+.sidebar_pad{ padding: 0px 15px; }
+.brand_name{ color: white; }
+.demarcator{ border-bottom: 0.2px solid rgba(255, 255, 255, 0.25); }
+.placeholder{ 
+    background-size: cover;
+    width: 90%;
+    min-height: 150px;
+    margin: 10px auto;
+    padding: 10px;
+}
+.flat_input{
+    border: none;
+    outline: none;
+    border-bottom: .5px solid rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+    display: block;
+    width:100%;
+    color: #a5730f;
+}
+.authentication{
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 12.2549px;
+}
+
+.authentication a{
+    display: inline-block;
+    width: 38px;
+    height: 28px;
+    background-color: white;
+    border-radius: 7.68px;
+    text-align: center;
+    margin-left: 10px;
+    padding-top: 8px;
+}
+.menu_icon{
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 13px;
+    padding: 12px;
+    font-family: "roboto", sans-serif;
+    width: 18px;
+    height: 18px;
+}
+.scroll-bar li{
+    clear: both;
+    padding-top: 10px;
+}
+.account_create{
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid white;
+    width: 100%;
+    font-family: "poppins", sans-serif;
+    font-weight: bold;
+    background-color: white;
+    color: var(--gold-color);
+}
+.app-body{
+    min-height: 300px;
+    float: right;
+    width: 80%;
+    /* background-color: #333333;; */
+    background: rgba(0, 0, 0, 0.65);
+}
+.app-body-content{
+    width: 95%;
+    margin: 0px auto;
+    padding: 20px;    
+    background-size: contain !important;
+    background-repeat: repeat !important;      
+}
+.app-background-image{
+    background-size: contain !important;
+    background-repeat: repeat !important;  
+}
+.padding{
+    padding: 12.3px;
+}
+.search-container{
+    border-radius: 20px;
+    /* background: #565758; */
+    background-color: rgba(104, 104, 104, 0.51);
+    border: 0.5px solid #828282;
+    width: 100%;
+}
+.search-container input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 250px;
+}
+.download-btn{
+    width: 150px;
+    border-radius: 5px;
+}
+.scroll-bar a{
+    text-decoration: none;
+    color: white;
+}
+
+/*Radio station*/
+.radio_card{
+    width: 28%;
+    height: 130px;
+    margin-right: 25px;
+    margin-bottom: 28px;
+}
+.radio_card_body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 5px 10px;
+}
+
+/*Authorization*/
+.modal{
+    position: fixed;
+    top:0px;
+    left:0px;
+    background-color: rgba(248,245,240,0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 9999 !important;
+    overflow: auto;
+}
+.modal-container{
+    width: 350px;
+    padding: 20px;
+    background-color: rgba(30, 30, 30, 1);
+    margin: 20px auto;
+    border: .5px solid rgba(248,245,240,0.5);
+    padding: 20px;
+}
+.minactive{
+    color:gray;
+    font-size: 13px;
+}
+.mactive{
+    color: white;
+    border-bottom: 3px solid var(--gold-color);
+    border-radius: 0px 0px 2px 2px;
+}
+.flat-select{
+    border: none;
+    background-color: transparent;
+    color: #eeeeee;
+    font-size: 13px;
+}
+.flatinput{
+    border: none;
+    padding: 5px;
+    color: #eeeeee;
+    background-color: transparent;
+    outline: none !important;
+    width: 100%;
+}
+
 .video_background_cover{
     position:absolute;
     width: 219.2px;
@@ -323,186 +497,15 @@ footer .column li a{
 .vcard_act_profile{
     clear:both;
 }
+
 input.flatinput:-webkit-autofill,
 input.flatinput:-webkit-autofill:hover, 
 input.flatinput:-webkit-autofill:focus, 
 input.flatinput:-webkit-autofill:active  {
--webkit-background-clip: text;
--webkit-text-fill-color: #fff !important;
-}
-body, html{
-    padding: 0px;
-    margin:0px;
-    background-color: #333333;
-    color: white;
-    font-family: "montserrat", sans-serif;
-}
-.sidebar{
-    position: fixed;
-    width: 20%;
-    height: 100%;
-    background-color: black;
-    color: white;
-    float: left;
-}
-.sidebar_pad{ padding: 0px 15px; }
-.brand_name{ color: white; }
-.demarcator{ border-bottom: 0.2px solid rgba(255, 255, 255, 0.25); }
-.placeholder{ 
-    background-size: cover;
-    width: 90%;
-    min-height: 150px;
-    margin: 10px auto;
-    padding: 10px;
-}
-.flat_input{
-    border: none;
-    outline: none;
-    border-bottom: .5px solid rgba(255, 255, 255, 0.5);
-    background-color: transparent;
-    display: block;
-    width:100%;
-    color: #a5730f;
-}
-.authentication{
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 12.2549px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #fff !important;
 }
 
-.authentication a{
-    display: inline-block;
-    width: 38px;
-    height: 28px;
-    background-color: white;
-    border-radius: 7.68px;
-    text-align: center;
-    margin-left: 10px;
-    padding-top: 8px;
-}
-.menu_icon{
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 13px;
-    padding: 12px;
-    font-family: "roboto", sans-serif;
-    width: 18px;
-    height: 18px;
-}
-.scroll-bar li{
-    clear: both;
-    padding-top: 10px;
-}
-.account_create{
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid white;
-    width: 100%;
-    font-family: "poppins", sans-serif;
-    font-weight: bold;
-    background-color: white;
-    color: var(--gold-color);
-}
-.app-body{
-    min-height: 300px;
-    float: right;
-    width: 80%;
-    /* background-color: #333333;; */
-    background: rgba(0, 0, 0, 0.65);
-}
-.app-body-content{
-    width: 95%;
-    margin: 0px auto;
-    padding: 20px;    
-    background-size: contain !important;
-    background-repeat: repeat !important;      
-}
-.app-background-image{
-    background-size: contain !important;
-    background-repeat: repeat !important;  
-}
-.padding{
-    padding: 12.3px;
-}
-.search-container{
-    border-radius: 20px;
-    /* background: #565758; */
-    background-color: rgba(104, 104, 104, 0.51);
-    border: 0.5px solid #828282;
-    width: 100%;
-}
-.search-container input{
-    background-color: transparent;
-    border: none;
-    outline: none;
-    padding: 10px;
-    width: 250px;
-}
-.download-btn{
-    width: 150px;
-    border-radius: 5px;
-}
-.scroll-bar a{
-    text-decoration: none;
-    color: white;
-}
-
-/*Radio station*/
-.radio_card{
-    width: 28%;
-    height: 130px;
-    margin-right: 25px;
-    margin-bottom: 28px;
-}
-.radio_card_body{
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 5px 10px;
-}
-
-/*Authorization*/
-.modal{
-    position: fixed;
-    top:0px;
-    left:0px;
-    background-color: rgba(248,245,240,0.6);
-    width: 100%;
-    height: 100%;
-    z-index: 9999 !important;
-    overflow: auto;
-}
-.modal-container{
-    width: 350px;
-    padding: 20px;
-    background-color: rgba(30, 30, 30, 1);
-    margin: 20px auto;
-    border: .5px solid rgba(248,245,240,0.5);
-    padding: 20px;
-}
-.minactive{
-    color:gray;
-    font-size: 13px;
-}
-.mactive{
-    color: white;
-    border-bottom: 3px solid var(--gold-color);
-    border-radius: 0px 0px 2px 2px;
-}
-.flat-select{
-    border: none;
-    background-color: transparent;
-    color: #eeeeee;
-    font-size: 13px;
-}
-.flatinput{
-    border: none;
-    padding: 5px;
-    color: #eeeeee;
-    background-color: transparent;
-    outline: none !important;
-    width: 100%;
-}
 .control-style{
     border: 1px solid rgba(151, 151, 151, 1);
     padding: 8px 10px;

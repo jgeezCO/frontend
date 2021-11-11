@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bb32d71fbd58b1ef0e40",
-    "url": "/css/app.b1fbb209.css"
+    "revision": "115763a832143e35b026",
+    "url": "/css/app.61396bfc.css"
   },
   {
     "revision": "7413794636393016e11e",
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "29d36a16bc7e8805012f368606cc243b",
+    "revision": "72d1d5bec450cb9e4cbe0933abecdd29",
     "url": "/index.html"
   },
   {
-    "revision": "bb32d71fbd58b1ef0e40",
-    "url": "/js/app.e861f4d2.js"
+    "revision": "115763a832143e35b026",
+    "url": "/js/app.4f91f30c.js"
   },
   {
     "revision": "7413794636393016e11e",
@@ -1608,7 +1608,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/assets/slick-1.8.1/slick/slick.scss"
   },
   {
-    "revision": "ad37255dc1a339c2e5070c3c43b99923",
+    "revision": "69a8c4f5ad5d5cbec0ca46b509d11278",
     "url": "/static/dev/css/app.css"
   },
   {
@@ -1622,6 +1622,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "869f91d370fb0feceebec03e6cc0b0a7",
     "url": "/static/dev/js/app.js"
+  },
+  {
+    "revision": "5fb7c19c9c51cfb99f5ff942629f0f21",
+    "url": "/static/dev/js/isotope.pkgd.min.js"
   },
   {
     "revision": "a7897a65c1250b51943ef42b5d6e0d5b",
@@ -2096,7 +2100,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/svg/play.svg"
   },
   {
-    "revision": "dfef17413f2248ee27fff20e616298da",
+    "revision": "96bfccbc52e40723b87fd8c7db93da11",
     "url": "/static/svg/playlist.svg"
   },
   {

@@ -1,15 +1,26 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/static/dev/css/app.css"><link rel="stylesheet" href="/static/assets/picon-thin/css/piconthin.css"><link rel="stylesheet" href="/static/assets/font-awesome/css/font-awesome.css"><link rel="icon" href="/logo.png"><title>JGeez - Entertainment Hub</title><script>window.is_mobile = function(){
-        const toMatch = [
-            /Android/i,
-            /webOS/i,
-            /iPhone/i,
-            /iPad/i,
-            /iPod/i,
-            /BlackBerry/i,
-            /Windows Phone/i
-        ];
-        
-        return toMatch.some((toMatchItem) => {
-            return navigator.userAgent.match(toMatchItem);
-        });
-      }</script><link href="/css/app.b1fbb209.css" rel="preload" as="style"><link href="/css/chunk-vendors.d34d499c.css" rel="preload" as="style"><link href="/js/app.e861f4d2.js" rel="preload" as="script"><link href="/js/chunk-vendors.edb98bdb.js" rel="preload" as="script"><link href="/css/chunk-vendors.d34d499c.css" rel="stylesheet"><link href="/css/app.b1fbb209.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#4DBA87"><meta name="apple-mobile-web-app-capable" content="no"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jgeez"><link rel="apple-touch-icon" href="/img/icons/apple-touch-icon-152x152.png"><link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#4DBA87"><meta name="msapplication-TileImage" content="/img/icons/msapplication-icon-144x144.png"><meta name="msapplication-TileColor" content="#000000"></head><body><noscript><strong>We're sorry but jgeez doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="/js/chunk-vendors.edb98bdb.js"></script><script src="/js/app.e861f4d2.js"></script></body></html>
+<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/static/dev/css/app.css"><link rel="stylesheet" href="/static/assets/picon-thin/css/piconthin.css"><link rel="stylesheet" href="/static/assets/font-awesome/css/font-awesome.css"><link rel="icon" href="/logo.png"><title>JGeez - Entertainment Hub</title><script src="/static/dev/js/masonry.pkgd.min.js"></script><script>window.is_mobile = function(){
+                const toMatch = [
+                    /Android/i,
+                    /webOS/i,
+                    /iPhone/i,
+                    /iPad/i,
+                    /iPod/i,
+                    /BlackBerry/i,
+                    /Windows Phone/i
+                ];
+                return toMatch.some((toMatchItem) => {
+                    return navigator.userAgent.match(toMatchItem);
+                });
+            }
+
+            window.grid = function(){
+                var elem = document.querySelector('.grid_card_container');
+                if(elem != undefined){
+                    let masonry = new Masonry( elem, {
+                        itemSelector: '.gist_card',
+                        columnWidth: 200,
+                        initLayout: false
+                    });
+                    masonry.layout();
+                }
+            }</script><link href="/css/app.61396bfc.css" rel="preload" as="style"><link href="/css/chunk-vendors.d34d499c.css" rel="preload" as="style"><link href="/js/app.4f91f30c.js" rel="preload" as="script"><link href="/js/chunk-vendors.edb98bdb.js" rel="preload" as="script"><link href="/css/chunk-vendors.d34d499c.css" rel="stylesheet"><link href="/css/app.61396bfc.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#4DBA87"><meta name="apple-mobile-web-app-capable" content="no"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jgeez"><link rel="apple-touch-icon" href="/img/icons/apple-touch-icon-152x152.png"><link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#4DBA87"><meta name="msapplication-TileImage" content="/img/icons/msapplication-icon-144x144.png"><meta name="msapplication-TileColor" content="#000000"></head><body><noscript><strong>We're sorry but jgeez doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="/js/chunk-vendors.edb98bdb.js"></script><script src="/js/app.4f91f30c.js"></script></body></html>
