@@ -163,8 +163,6 @@
         created(){
             this.profile = this.getProfile();
             this.isLogin = this.isLoggedIn();
-            
-            console.log(this.getProfile());
         }
     }
 </script>

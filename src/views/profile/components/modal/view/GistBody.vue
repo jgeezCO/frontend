@@ -41,7 +41,7 @@
                                     <h3>{{dialogTitle}}</h3>
                                 </div>
                                 <div class="right" style="width:15%;overflow:hidden;">
-                                    <h5 style="font-size:12px;color:rgba(0, 0, 0, 0.6)">By Ben Igwe</h5>
+                                    <h5 style="font-size:12px;color:rgba(0, 0, 0, 0.6)">By {{username}}</h5>
                                 </div>
 
                                 <div class="clear"></div>
@@ -58,6 +58,12 @@
             
             <div class="clear"></div>
             
+            <br>
+
+            <h6 v-if="gist_posted == true" style="margin:0px;padding:10px;background-color:#40c351;color:white;" class="alert alert-success">
+                Congrats! your gist was successfully posted
+            </h6>
+
             <br><br>
 
             <center>
@@ -79,6 +85,8 @@
         name: "GistBody",
         data(){
             return {
+                username: this.$store.getters.getProfile.name,
+                gist_posted: false,
                 preview: false,
                 btn_disabled: false,
                 thumbnail: null,
@@ -125,38 +133,49 @@
                 }
             },
             submitGist: function(){
+                this.gist_posted = false;
+
                 var currentScope = this;
                 var post_url = "https://api.jgeez.co/api/post/gist/create/";
                 this.btn_disabled = true;
 
                 var form_data = new FormData();
+
                 form_data.append("title", this.dialogTitle);
                 form_data.append("text", this.gist.desc);
                 // form_data.append("featuredImg", this.gist.poster);
-                
-               
+
                 axios({
-                    method: 'post',
+                    method: 'POST',
                     url: post_url,
                     withCredentials: true,
                     data:  form_data,
                     headers: {
                         'Access-Control-Allow-Origin' : '*',
-                        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Accept': 'application/json',
                         'Authorization': 'Bearer ' + currentScope.$store.getters.getProfile.token
                     }
                 })
                 .then(response => { 
                     if(response.status == 200){
-                        console.log(response);
                         currentScope.$emit('vprops', 
                             currentScope.dialogTitle, 
                             response.data.post.video.album_art,
                             response.data.post.video.post_url, 
                             response.data.post.created
                         );
+
+                        currentScope.dialogTitle = "";
+                        currentScope.gist.desc = "";
+                        currentScope.gist.poster = currentScope.thumbnail = null;
+
+                        currentScope.gist_posted = true;
+                        currentScope.preview = false;
+                        currentScope.btn_disabled = false;
+
+                        setTimeout(() => {
+                            currentScope.gist_posted = false;
+                        }, 5000);
                     }
                 })
                 .catch(error => {

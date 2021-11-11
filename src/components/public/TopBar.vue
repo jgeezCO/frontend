@@ -7,8 +7,8 @@
                 </div>
 
                 <div class="desktop-only right">
-                    <img src="static/assets/img/playstore.png" class="noSpace download-btn"> &nbsp;&nbsp;
-                    <img src="static/assets/img/applestore.png" class="noSpace download-btn"> 
+                    <img src="/static/assets/img/playstore.png" class="noSpace download-btn"> &nbsp;&nbsp;
+                    <img src="/static/assets/img/applestore.png" class="noSpace download-btn"> 
                 </div> <div class="clear"></div>
             </div> <div class="clear"></div>
         </div>

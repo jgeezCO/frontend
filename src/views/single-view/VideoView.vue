@@ -11,7 +11,7 @@
         
         <div class="container_padding" style="width:95%" v-if="loading == false">
             <div class="left view_stand">
-                <div id="video_js_holder">
+                <div id="video_js_holder" v-if="media_type == 'video'">
                     <vue-core-video-player 
                         :cover="video_data.video_poster" 
                         :src="video_data.video_url" 
@@ -22,8 +22,11 @@
                     </vue-core-video-player>
                 </div>
 
-               <VideoReaction :attr="video_props" />
-                
+               <VideoReaction 
+                    :desc="view_description" 
+                    :attr="video_props" 
+                />
+
                 <br>
 
                 <Subscribe :attr="subscribe" />
@@ -35,7 +38,10 @@
                     <br><br><br><br><br><br>
                 </div>
 
-                <SuggestedVideos limit="10" />
+                <SuggestedContents 
+                    :media="media_type"  
+                    limit="10" 
+                />
             </div>
         
             <div class="right comment_side">
@@ -54,9 +60,9 @@
     import axios from "axios";
     import VideoReaction from "./components/VideoReaction.vue";
     import Subscribe from "./components/Subscribe.vue";
-    import SuggestedVideos from "./components/SuggestedVideo.vue";
+    import SuggestedContents from "./components/SuggestedContents.vue";
     import Comment from "./components/Comment.vue";
-    import Placeholder from '../../../components/public/Placeholder.vue';
+    import Placeholder from '../../components/public/Placeholder.vue';
     import moment from "moment";
 
     export default {
@@ -74,13 +80,14 @@
             }
         },
         components: {
-            VideoReaction, SuggestedVideos, Comment,
+            VideoReaction, SuggestedContents, Comment,
             Placeholder, Subscribe
         },
         data() {
             return {
                 loading: true,
                 is_mobile: true,
+                media_type: "",
                 video_data: {
                     video_url: "",
                     video_poster: "",
@@ -94,6 +101,7 @@
                     views: "",
                     date: ""
                 },
+                view_description: "",
                 subscribe: {
                     id: 1,
                     title: "The Aqua band",
@@ -129,7 +137,16 @@
                         currentScope.video_props.title =  rd.title;
                         currentScope.video_props.views = rd.view_count;
                         currentScope.video_data.video_like = rd.likes;
+                        currentScope.view_description = rd.text;
 
+                        if(rd.video.post_url != null && rd.video.post_url.length > 0){
+                            currentScope.media_type = "video";
+                        } else if(rd.audio.post_url != null && rd.audio.post_url.length > 0){
+                            currentScope.media_type = "audio";
+                        } else {
+                            currentScope.media_type = "gist";
+                        }
+                        
                         currentScope.video_data.video_unlike = rd.unlikes != undefined 
                             ? rd.unlikes
                             : 0;

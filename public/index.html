@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="<%= BASE_URL %>static/dev/css/app.css">
-    <link rel="stylesheet" href="<%= BASE_URL %>static/assets/picon-thin/css/piconthin.css">
-    <link rel="stylesheet" href="<%= BASE_URL %>static/assets/font-awesome/css/font-awesome.css">
-    <link rel='icon' href="<%= BASE_URL %>logo.png">
-    <title>JGeez - Entertainment Hub</title>
-    <script>
-      window.is_mobile = function(){
-        const toMatch = [
-            /Android/i,
-            /webOS/i,
-            /iPhone/i,
-            /iPad/i,
-            /iPod/i,
-            /BlackBerry/i,
-            /Windows Phone/i
-        ];
-        
-        return toMatch.some((toMatchItem) => {
-            return navigator.userAgent.match(toMatchItem);
-        });
-      }
-    </script>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="<%= BASE_URL %>static/dev/css/app.css">
+        <link rel="stylesheet" href="<%= BASE_URL %>static/assets/picon-thin/css/piconthin.css">
+        <link rel="stylesheet" href="<%= BASE_URL %>static/assets/font-awesome/css/font-awesome.css">
+        <link rel='icon' href="<%= BASE_URL %>logo.png">
+        <title>JGeez - Entertainment Hub</title>
+        <script src="<%= BASE_URL %>static/dev/js/masonry.pkgd.min.js"></script>
+        <script>
+            window.is_mobile = function(){
+                const toMatch = [
+                    /Android/i,
+                    /webOS/i,
+                    /iPhone/i,
+                    /iPad/i,
+                    /iPod/i,
+                    /BlackBerry/i,
+                    /Windows Phone/i
+                ];
+                return toMatch.some((toMatchItem) => {
+                    return navigator.userAgent.match(toMatchItem);
+                });
+            }
+
+            window.grid = function(){
+                var elem = document.querySelector('.grid_card_container');
+                if(elem != undefined){
+                    let masonry = new Masonry( elem, {
+                        itemSelector: '.gist_card',
+                        columnWidth: 200,
+                        initLayout: false
+                    });
+                    masonry.layout();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <noscript>
+            <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        </noscript>
+
+        <div id="app"></div>
+    </body>
 </html>

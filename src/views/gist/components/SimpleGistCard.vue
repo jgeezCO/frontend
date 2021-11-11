@@ -15,13 +15,13 @@
                 </div>
                 <div class="right">
                     <span style="margin-right:5px;">
-                        <img src="static/svg/heart.svg" style="width:12px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.fav}}</span> 
+                        <img src="/static/svg/heart.svg" style="width:12px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.fav}}</span> 
                     </span>
                     <span style="margin-right:5px;">
-                        <img src="static/svg/comment.svg" style="width:9px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.comment}}</span> 
+                        <img src="/static/svg/comment.svg" style="width:9px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.comment}}</span> 
                     </span>
                     <span style="margin-right:5px;">
-                        <img src="static/svg/eye.svg" style="width:13px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.view}}</span> 
+                        <img src="/static/svg/eye.svg" style="width:13px;position:relative;top:3px;margin-right:3px;"><span style="font-size:10px;" class="poppins">{{gist.view}}</span> 
                     </span>
                 </div>
                 <div class="clear"></div>

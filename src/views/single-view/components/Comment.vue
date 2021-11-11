@@ -40,8 +40,7 @@
     import CommentReader from "./CommentReader.vue";
     import axios from 'axios';
     import {mapActions} from "vuex";
-    import Placeholder from '../../../../components/public/Placeholder.vue';
-    
+    import Placeholder from '../../../components/public/Placeholder.vue';
 
     export default {
         name: "Comment",

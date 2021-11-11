@@ -6,10 +6,19 @@
                 <b>TOP GISTS</b>
             </h3>
             <div class="gist_card_container">
-                <div class="gist_info" v-bind:key="gist.id" v-for="gist in topGists">
-                    <SimpleGistCard :gist="gist" />
+                <div class="loading-placeholder" v-if="gist_loading == true">
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
+
+                <div class="gist_loading_container" v-if="gist_loading == false">
+                    <div class="gist_info" v-bind:key="gist.id" v-for="gist in topGists">
+                        <SimpleGistCard :gist="gist" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
         </div>
 
@@ -22,10 +31,19 @@
             </h3>
 
             <div class="gist_card_container">
-                <div class="gist_info" v-bind:key="gist.id" v-for="gist in (mainGist == true ? gists : guestPosts)">
-                    <GistCard :gist="gist" />
+                <div class="loading-placeholder" v-if="gist_loading == true">
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
+                
+                <div class="gist_loading_container" v-if="gist_loading == false">
+                    <div class="gist_info" v-bind:key="gist.id" v-for="gist in (mainGist == true ? gists : guestPosts)">
+                        <GistCard :gist="gist" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
         </div>
         
@@ -49,10 +67,11 @@
 </template>
 
 <script>
-    import uuid from "uuid";
+    import { mapActions } from 'vuex';
     import GistCard from "./components/GistCard.vue";
     import SimpleGistCard from "./components/SimpleGistCard.vue";
     import Notification from "../../components/public/notification/Notification.vue";
+    import Placeholder from '../../components/public/Placeholder.vue';
 
     export default {
         name: "Gist",
@@ -67,248 +86,39 @@
             }
         },
         components: {
-            GistCard, SimpleGistCard, Notification
+            GistCard, SimpleGistCard, Notification, Placeholder
         },
         data: function(){
             return {
-                gists: [
-                     {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    }
-                ],
-                topGists: [
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    }
-                ],
-                guestPosts: [
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    },
-                    {
-                        id: uuid.v1(),
-                        img: "static/uploads/img/80/g1.png",
-                        title: "New and Improved IPhone, Buy OR NOT!",
-                        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                        view: "2.4k",
-                        fav: "1.2k",
-                        owner: "Bella's Blog",
-                        comment: "1k",
-                        url: ""
-                    }
-                ]
+                gist_loading: true,
+                gists: [],
+                topGists: [],
+                guestPosts: []
             }
+        },
+        methods: {
+            ...mapActions(["fetch_gist"]),
+        },
+        computed: {
+            loadGist: function(){
+                let token = this.$store.getters.getProfile.token;
+
+                this.fetch_gist(token, null);
+                
+                let gist_load = this.$store.getters.get_gist;
+
+                return gist_load;
+            }
+        },
+        created(){
+            this.gists = this.loadGist;
+            this.topGists = this.loadGist;
+            this.guestPosts = this.loadGist;
+        },
+        mounted(){
+            setTimeout(() => {
+                this.gist_loading = false;
+            }, 3000);
         }
     }
 </script>

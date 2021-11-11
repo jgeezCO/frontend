@@ -4,6 +4,11 @@
             <div class="mobile-left">
                 <h3 class="poppins noSpace video-title">{{attr.title}}</h3>
                 <p class="noSpace poppins video-desc" style="font-size:13px;">{{attr.views}} views   .   {{attr.date}}</p>
+                
+                <br>
+
+                <p>{{desc}}</p>
+                
             </div>
             <div class="mobile-only mobile-right">
                 <img src="/static/svg/expand-down.svg">
@@ -38,7 +43,7 @@
         components: {
             ActionMenu
         },
-        props: ["attr"],
+        props: ["attr", "desc"],
         data: function(){
             return {
                 action_menu_is_active: false

@@ -108,7 +108,7 @@
 </template>
 
 <script>
-    import uuid from "uuid";
+    //import uuid from "uuid";
     
     import {mapActions} from "vuex";
     import MusicCard from "./components/MusicCard.vue";
@@ -164,7 +164,7 @@
             loadMusic: function(){
                 this.fetch_music(null);
                 this.music_types[0].data = this.$store.getters.get_music;
-                
+
                 setTimeout(() => {
                     this.music_loading = false;
                 }, 1000);
@@ -174,91 +174,89 @@
                     this.playlist_loading = false;
                 }, 1000);
 
-                let playlist_placeholder_data = [
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        name: "Reekado Banks",
-                        time: "Created 1month ago",
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        name: "Reekado Banks",
-                        time: "Created 1month ago",
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        name: "Reekado Banks",
-                        time: "Created 1month ago",
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        name: "Reekado Banks",
-                        time: "Created 1month ago",
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        name: "Reekado Banks",
-                        time: "Created 1month ago",
-                    }
-                ];
+                // let playlist_placeholder_data = [
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         name: "Reekado Banks",
+                //         time: "Created 1month ago",
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         name: "Reekado Banks",
+                //         time: "Created 1month ago",
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         name: "Reekado Banks",
+                //         time: "Created 1month ago",
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         name: "Reekado Banks",
+                //         time: "Created 1month ago",
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         name: "Reekado Banks",
+                //         time: "Created 1month ago",
+                //     }
+                // ];
 
-                console.log(playlist_placeholder_data);
+                // console.log(playlist_placeholder_data);
             },
             loadAlbum: function(){
                 setTimeout(() => {
                     this.album_loading = false;
                 }, 1000);
 
-                let album_placeholder_data =  [
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        title: "Bello Konan",
-                        sub_title: "Full Belly",
-                        creator: "Bello Konan",
-                        verified: true,
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        title: "Bello Konan",
-                        sub_title: "Full Belly",
-                        creator: "Bello Konan",
-                        verified: true,
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        title: "Bello Konan",
-                        sub_title: "Full Belly",
-                        creator: "Bello Konan",
-                        verified: true,
-                    },
-                    {
-                        id: uuid.v1(),
-                        url: "",
-                        img: "static/uploads/img/80/1.png",
-                        title: "Bello Konan",
-                        sub_title: "Full Belly",
-                        creator: "Bello Konan",
-                        verified: true,
-                    }
-                ];
-
-                console.log(album_placeholder_data);
+                // let album_placeholder_data =  [
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         title: "Bello Konan",
+                //         sub_title: "Full Belly",
+                //         creator: "Bello Konan",
+                //         verified: true,
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         title: "Bello Konan",
+                //         sub_title: "Full Belly",
+                //         creator: "Bello Konan",
+                //         verified: true,
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         title: "Bello Konan",
+                //         sub_title: "Full Belly",
+                //         creator: "Bello Konan",
+                //         verified: true,
+                //     },
+                //     {
+                //         id: uuid.v1(),
+                //         url: "",
+                //         img: "static/uploads/img/80/1.png",
+                //         title: "Bello Konan",
+                //         sub_title: "Full Belly",
+                //         creator: "Bello Konan",
+                //         verified: true,
+                //     }
+                // ];
             }
         },
         created(){

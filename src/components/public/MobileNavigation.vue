@@ -43,17 +43,23 @@
         data(){
             return {
                 is_mobile: window.is_mobile(),
-                top_position: (window.innerHeight - 120) + "px"
+                top_position: this.bottom_position(),
+                reftop: 0
             }
         },
-        mounted(){
-            if(this.is_mobile == true){
-                let window_height = window.outerHeight;
-                let dom_height = this.$refs.navigation.clientHeight;
+        methods:{
+            bottom_position: function(){
+                this.top_position = 0 + "px";
 
-                let difference = (window_height - dom_height);
+                if(this.is_mobile == true){
+                    let window_height = window.innerHeight;
 
-                this.top_position = difference + "px !important;";
+                    let dom_height = this.$refs.navigation.clientHeight;
+
+                    let difference = (window_height - dom_height);
+
+                    this.top_position = difference + "px !important;";
+                }
             }
         }
     }

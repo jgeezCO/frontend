@@ -80,7 +80,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .menu_icon_option{
         color: black !important;
         background-color: white;

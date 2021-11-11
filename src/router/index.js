@@ -11,7 +11,7 @@ import Playlist from "../views/music/Playlist.vue";
 import Genre from "../views/music/Genre.vue";
 import Music from "../views/music/Music.vue";
 import Profile from "../views/profile/Profile.vue";
-import VideoView from "../views/video/single-view/VideoView.vue";
+import VideoView from "../views/single-view/VideoView.vue";
 import Video from "../views/video/Video.vue";
 import Gist from "../views/gist/Gist.vue";
 import ViewGenre from "../views/music/ViewGenre.vue";

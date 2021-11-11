@@ -105,31 +105,34 @@
                 let is_mobile = window.is_mobile();
 
                 if(is_mobile == false){
-                    let player_width = this.$refs.music_player.clientWidth;
-                    let player_height = this.$refs.music_player.clientHeight;
+                    if(this.is_player_active == true){
+                        let player_width = this.$refs.music_player.clientWidth;
+                        let player_height = this.$refs.music_player.clientHeight;
 
-                    let window_width = window.innerWidth;
-                    let window_height = window.innerHeight;
-                    
-                    let differenceWidth = window_width - player_width;
-                    let differenceHeight = window_height - player_height;
-                    
-                    if(this.is_mounted == false){
-                        this.left_position = differenceWidth + "px";
-                        this.top_position = (differenceHeight) + "px";
+                        let window_width = window.innerWidth;
+                        let window_height = window.innerHeight;
+                        
+                        let differenceWidth = window_width - player_width;
+                        let differenceHeight = window_height - player_height;
+                        
+                        if(this.is_mounted == false){
+                            this.left_position = differenceWidth + "px";
+                            this.top_position = (differenceHeight) + "px";
+                        }
+
+                        this.is_mounted = true;
                     }
-
-                    this.is_mounted = true;
-
                 } else {
-                    this.left_position = "0px";
+                    if(this.is_player_active == true){
+                        this.left_position = "0px";
+                        
+                        let player_height = this.$refs.music_player.clientHeight;
+                        let window_height = window.innerHeight;
 
-                    let player_height = this.$refs.music_player.clientHeight;
-                    let window_height = window.innerHeight;
+                        let differenceHeight = window_height - player_height;
 
-                    let differenceHeight = window_height - player_height;
-
-                    this.top_position = (differenceHeight - 105) + "px";
+                        this.top_position = (differenceHeight - 105) + "px";
+                    }
                 }
             }
         },
@@ -163,7 +166,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .music-player{
         width: 30%;
         background-color: #000000;

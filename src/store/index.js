@@ -7,18 +7,15 @@ import video_uploaded from "./modules/video/video_uploaded";
 import player from "./modules/music/player";
 import music from "./modules/music/music";
 import video from "./modules/video/video";
+import gist from "./modules/gist/gist";
 
 Vue.use(Vuex);
 
-let dataState = createPersistedState({
-    paths: [
-        login.isLoggedIn, login.loginAttempt, login.profile
-    ]
-});
+let dataState = createPersistedState();
 
 export default new Vuex.Store({
     modules: {
-        login, video_uploaded, player, music, video
+        login, video_uploaded, player, music, video, gist
     },
-    plugins: [ createPersistedState(dataState) ]
+    plugins: [ dataState ]
 });
