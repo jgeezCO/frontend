@@ -78,7 +78,7 @@ const routes = [
         component: Gist
     },
     {
-        path: "/view-genre",
+        path: "/genre/:category?",
         name: "ViewGenre",
         component: ViewGenre
     },{
@@ -101,7 +101,10 @@ const routes = [
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-	routes
+	routes,
+    scrollBehavior() {
+        return { x: 0, y: 0 };
+    },
 });
 
 export default router;

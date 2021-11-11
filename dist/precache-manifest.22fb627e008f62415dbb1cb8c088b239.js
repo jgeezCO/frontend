@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "115763a832143e35b026",
-    "url": "/css/app.61396bfc.css"
+    "revision": "6a4e27fa17bb722aa873",
+    "url": "/css/app.6b5a82ad.css"
   },
   {
-    "revision": "7413794636393016e11e",
+    "revision": "22790377e8d6392e3b96",
     "url": "/css/chunk-vendors.d34d499c.css"
   },
   {
@@ -28,16 +28,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "72d1d5bec450cb9e4cbe0933abecdd29",
+    "revision": "aa8edfa5c9b5639bb28a1b55dfc920ed",
     "url": "/index.html"
   },
   {
-    "revision": "115763a832143e35b026",
-    "url": "/js/app.4f91f30c.js"
+    "revision": "6a4e27fa17bb722aa873",
+    "url": "/js/app.2d571323.js"
   },
   {
-    "revision": "7413794636393016e11e",
-    "url": "/js/chunk-vendors.edb98bdb.js"
+    "revision": "22790377e8d6392e3b96",
+    "url": "/js/chunk-vendors.ba8ad8c8.js"
   },
   {
     "revision": "58c59e9953d0f40d83176750bc983e20",
@@ -1608,7 +1608,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/assets/slick-1.8.1/slick/slick.scss"
   },
   {
-    "revision": "69a8c4f5ad5d5cbec0ca46b509d11278",
+    "revision": "22b421b283462e9233f4986620cf56f6",
     "url": "/static/dev/css/app.css"
   },
   {
@@ -1964,6 +1964,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/svg/download.svg"
   },
   {
+    "revision": "e0232f31980d996870095b9608270241",
+    "url": "/static/svg/empty.svg"
+  },
+  {
     "revision": "30ea8db42884c7a4425891b2b548862d",
     "url": "/static/svg/expand-down.svg"
   },
@@ -2052,6 +2056,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/svg/loading.svg"
   },
   {
+    "revision": "ddeb0804ce82bde63cb1e2ef73165a4f",
+    "url": "/static/svg/mappstore.svg"
+  },
+  {
+    "revision": "af69f183204b2b78ce3df6a963fc73fa",
+    "url": "/static/svg/mdownload.svg"
+  },
+  {
     "revision": "eb4628fc11e091cbe3d97a278ebf36e4",
     "url": "/static/svg/menu.svg"
   },
@@ -2070,6 +2082,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9e057e61e11c9d45c1c071cdd6950bbf",
     "url": "/static/svg/mobile-video.svg"
+  },
+  {
+    "revision": "71bb620db5bd3c9e0c70f95cae51d4e9",
+    "url": "/static/svg/mplaystore.svg"
   },
   {
     "revision": "f372b6b85af4b6b63107b36689abcc6f",

@@ -1,7 +1,7 @@
 <template>
     <div class="vc">
         <div class="left vcard">
-            <router-link :to="{path: 'view/' + card.id}" style="color:white;">
+            <router-link :to="{path: this.format_url}" style="color:white;">
                 <div 
                     class="video_background_cover" 
                     :style="client_style">
@@ -13,12 +13,12 @@
                 >
                 
                 <div class="vcard_act">
-                    <h6>{{card.time}} <span class="right exclude">{{card.vtime_frame}}</span></h6>
+                    <h6>{{card.ftime}} <span class="right exclude">{{card.vtime_frame}}</span></h6>
                     <div class="vcard_act_profile">
                         <img class="left exclude user_profile noSpace" :src="card.user.avatar">
                         <div class="left exclude" style="width:70%;margin-left:10px;">
                             <h6 class="noSpace left exclude" style="width: 90%;height:30px;overflow:hidden;">
-                                {{video_title}}
+                                {{this.process_title}}
                             </h6>
                             <div class="right exclude" style="width: 10%;margin-top:-10px;">
                                 <CardActions 
@@ -58,14 +58,15 @@
 
     export default {
         name: "VideoCard",
-        props: ["card"],
+        props: ["card", "component"],
         components: {
             CardActions
         },
         data(){
             return {
                 client_style: "",
-                video_title: this.process_title(this.card.title)
+                video_url: "",
+                video_title: "",
             }
         },
         computed: {
@@ -74,32 +75,35 @@
             },
             cover_style: function(){
                 let img_width = this.$refs.image_ref.clientWidth;
-
+                let img_height = this.$refs.image_ref.clientHeight;
+                
                 return {
                     width: img_width + "px",
-                    height:  "130px",
+                    height:  img_height + "px",
                 }
-            }
-        },
-        methods: {
-            process_title: function(title){
-                let newTitle = title;
+            },
+            process_title: function(){
+                let newTitle = this.card.title;
 
-                if(title.length > 30){
-                    newTitle = title.substr(0, 27) + "..";
+                if(newTitle.length > 30){
+                    newTitle = newTitle.substr(0, 27) + "..";
                 }
                 
                 return newTitle;
             },
+            format_url: function(){
+                let url = this.card.id + "";
+
+                if(this.component != "profile"){
+                    url = "view/" + url;
+                }
+
+                return url;
+            }
         },
         mounted(){
             this.client_style = this.cover_style;
-        }
+        },
+        
     }
 </script>
-
-<style scoped>
-.video_cover{
-    height: 130px;
-}
-</style>

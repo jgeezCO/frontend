@@ -103,7 +103,7 @@
             },
             player_position: function(){
                 let is_mobile = window.is_mobile();
-
+                
                 if(is_mobile == false){
                     if(this.is_player_active == true){
                         let player_width = this.$refs.music_player.clientWidth;

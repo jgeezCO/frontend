@@ -1,100 +1,70 @@
 <template>
     <div>
+        <div class="loading-placeholder" v-if="gist_loading == true">
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <div class="clear"></div>
+        </div>
+
         <Display 
-            v-if="uploads.length == 0" 
+            v-if="gist_loading == false && gist_list.length == 0" 
             img="static/assets/img/upload.png" 
             text="UPLOAD CONTENT TO GET STARTED" 
             desc="Start sharing videos, music, gists and more. Get expression here!"
         />
 
-        <div v-for="upload in uploads" :key="upload.tag">
-            <div class="clear">
-                <h4><br><br> {{upload.title}}</h4>
-                <div v-for="upload_data in upload.data" :key="upload_data.id">
-                    <SimpleGistCard v-if="upload.tag == 'gist'" :gist="upload_data"/>
-                </div>
+        <div class="gist_list_load clear" v-if="gist_loading == false">
+            <h4><br><br> {{gist_list.title}}</h4>
+            <div v-for="gist in gist_list.data" :key="gist.id">
+                <SimpleGistCard 
+                    v-if="gist_list.tag == 'gist'" 
+                    :gist="gist"
+                />
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
     </div>
 </template>
 
 <script>
-    import uuid from "uuid";
+    import {mapActions} from "vuex";
     import Display from "./components/Display.vue";
     import SimpleGistCard from "../../../gist/components/SimpleGistCard.vue";
-
+    import Placeholder from '../../../../components/public/Placeholder.vue';
+    
     export default {
         name: "GistUpload",
         components: {
-            Display, SimpleGistCard
+            Display, SimpleGistCard, 
+            Placeholder
         },
         data: function(){
             return {
-                uploads: [
-                    {
-                        tag: "gist",
-                        title: "My Gist",
-                        data: [
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/80/g1.png",
-                                title: "New and Improved IPhone, Buy OR NOT!",
-                                desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                                view: "2.4k",
-                                fav: "1.2k",
-                                comment: 20,
-                                owner: "Bella's Blog",
-                                url: ""
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/80/g1.png",
-                                title: "New and Improved IPhone, Buy OR NOT!",
-                                desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                                view: "2.4k",
-                                fav: "1.2k",
-                                comment: 20,
-                                owner: "Bella's Blog",
-                                url: ""
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/80/g1.png",
-                                title: "New and Improved IPhone, Buy OR NOT!",
-                                desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                                view: "2.4k",
-                                fav: "1.2k",
-                                comment: 20,
-                                owner: "Bella's Blog",
-                                url: ""
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/80/g1.png",
-                                title: "New and Improved IPhone, Buy OR NOT!",
-                                desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                                view: "2.4k",
-                                fav: "1.2k",
-                                comment: 20,
-                                owner: "Bella's Blog",
-                                url: ""
-                            },
-                            {
-                                id: uuid.v1(),
-                                img: "static/uploads/img/80/g1.png",
-                                title: "New and Improved IPhone, Buy OR NOT!",
-                                desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                                view: "2.4k",
-                                fav: "1.2k",
-                                comment: 20,
-                                owner: "Bella's Blog",
-                                url: ""
-                            }
-                        ]
-                    }
-                ]
+                gist_loading: true,
+                gist_list: {
+                    tag: "gist",
+                    title: "My Gist",
+                    data: []
+                }
             }
+        },
+        methods: {
+            ...mapActions(["fetch_gist"]),
+            loadContents: function(){
+                this.gist_loading = true;
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_gist(user_token);
+                    this.gist_list.data = this.$store.getters.get_gist;
+                }
+                setTimeout(() => {
+                    this.gist_loading = false;
+                }, 1000);
+            }
+        },
+        created(){
+            this.loadContents();
         }
     }
 </script>

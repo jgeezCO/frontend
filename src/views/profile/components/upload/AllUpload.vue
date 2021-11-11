@@ -17,16 +17,11 @@
                     </slide>
                     <hooper-navigation slot="hooper-addons"></hooper-navigation>
                 </hooper>
+                <div class="clear"></div>
             </div>
 
-            <br><br><br>
-            <h4 class="clear"><br><br> {{videos_list.title}}</h4>
-            <div v-for="video in videos_list.data" :key="video.id">
-                <VideoCard :card="video"/>
-            </div>
+            <br><br><br><br><br><br>
 
-            <h4 class="clear"><br><br> {{music_list.title}}</h4>
-            
             <div class="loading-placeholder" v-if="music_loading == true">
                 <Placeholder />
                 <Placeholder />
@@ -34,15 +29,24 @@
                 <div class="clear"></div>
             </div>
 
-            <div class="music_wrapper" v-if="music_loading == false">
-                <div v-for="music in music_list.data" :key="music.id">
-                    <MusicCard :card="music"/>
+            <div class="all_upload_container" v-if="music_loading == false">
+                <h4 class="clear"><br><br> {{videos_list.title}}</h4>
+                <div v-for="video in videos_list.data" :key="video.id">
+                    <VideoCard :card="video"/>
                 </div>
-            </div>
-            
-            <h4 class="clear"><br><br> {{gist_list.title}}</h4>
-            <div v-for="gist in gist_list.data" :key="gist.id">
-                <GistCard :gist="gist"/>
+                
+                <h4 class="clear"><br><br> {{music_list.title}}</h4>
+                
+                <div class="music_wrapper">
+                    <div v-for="music in music_list.data" :key="music.id">
+                        <MusicCard :card="music"/>
+                    </div>
+                </div>
+                
+                <h4 class="clear"><br><br> {{gist_list.title}}</h4>
+                <div v-for="gist in gist_list.data" :key="gist.id">
+                    <GistCard :gist="gist"/>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
@@ -156,60 +160,7 @@
                 videos_list: {
                     tag: "videos",
                     title: "My Videos",
-                    data: [
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        }
-                    ]
+                    data: []
                 },
                 music_list: {
                     tag: "music",
@@ -219,73 +170,23 @@
                 gist_list: {
                     tag: "gist",
                     title: "My Gist",
-                    data: [
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/80/g1.png",
-                            title: "New and Improved IPhone, Buy OR NOT!",
-                            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                            view: "2.4k",
-                            fav: "1.2k",
-                            comment: 20,
-                            owner: "Bella's Blog",
-                            url: ""
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/80/g1.png",
-                            title: "New and Improved IPhone, Buy OR NOT!",
-                            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                            view: "2.4k",
-                            fav: "1.2k",
-                            comment: 20,
-                            owner: "Bella's Blog",
-                            url: ""
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/80/g1.png",
-                            title: "New and Improved IPhone, Buy OR NOT!",
-                            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                            view: "2.4k",
-                            fav: "1.2k",
-                            comment: 20,
-                            owner: "Bella's Blog",
-                            url: ""
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/80/g1.png",
-                            title: "New and Improved IPhone, Buy OR NOT!",
-                            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                            view: "2.4k",
-                            fav: "1.2k",
-                            comment: 20,
-                            owner: "Bella's Blog",
-                            url: ""
-                        },
-                        {
-                            id: uuid.v1(),
-                            img: "static/uploads/img/80/g1.png",
-                            title: "New and Improved IPhone, Buy OR NOT!",
-                            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam tincidunt tincidunt risus etiam sed volutpat aliquam orci quis.",
-                            view: "2.4k",
-                            fav: "1.2k",
-                            comment: 20,
-                            owner: "Bella's Blog",
-                            url: ""
-                        }
-                    ]
+                    data: []
                 }
             }
         },
         methods: {
-            ...mapActions(["fetch_music"]),
-            loadMusic: function(){
+            ...mapActions(["fetch_music", "fetch_video", "fetch_gist"]),
+            loadContents: function(){
                 let user_token = this.$store.getters.getProfile.token;
                 if(user_token != null && user_token.length > 0){
                     this.fetch_music(user_token);
                     this.music_list.data = this.$store.getters.get_music;
+
+                    this.fetch_video(user_token);
+                    this.videos_list.data = this.$store.getters.get_videos;
+
+                    this.fetch_gist(user_token);
+                    this.gist_list.data = this.$store.getters.get_gist;
                 }
                 setTimeout(() => {
                     this.music_loading = false;
@@ -294,7 +195,7 @@
         },
         created(){
             this.slider_items_to_show = window.is_mobile() == true ? 2 : 5;
-            this.loadMusic();
+            this.loadContents();
         }
     }
 </script>

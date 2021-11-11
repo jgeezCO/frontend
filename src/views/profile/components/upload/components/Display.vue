@@ -4,8 +4,9 @@
             <img v-if="img.length > 0" :src="img" class="display-img">
             <h3 class="noSpace">{{text}}</h3>
             <p class="noSpace" style="width: 300px;font-size:12px;">{{desc}}</p>
-            <div style="margin-top:20px;">
-                <a href="#" @click.prevent="triggerAuthentication()" v-if="this.$store.getters.isLoggedIn == false" class="upload_btn">
+            
+            <div style="margin-top:20px;" v-if="button == true">
+                <a href="#" v-if="this.$store.getters.isLoggedIn == false" class="upload_btn">
                     Sign-Up / Sign-In
                 </a>
 
@@ -33,6 +34,10 @@
             desc: {
                 type: String,
                 required: true
+            },
+            button: {
+                type: Boolean,
+                default: true
             }
         },
         methods: {

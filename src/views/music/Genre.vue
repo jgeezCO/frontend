@@ -3,7 +3,7 @@
         <div class="genre_container">
             <h3 class="poppins">Genre</h3>
             <div class="genre_container" :key="genre.id" v-for="genre in genres">
-                <router-link :to="genre.url">
+                <router-link :to="genre.url + '/' + genre.title.toLowerCase()">
                     <a href="#">
                         <div class="left genre_card" :style="'background-image: url(' + genre.img + ')'">
                             <h3 class="poppins card_title">{{genre.title}}</h3>
@@ -28,73 +28,73 @@
                         id: uuid.v1(),
                         img: "static/assets/img/genre_rb.png",
                         title: "R&B/SOUL",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_jazz.png",
                         title: "JAZZ",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_afrobeat.png",
                         title: "AFROBEAT",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_gospel.png",
                         title: "GOSPEL",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_country.png",
                         title: "COUNTRY",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_reggae.png",
                         title: "REGGAE",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_world.png",
                         title: "WORLD",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_fuji.png",
                         title: "FUJI",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_mood.png",
                         title: "MOOD",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/2.png",
                         title: "REGGAE",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/genre_pop.png",
                         title: "POP",
-                        url: "/view-genre",
+                        url: "/genre",
                     },
                     {
                         id: uuid.v1(),
                         img: "static/assets/img/1.png",
                         title: "JAZZ",
-                        url: "/view-genre",
+                        url: "/genre",
                     }
                 ]
             }

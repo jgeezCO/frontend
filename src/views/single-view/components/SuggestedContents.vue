@@ -3,15 +3,17 @@
         <div class="suggested-video-container" v-if="media == 'video'">
             <div class="suggested-video" v-for="suggestion in suggestions" :key="suggestion.id">
                 <VideoCard 
-                    :card="suggestion"
+                    :card="suggestion" 
+                    component="profile" 
                 />
             </div>
         </div>
         
-        <div class="suggested-gist-container" v-if="media == 'gist'">
+        <div class="suggested-view suggested-gist-container" v-if="media == 'gist'">
             <div class="suggested-gist" v-for="suggestion in suggestions" :key="suggestion.id">
                 <GistCard 
                     :gist="suggestion" 
+                    component="profile" 
                 />
             </div>
         </div>
@@ -61,4 +63,14 @@
     .vcard{
         width: 236px;
     }
+
+    @media screen and (max-width: 1500px) {
+        .suggested-view .gist_card{
+            width: 170px;
+        }
+        .suggested-video .vcard{
+            width: 200px;
+        }
+    }
 </style>
+

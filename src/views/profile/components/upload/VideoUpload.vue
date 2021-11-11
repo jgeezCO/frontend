@@ -16,18 +16,28 @@
         </hooper>
 
         <div class="clear"></div>
-        <br><br>
-
-        <h4><br><br> {{videos_list.title}}</h4>
-        <div v-for="video in videos_list.data" :key="video.id">
-            <VideoCard :card="video"/>
+        <br><br><br><br><br><br>
+        
+        <div class="loading-placeholder" v-if="video_loading == true">
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <div class="clear"></div>
         </div>
 
-        <div class="clear"></div>
+        <div class="video_content_holder" v-if="video_loading == false">
+            <h4><br><br> {{videos_list.title}}</h4>
+            <div v-for="video in videos_list.data" :key="video.id">
+                <VideoCard :card="video"/>
+            </div>
+
+            <div class="clear"></div>
+        </div>
     </div>
 </template>
 
 <script>
+    import {mapActions} from "vuex";
     import { 
         Hooper, Slide, 
         Navigation as HooperNavigation 
@@ -37,15 +47,18 @@
     import Display from "./components/Display.vue";
     import ShortCard from "../../../video/components/ShortCard.vue";
     import VideoCard from "../../../video/components/VideoCard.vue";
-
+    import Placeholder from '../../../../components/public/Placeholder.vue';
+    
     export default {
         name: "VideoUpload",
         components: {
             Display, ShortCard, VideoCard,
-            Hooper, Slide, HooperNavigation
+            Hooper, Slide, HooperNavigation,
+            Placeholder
         },
         data: function(){
             return {
+                video_loading: true,
                 slider_items_to_show: 5,
                 short_videos: {
                     tag: "shorts",
@@ -129,64 +142,26 @@
                 videos_list:{
                     tag: "videos",
                     title: "My Videos",
-                    data: [
-                        {   
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {   
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {   
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        },
-                        {   
-                            id: uuid.v1(),
-                            img: "static/uploads/img/100/v5.png",
-                            time: "3 days ago",
-                            vtime_frame: "7:13",
-                            title: "Bryan nolli - Salvation ft. The nation",
-                            views: "2.1m",
-                            user: {
-                                avatar: "static/uploads/img/100/avatar.png",
-                                name: "Brian Nolli",
-                                verified: true
-                            }
-                        }
-                    ]
+                    data: []
                 }
             }
         },
+        methods: {
+            ...mapActions(["fetch_video"]),
+            loadVideos: function(){
+                this.video_loading = true;
+                let user_token = this.$store.getters.getProfile.token;
+                if(user_token != null && user_token.length > 0){
+                    this.fetch_video(user_token);
+                    this.videos_list.data = this.$store.getters.get_videos;
+                }
+                setTimeout(() => {
+                    this.video_loading = false;
+                }, 1000);
+            }
+        },
         created(){
+            this.loadVideos();
             this.slider_items_to_show = window.is_mobile() == true ? 2 : 5
         }
     }

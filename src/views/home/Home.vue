@@ -17,7 +17,7 @@
                 <div class="square-container" v-bind:key="trend.id" v-for="trend in trends">
                     <div class="trend_body">
                         <h3 class="poppins left exclude" style="font-weight:bold;color:white;font-weight:normal !important">
-                            {{trend.headline}}
+                            {{trend.headline}} {{trend.type}}
                         </h3> 
                         <div class="right exclude">
                             <a href="#" class="montserrat" style="color: rgba(255, 255, 255, 0.5);">
@@ -36,7 +36,12 @@
                         
                         <div class="music_card_container_player" v-if="music_loading == false">
                             <div class="square-card" v-bind:key="trend_card.id" v-for="trend_card in trend.data">
-                                <MusicCard :card="trend_card"/>
+                                <div v-if="trend.type == 'audio'">
+                                    <MusicCard :card="trend_card"/>
+                                </div>
+                                <div v-if="trend.type == 'video'">
+                                    <VideoCard :card="trend_card"/>
+                                </div>
                             </div> <div class="clear"></div>
                         </div>
                     </div>
@@ -77,13 +82,14 @@
     import Follower from "../followers/Follower.vue";
     import RadioCard from "../radio/components/RadioCard.vue";
     import Slider from "../../components/public/Slider.vue";
-   import Placeholder from '../../components/public/Placeholder.vue';
-
+    import Placeholder from '../../components/public/Placeholder.vue';
+    import VideoCard from '../video/components/VideoCard.vue';
+   
     export default {
         name: 'Home',
         components: {
             Category, MusicCard, Gist, Follower, RadioCard,
-            Slider, Placeholder
+            Slider, Placeholder, VideoCard
         },
         data: function(){
             return {
@@ -91,13 +97,14 @@
                 trends:[
                     {
                         id: uuid.v1(),
+                        type: "audio",
                         headline: "Latest Music",
                         icon: "static/svg/music_list.svg",
                         data: []
                     },
-
                     {
                         id: uuid.v1(),
+                        type: "video",
                         headline: "Latest Videos",
                         icon: "static/svg/video_list.svg",
                         data:[]
@@ -144,16 +151,17 @@
             }
         },
         methods: {
-            ...mapActions(["fetch_music"]),
+            ...mapActions(["fetch_music", "fetch_video"]),
             loadMusic: function(){
                 this.fetch_music(null);
+                this.fetch_video(null);
+                
                 this.trends[0].data = this.$store.getters.get_music;
+                this.trends[1].data = this.$store.getters.get_videos;
+
                 setTimeout(() => {
                     this.music_loading = false;
                 }, 1000);
-            }, 
-            loadVideos: function(){
-                this.trends[0].data = [];
             }
         },
         created(){

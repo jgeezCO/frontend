@@ -36,6 +36,7 @@ const actions = {
         })
         .then(response => { 
             let temp_data = response.data;
+
             let profile_url = "";
 
             if(temp_data != null){
@@ -52,7 +53,10 @@ const actions = {
                             views: element.post.view_count,
                             url: element.post.video.post_url,
                             time: element.post.created,
-                            vtime_frame:  element.post.video.content_length,
+                            ftime: element.post.created_1at_string,
+                            vtime_frame:  element.post.video.content_length != undefined 
+                                ? element.post.video.content_length 
+                                : 0,
                             slug: "view/" + element.post.id,
                             user: {
                                 avatar: profile_url != null && profile_url.length > 0 ? profile_url : "/static/svg/avatar.svg",

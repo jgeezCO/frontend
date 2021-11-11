@@ -8,7 +8,14 @@
         </div>
 
         <div style="padding:10px;">
-            <h5 class="poppins noSpace clear">{{gist.title}}</h5>
+            <h5 class="poppins noSpace clear">
+                {{format_title.title}}
+                <p 
+                    v-if="format_title.block != 0" 
+                    style="padding:0px;margin:0px;" 
+                    :style="format_title.block"
+                ></p>
+            </h5>
             <div class="gist_action poppins">
                 <div class="left" style="margin-top:5px;">
                     <p class="noSpace" style="font-size:11px;">{{gist.owner}}</p>
@@ -33,7 +40,29 @@
 <script>
     export default{
         name: "SimpleGistCard",
-        props: ["gist"]
+        props: ["gist"],
+        computed: {
+            format_title: function(){
+                let title = this.gist.title;
+                let title_block_size = 0;
+
+                if(title != null && title.length > 0){
+                    if(title.length > 40){
+                        title = title.substr(0, 37) + "...";
+                    } else {
+                        title_block_size = "height: 18px;";
+                    }
+                }
+
+                return {
+                    title,
+                    block: title_block_size
+                };
+            }
+        },
+        created(){
+            console.log(this.gist);
+        }
     }
 </script>
 

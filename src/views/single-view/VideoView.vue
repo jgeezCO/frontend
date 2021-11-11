@@ -111,6 +111,7 @@
         },
         methods: {
             loadSelectedVideo: function(){
+                this.loading = true;
                 let user_token = this.$store.getters.getProfile.token;
                 let slug_id = this.$route.params.slug;
                 let currentScope = this;
@@ -174,10 +175,19 @@
         mounted: function(){
             this.is_mobile = window.is_mobile();
         },
-
         created(){
             this.loadSelectedVideo();
-        }
+        },
+        watch:{
+            $route (to, from){
+                let to_params = to.params;
+                let from_params = from.params;
+                
+                if(to_params.slug != from_params.slug){
+                    this.loadSelectedVideo();
+                }
+            }
+        } 
     }
 </script>
 
