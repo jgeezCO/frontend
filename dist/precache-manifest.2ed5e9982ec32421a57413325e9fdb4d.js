@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6a4e27fa17bb722aa873",
-    "url": "/css/app.6b5a82ad.css"
+    "revision": "7b25f57f771cc4580d6c",
+    "url": "/css/app.f8e019c9.css"
   },
   {
     "revision": "22790377e8d6392e3b96",
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/nigeria.ab1a220a.svg"
   },
   {
-    "revision": "aa8edfa5c9b5639bb28a1b55dfc920ed",
+    "revision": "47ba6786915a1b4ed2dac7239eb9c4f0",
     "url": "/index.html"
   },
   {
-    "revision": "6a4e27fa17bb722aa873",
-    "url": "/js/app.2d571323.js"
+    "revision": "7b25f57f771cc4580d6c",
+    "url": "/js/app.64afe91e.js"
   },
   {
     "revision": "22790377e8d6392e3b96",
@@ -46,6 +46,26 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "cc4aad07fb3f5198276bb2b776bc884a",
     "url": "/manifest.json"
+  },
+  {
+    "revision": "dd61b80b9fcb3b0ccd950fc53d400df5",
+    "url": "/manifest/icon-192x192.png"
+  },
+  {
+    "revision": "2189581048889a7417aa797bb78cf237",
+    "url": "/manifest/icon-256x256.png"
+  },
+  {
+    "revision": "b4fbd32faf4fcb5ee3a17c200c9720e5",
+    "url": "/manifest/icon-384x384.png"
+  },
+  {
+    "revision": "e2711cd8d005a752b4ce193189c5d03f",
+    "url": "/manifest/icon-512x512.png"
+  },
+  {
+    "revision": "e9ab596ed3e2f2488a8412de2762b9b1",
+    "url": "/manifest/manifest.webmanifest"
   },
   {
     "revision": "735ab4f94fbcd57074377afca324c813",
@@ -1608,7 +1628,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/assets/slick-1.8.1/slick/slick.scss"
   },
   {
-    "revision": "22b421b283462e9233f4986620cf56f6",
+    "revision": "da61e9d96db405bfa02bab1dd8e66e33",
     "url": "/static/dev/css/app.css"
   },
   {
@@ -1920,6 +1940,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/fonts/rubik/static/Rubik-SemiBoldItalic.ttf"
   },
   {
+    "revision": "e91d3a7ab51a17c562583b3df2fb79ae",
+    "url": "/static/svg/add-plus.svg"
+  },
+  {
     "revision": "8536f63fc0f4c73d975e64ad376e9f34",
     "url": "/static/svg/add.svg"
   },
@@ -1938,6 +1962,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "4c7892bfb432abdef52fa9bce29e9c00",
     "url": "/static/svg/avatar.svg"
+  },
+  {
+    "revision": "cbddb4d22755334308019039c14d0bff",
+    "url": "/static/svg/card_menu.svg"
   },
   {
     "revision": "c6fe50d7e5b41337f114e06b2f015410",
@@ -2100,6 +2128,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/svg/music_list.svg"
   },
   {
+    "revision": "89f7f34bd79e4dabe1e9bae64e272794",
+    "url": "/static/svg/music_loading.svg"
+  },
+  {
     "revision": "f7724fb51715c5beb0fb0e26cec4718e",
     "url": "/static/svg/next.svg"
   },
@@ -2154,6 +2186,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ea8ec7582f73388564c1e618e52527d0",
     "url": "/static/svg/share.svg"
+  },
+  {
+    "revision": "80fb6a4397e7c39f33a7a254d8e6ba65",
+    "url": "/static/svg/shorts.svg"
   },
   {
     "revision": "e0385b4391520ea38476e9fc74f22509",
