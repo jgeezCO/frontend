@@ -12,9 +12,6 @@ const getters = {
 
 const actions = {
     async fetch_video({commit}, payload){
-        console.log("Hello world test argument");
-        console.log(payload);
-
         let headers = {
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -43,39 +40,34 @@ const actions = {
             if(temp_data != null){
                 if(temp_data.length > 0){
                     let video_list = {};
-                    let excluded = payload.excluded == undefined ? null : payload.excluded;
                     
                     temp_data.forEach((element, index) => {
-                        if(index !== excluded){
-                            profile_url = element.post.author.profile.profile_picture;
-                            video_list = {
-                                id: element.post.id, 
-                                artist: "jgeez",
-                                title: element.post.title,
-                                desc: element.post.text,
-                                img: element.post.video.album_art,
-                                views: element.post.view_count,
-                                url: element.post.video.post_url,
-                                time: element.post.created,
-                                ftime: element.post.created_1at_string,
-                                vtime_frame:  element.post.video.content_length != undefined 
-                                    ? element.post.video.content_length 
-                                    : 0,
-                                slug: "view/" + element.post.id,
-                                user: {
-                                    avatar: profile_url != null && profile_url.length > 0 ? profile_url : "/static/svg/avatar.svg",
-                                    name: element.post.author.username,
-                                    verified: element.post.author.profile.is_verified
-                                }
-                            };
+                        profile_url = element.post.author.profile.profile_picture;
+                        video_list = {
+                            id: element.post.id, 
+                            artist: "jgeez",
+                            title: element.post.title,
+                            desc: element.post.text,
+                            img: element.post.video.album_art,
+                            views: element.post.view_count,
+                            url: element.post.video.post_url,
+                            time: element.post.created,
+                            ftime: element.post.created_1at_string,
+                            vtime_frame:  element.post.video.content_length != undefined 
+                                ? element.post.video.content_length 
+                                : 0,
+                            slug: "view/" + element.post.id,
+                            user: {
+                                avatar: profile_url != null && profile_url.length > 0 ? profile_url : "/static/svg/avatar.svg",
+                                name: element.post.author.username,
+                                verified: element.post.author.profile.is_verified
+                            }
+                        };
 
-                            commit("update_single_video_data", {
-                                index: index,
-                                data: video_list
-                            });
-                        } else {
-                            alert("Duplocate found");
-                        }
+                        commit("update_single_video_data", {
+                            index: index,
+                            data: video_list
+                        });
                     });
                     
                 }
@@ -104,9 +96,7 @@ const mutations = {
     },
     update_single_video_data: function(state, new_video_data){
         if(Object.keys(new_video_data).length > 0){
-            if(state.video_data[new_video_data.index] != undefined){
-                Vue.set(state.video_data, new_video_data.index, new_video_data.data);
-            }
+            Vue.set(state.video_data, new_video_data.index, new_video_data.data);
         }
     },
 };

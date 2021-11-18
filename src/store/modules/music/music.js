@@ -8,8 +8,6 @@ const state = {
 
 const getters = {
     get_music: (state) => {
-        console.log(new Date());
-        console.log(state.music_data);
         return state.music_data;
     },
 }
