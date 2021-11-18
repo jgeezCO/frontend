@@ -60,6 +60,7 @@ const actions = {
                             }
                         };
                         
+                        console.log(gist_list);
                         commit("update_single_gist_data", {
                             index: index,
                             data: gist_list
