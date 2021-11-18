@@ -19,7 +19,11 @@
                 <div class="clear">
                     <h4><br><br> {{upload.title}}</h4>
                     <div v-for="upload_data in upload.data" :key="upload_data.id">
-                        <MusicCard v-if="upload.tag == 'music'" :card="upload_data"/>
+                        <MusicCard 
+                            v-if="upload.tag == 'music'" 
+                            :card="upload_data" 
+                            :profile="true" 
+                        />
                     </div>
                 </div>
             </div>

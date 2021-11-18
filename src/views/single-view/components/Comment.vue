@@ -109,66 +109,75 @@
                 .then(response => { 
                     console.log(response)
                 })
+            },
+            fetchComment: function(){
+                let post_id = this.comment_id;
+                let token = this.$store.getters.getProfile.token;
+                let currentScope = this;
+                
+                axios({
+                    method: 'GET',
+                    url: 'https://api.jgeez.co/api/post/comment/' + post_id,
+                    withCredentials: true,
+                    data:  null,
+                    timeout: 5000,
+                    headers: {
+                        'Access-Control-Allow-Origin' : '*',
+                        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                        'content-type': 'multipart/form-data',
+                        'Authorization': 'Bearer ' + token
+                    }
+                }).then(response => { 
+                    let temp_data = response.data;
+                    if(temp_data != null && temp_data.length > 0){
+                        temp_data.forEach(function(cdata){
+
+                            currentScope.get_user_profile({token, id: cdata.author_id});
+                            console.log(currentScope.$store.getters.externalProfile);
+                            let user_profile =  currentScope.$store.getters.externalProfile[cdata.author_id];
+
+                            let user_profile_pics = user_profile.profile.profile_picture;
+
+                            let favorite = cdata.favorite != undefined 
+                                ? cdata.favorite 
+                                : false;
+                            let favorite_count = cdata.favorite_count != undefined 
+                                ? cdata.favorite_count 
+                                : 0;
+
+                            currentScope.comments.push({
+                                id: cdata.id,
+                                user: {
+                                    avatar: user_profile_pics != null && user_profile_pics.length > 0 
+                                        ? user_profile_pics
+                                        : "/static/svg/avatar.svg",
+                                    name: user_profile.username
+                                },
+                                data:{
+                                    comment: cdata.text,
+                                    time: "4 mins ago",
+                                    favorite: favorite,
+                                    fview:favorite_count
+                                }
+                            })
+                            
+                            currentScope.comment_loading = false;
+                        })
+                    } else {
+                        currentScope.comment_loading = false;
+                    }
+                }).catch(error => {
+                    if(error.code == "ECONNABORTED")
+                        console.log("Time exceed");
+                    
+                    setTimeout(() => {
+                        currentScope.fetchComment();
+                    }, 20);
+                });
             }
         },
         mounted(){
-            let post_id = this.comment_id;
-            let token = this.$store.getters.getProfile.token;
-            let currentScope = this;
-        
-            axios({
-                method: 'GET',
-                url: 'https://api.jgeez.co/api/post/comment/' + post_id,
-                withCredentials: true,
-                data:  null,
-                headers: {
-                    'Access-Control-Allow-Origin' : '*',
-                    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                    'content-type': 'multipart/form-data',
-                    'Authorization': 'Bearer ' + token
-                }
-            })
-            .then(response => { 
-                let temp_data = response.data;
-                if(temp_data != null && temp_data.length > 0){
-                    temp_data.forEach(function(cdata){
-
-                        currentScope.get_user_profile({token, id: cdata.author_id});
-                        let user_profile =  currentScope.$store.getters.externalProfile;
-
-                        let user_profile_pics = user_profile.profile.profile_picture;
-
-                        let favorite = cdata.favorite != undefined 
-                            ? cdata.favorite 
-                            : false;
-                        let favorite_count = cdata.favorite_count != undefined 
-                            ? cdata.favorite_count 
-                            : 0;
-
-                        currentScope.comments.push({
-                            id: cdata.id,
-                            user: {
-                                avatar: user_profile_pics != null && user_profile_pics.length > 0 
-                                    ? user_profile_pics
-                                    : "/static/svg/avatar.svg",
-                                name: user_profile.username
-                            },
-                            data:{
-                                comment: cdata.text,
-                                time: "4 mins ago",
-                                favorite: favorite,
-                                fview:favorite_count
-                            }
-                        })
-                        
-                        currentScope.comment_loading = false;
-                    })
-                } else {
-                    currentScope.comment_loading = false;
-                }
-            }).catch(error => {
-                console.log(error)
-            });
+            this.fetchComment();
         }
     }
 </script>

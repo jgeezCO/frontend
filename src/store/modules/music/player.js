@@ -23,7 +23,6 @@ const actions = {
 const mutations = {
     handle_music_player: function(state, music_payload){
         if(music_payload != null && Object.keys(music_payload).length > 0){
-            
             if(music_payload.music_url != null && music_payload.music_url.length > 0){
                 Vue.set(state, "artist", music_payload.music_artist);
                 Vue.set(state, "music_name", music_payload.music_name);

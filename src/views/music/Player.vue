@@ -9,10 +9,11 @@
                 <div class="left exclude">
                      <img src="/static/svg/music-headset.svg" style="margin-right:20px;"> 
                 </div>
-               
+                
                 <div class="playing right exclude">
                      <a href="#" @click.prevent="playMusic" class="play_btn" style="color: white;">
-                        <span class="fa " :class="is_pause == false ? 'fa-play' : 'fa-pause'"></span>
+                        <span v-if="loading == false"> <span class="fa " :class="is_pause == false ? 'fa-play' : 'fa-pause'"></span> </span>
+                        <img v-if="loading == true" :src="play_icon" style="width: 50px;margin-top:-10px;">
                     </a>
                 </div>  
                 
@@ -23,83 +24,67 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    
     export default {
         name: "MusicPlayer",
         props: ["playlist", "title", "artist", "play_path"],
         data(){
             return {
+                player_mounted: 0,
+                loading: false,
                 duration: "0.0",
                 recorded_count: false,
                 audio: null,
                 is_pause: false,
                 left_position: "65%",
                 top_position: "500px",
-                is_mounted: false
+                is_mounted: false,
+                play_icon: "/static/svg/music_loading.svg"
             }
         },
         computed: {
             is_player_active: function(){
                 let is_active = this.$store.getters.player_is_active;
-
-                if(is_active == true && this.audio != null){
-                    this.playMusic();
-                }
-
                 return is_active;
             }
         },
         methods: {
             playMusic: function(){
+                let currentScope = this;
+                this.loading = true;
+
                 if(this.audio == null){
                     this.audio = new Audio();
-                    this.audio.src = this.play_path
+                    this.audio.src = this.play_path;
                 }
                 
-                this.is_pause = !this.is_pause;
+                if(this.audio != null){
+                    this.is_pause = !this.is_pause;
+                }
 
-                if(this.is_pause == true){
+                if(this.is_pause == true && this.audio != null){
+                    this.loading = false;
                     this.audio.play();
                 } else {
-                    this.audio.pause();
+                    if(this.audio != null){
+                        this.loading = false;
+                        this.audio.pause();
+                    }
                 }
+                
+                this.audio.addEventListener("waiting", function () {
+                    currentScope.loading = true;
+                }, false);
+
+                this.audio.addEventListener("canplay", function () {
+                    currentScope.loading = false;
+                }, false);
 
                 this.audio.addEventListener("ended", function(){
-                    this.is_pause = false;
+                    currentScope.loading = false;
+                    currentScope.is_pause = false;
                 });
-            },
-            storePlay: function(){
-                if(this.recorded_count == false){
-                    this.recordMusicPlay();
-                    this.recorded_count = true;
-                }
-            },
-            recordMusicPlay: function(){
-                let currentScope = this;
 
-                axios({
-                    method: 'post',
-                    url: "#",
-                    withCredentials: true,
-                    data:  {
-                        music_url: this.play_path
-                    },
-                    headers: {
-                        'Access-Control-Allow-Origin' : '*',
-                        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                        'content-type': 'multipart/form-data',
-                        'Authorization': 'Bearer ' + currentScope.$store.getters.getProfile.token
-                    }
-                })
-                .then(response => { 
-                    if(response.status == 200){
-                        currentScope.recorded_count = true
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                
             },
             player_position: function(){
                 let is_mobile = window.is_mobile();
@@ -134,6 +119,8 @@
                         this.top_position = (differenceHeight - 105) + "px";
                     }
                 }
+
+                this.player_mounted++;
             }
         },
         watch: {
@@ -151,6 +138,10 @@
                             this.audio.play();
                             this.is_pause = true;
                         }, 100);
+                    } else {
+                        if(this.player_mounted == 1){
+                            this.playMusic();
+                        }
                     }
                 }
             },

@@ -32,14 +32,17 @@
             <div class="all_upload_container" v-if="music_loading == false">
                 <h4 class="clear"><br><br> {{videos_list.title}}</h4>
                 <div v-for="video in videos_list.data" :key="video.id">
-                    <VideoCard :card="video"/>
+                    <VideoCard 
+                        :card="video" 
+                        :profile="true" 
+                    />
                 </div>
                 
                 <h4 class="clear"><br><br> {{music_list.title}}</h4>
                 
                 <div class="music_wrapper">
                     <div v-for="music in music_list.data" :key="music.id">
-                        <MusicCard :card="music"/>
+                        <MusicCard :card="music" :profile="true" />
                     </div>
                 </div>
                 
@@ -54,7 +57,7 @@
 </template>
 
 <script>
-    import {mapActions} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
     import { 
         Hooper, Slide, 
         Navigation as HooperNavigation 
@@ -174,19 +177,26 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters(["get_music", "get_videos", "get_gist"])
+        },
         methods: {
             ...mapActions(["fetch_music", "fetch_video", "fetch_gist"]),
             loadContents: function(){
                 let user_token = this.$store.getters.getProfile.token;
                 if(user_token != null && user_token.length > 0){
                     this.fetch_music(user_token);
-                    this.music_list.data = this.$store.getters.get_music;
+                    this.music_list.data = this.get_music;
 
-                    this.fetch_video(user_token);
-                    this.videos_list.data = this.$store.getters.get_videos;
+                    this.fetch_video({
+                        token: user_token, 
+                        type: null,
+                        exclude: null
+                    });
+                    this.videos_list.data = this.get_videos;
 
                     this.fetch_gist(user_token);
-                    this.gist_list.data = this.$store.getters.get_gist;
+                    this.gist_list.data = this.get_gist;
                 }
                 setTimeout(() => {
                     this.music_loading = false;

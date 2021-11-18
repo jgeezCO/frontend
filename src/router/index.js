@@ -24,47 +24,47 @@ Vue.use(Router);
 const routes = [
     {
         path: "/",
-        name: "Home",
+        name: "home",
         component: Home,
     },
     {
         path: "/music",
-        name: "Music",
+        name: "music",
         component: Music,
     },
     {
         path: "/chart",
-        name: "Chart",
+        name: "chart",
         component: Chart,
     },
     {
         path: "/library",
-        name: "Library",
+        name: "library",
         component: Library,
     },
     {
         path: "/artist",
-        name: "Artist",
+        name: "artist",
         component: Artist,
     },
     {
         path: "/playlist",
-        name: "Playlist",
+        name: "playlist",
         component: Playlist,
     },
     {
         path: "/genre",
-        name: "Genre",
+        name: "genre",
         component: Genre,
     },
     {
         path: "/profile",
-        name: "Profile",
+        name: "profile",
         component: Profile,
     },
     {
         path: "/video",
-        name: "Video",
+        name: "video",
         component: Video,
     },
     {
@@ -74,26 +74,26 @@ const routes = [
     },
     {
         path: "/gist",
-        name: "Gist",
+        name: "gist",
         component: Gist
     },
     {
         path: "/genre/:category?",
-        name: "ViewGenre",
+        name: "view-genre",
         component: ViewGenre
     },{
         path: "/radio",
-        name: "RadioStation",
+        name: "radio",
         component: RadioStation
         },
     {
         path: "/search",
-        name: "Search",
+        name: "search",
         component: SearchPage
     },
     {
         path: "/player",
-        name: "Player",
+        name: "player",
         component: MusicPlayer
     }
 ];

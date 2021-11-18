@@ -17,7 +17,7 @@
                 <div class="square-container" v-bind:key="trend.id" v-for="trend in trends">
                     <div class="trend_body">
                         <h3 class="poppins left exclude" style="font-weight:bold;color:white;font-weight:normal !important">
-                            {{trend.headline}} {{trend.type}}
+                            {{trend.headline}}
                         </h3> 
                         <div class="right exclude">
                             <a href="#" class="montserrat" style="color: rgba(255, 255, 255, 0.5);">
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="clear"></div>
-
+                        
                         <div class="loading-placeholder" v-if="music_loading == true">
                             <Placeholder />
                             <Placeholder />
@@ -154,7 +154,11 @@
             ...mapActions(["fetch_music", "fetch_video"]),
             loadMusic: function(){
                 this.fetch_music(null);
-                this.fetch_video(null);
+                this.fetch_video({
+                    token: null, 
+                    type: null,
+                    exclude: this.exclude
+                });
                 
                 this.trends[0].data = this.$store.getters.get_music;
                 this.trends[1].data = this.$store.getters.get_videos;

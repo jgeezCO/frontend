@@ -2,16 +2,19 @@
     <div class="dialog">
         <div class="dc">
             <div class="dialog-content">
-                <div class="dialog-header">
-                    <h2 class="ht">
+                <div class="dialog-header" style="padding: 10px;">
+                    <h3 class="ht left noSpace">
                         {{title}}
+                    </h3>
+                    <div class="right exclude dclose">
                         <span class="right exclude">
                             <a href="#">
                                 <img style="width: 15px;margin-right:5px;" src="static/svg/question.svg">
                             </a>
                             <a href="#" style="color:black;" @click.prevent="$emit('closeDialog', 'close')" class="close-dialog">&times;</a>
                         </span>
-                    </h2>
+                    </div>
+                    <div class="clear"></div>
                 </div>
 
                 <div class="dialog-body clear">
@@ -38,6 +41,9 @@
         font-size: 20px !important;
         color: black !important;
     }
+    .dclose{
+        width: 150px;
+    }
     .dc{
         width: auto;
         height: auto;
@@ -55,7 +61,7 @@
         overflow: auto;
     }
     .dialog-body{
-        padding: 10px 20px;
+        padding: 10px 10px;
     }
     .dialog-content{
         width: 600px;

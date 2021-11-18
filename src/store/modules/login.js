@@ -1,4 +1,5 @@
 import axios from "axios";
+import Vue from "vue";
 
 const state = {
     isLoggedIn: false,
@@ -62,7 +63,10 @@ const actions = {
             }
         })
         .then(response => { 
-            commit("setExternalProfile", response.data);
+            commit("setExternalProfile", {
+                id: params.id, 
+                data: response.data
+            });
         })
         .catch(error => {
            console.log(error);
@@ -120,7 +124,9 @@ const mutations = {
         }
     },
     setExternalProfile: (state, userProfile) => {
-        state.external_user_profile = userProfile
+        if(state.external_user_profile[userProfile.id] == undefined){
+            Vue.set(state.external_user_profile, userProfile.id, userProfile.data);
+        }
     }
 };
 

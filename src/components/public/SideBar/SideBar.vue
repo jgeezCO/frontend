@@ -56,8 +56,8 @@
 
                     <img src="/static/svg/line.svg" class="noSpace" style="width:90%;height:10px;">
                     
-                    <div class="scroll-bar">
-                        <SideMenu v-bind:menus="menus" />
+                    <div class="scroll-bar" v-for="menu in menus" :key="menu.id">
+                        <SideMenu v-bind:menus="menu" />
                     </div>
                     <div class="sb"><br><br><br><br><br><br></div>
                 </div>
@@ -100,42 +100,80 @@
                     avatar: "",
                     isverified: false
                 },
-                menus: {
-                    id: 1,
-                    title: "Music",
-                    data: [
-                        {
-                            id: 1,
-                            url: "playlist",
-                            icon: "playlist.svg",
-                            title: "Playlist"
-                        },
-                        {
-                            id: 2,
-                            url: "library",
-                            icon: "library.svg",
-                            title: "Library"
-                        },
-                        {
-                            id: 3,
-                            url: "chart",
-                            icon: "chart.svg",
-                            title: "Chart"
-                        },
-                        {
-                            id: 4,
-                            url: "genre",
-                            icon: "genre.svg",
-                            title: "Genre"
-                        },
-                        {
-                            id: 5,
-                            url: "artist",
-                            icon: "artist.svg",
-                            title: "Artist"
-                        }
-                    ]
-                }
+                menus: [
+                    {
+                        id: 1,
+                        title: "Music",
+                        data: [
+                            {
+                                id: 1,
+                                url: "music",
+                                icon: "music.svg",
+                                title: "Hot Musics"
+                            },
+                            {
+                                id: 2,
+                                url: "playlist",
+                                icon: "playlist.svg",
+                                title: "Playlist"
+                            },
+                            {
+                                id: 3,
+                                url: "library",
+                                icon: "library.svg",
+                                title: "Library"
+                            },
+                            {
+                                id: 4,
+                                url: "chart",
+                                icon: "chart.svg",
+                                title: "Chart"
+                            },
+                            {
+                                id: 5,
+                                url: "genre",
+                                icon: "genre.svg",
+                                title: "Genre"
+                            },
+                            {
+                                id: 6,
+                                url: "artist",
+                                icon: "artist.svg",
+                                title: "Artist"
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        title: "Video",
+                        data: [
+                            {
+                                id: 1,
+                                url: "video",
+                                icon: "video_list.svg",
+                                title: "Recent Videos"
+                            },
+                            {
+                                id: 2,
+                                url: "video",
+                                icon: "shorts.svg",
+                                title: "Shorts"
+                            }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        title: "Gist",
+                        data: [
+                            {
+                                id: 1,
+                                url: "gist",
+                                icon: "gist_list.svg",
+                                title: "Hot Gist"
+                            }
+                        ]
+                    }
+                ]
             }
         },
         methods: {

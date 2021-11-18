@@ -1,4 +1,5 @@
 import axios from "axios";
+import Vue from "vue";
 import login from "../login";
 
 const state = {
@@ -6,28 +7,33 @@ const state = {
 }
 
 const getters = {
-    get_music: (state) => state.music_data,
+    get_music: (state) => {
+        console.log(new Date());
+        console.log(state.music_data);
+        return state.music_data;
+    },
 }
 
 const actions = {
-    async fetch_music({commit}, token){
-        let music_data = [];
-        
+    async fetch_music({commit}, token){   
+        let currentScope = this;     
         let headers = {
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             'content-type': 'multipart/form-data'
         };
 
+        let url_path = token != null 
+            ? 'https://api.jgeez.co/api/post/audio/get/' 
+            : 'https://api.jgeez.co/api/post/audio/';
+        
         if(token != null){
             headers["Authorization"] = 'Bearer ' + token;
         }
-
+        
         await axios({
             method: 'GET',
-            url: token != null 
-                ? 'https://api.jgeez.co/api/post/audio/get/' 
-                : 'https://api.jgeez.co/api/post/audio/',
+            url: url_path,
             withCredentials: true,
             data:  null,
             headers: headers
@@ -35,11 +41,12 @@ const actions = {
         .then(response => { 
             let temp_data = response.data;
             let color_choice = ["#D7732E", "#6600CC", "#898081", "#A5730E", "#92221D"];
+            let music_list = {};
 
             if(temp_data != null){
                 if(temp_data.length > 0){
-                    temp_data.forEach(element => {
-                        music_data.push({
+                    temp_data.forEach((element, index) => {
+                        music_list = {
                             id: element.post.id, 
                             artist: "jgeez",
                             name: element.post.title,
@@ -47,13 +54,18 @@ const actions = {
                             playcount: element.post.view_count,
                             color: color_choice[Math.floor(Math.random() * color_choice.length)],
                             url: element.post.audio.post_url,
+                        };
+
+                        commit("update_in_single", {
+                            index: index,
+                            data: music_list
                         });
                     });
-                    
-                    commit("update_music_data", music_data);
                 }
             }
-        }).catch(error => {
+        })
+        .catch(error => {
+            currentScope.fetch_music(token);
             if(error.response.status == 401){
                 if(login.state.isLoggedIn == true){
                     alert("Kindly login to continue");
@@ -62,7 +74,7 @@ const actions = {
                         location.reload();
                     }, 100);
                 }
-            }
+            } 
         });
     },
 }
@@ -70,11 +82,14 @@ const actions = {
 const mutations = {
     update_music_data: function(state, new_music_data){
         if(Object.keys(new_music_data).length > 0){
-            //console.log(new_music_data);
-            state.music_data = new_music_data;
+            Vue.set(state, "music_data", new_music_data)
         }
     },
-    
+    update_in_single: function(state, new_music_data){
+        if(Object.keys(new_music_data).length > 0){
+            Vue.set(state.music_data, new_music_data.index, new_music_data.data);
+        }
+    }
 };
 
 export default {

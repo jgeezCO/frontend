@@ -34,11 +34,15 @@
                 <br class="desktop-only">
                 
                 <div class="mobile-only">
-                    <Comment v-if="is_mobile == true"/>
+                    <Comment 
+                        :comment_id="video_props.id" 
+                        v-if="is_mobile == true" 
+                    />
                     <br><br><br><br><br><br>
                 </div>
 
                 <SuggestedContents 
+                    :exclude="param_slug" 
                     :media="media_type"  
                     limit="10" 
                 />
@@ -109,11 +113,16 @@
                 },
             }
         },
+        computed: {
+            param_slug: function(){
+                return this.$route.params.slug;
+            }
+        },
         methods: {
             loadSelectedVideo: function(){
                 this.loading = true;
                 let user_token = this.$store.getters.getProfile.token;
-                let slug_id = this.$route.params.slug;
+                let slug_id = this.param_slug;
                 let currentScope = this;
 
                 axios({
@@ -199,7 +208,14 @@
     .vcard{
         width: 219.2px;
     }
+    video{
+        height: 400px;
+        max-height: 400px;
+    }
     @media screen and (max-width: 900px){
+        video{
+            height: 300px;
+        }
         .vjs-big-play-button{
             position: absolute !important;
             margin-bottom: 20px !important;;

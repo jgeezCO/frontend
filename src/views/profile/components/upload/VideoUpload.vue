@@ -28,9 +28,11 @@
         <div class="video_content_holder" v-if="video_loading == false">
             <h4><br><br> {{videos_list.title}}</h4>
             <div v-for="video in videos_list.data" :key="video.id">
-                <VideoCard :card="video"/>
+                <VideoCard 
+                    :card="video" 
+                    :profile="true" 
+                />
             </div>
-
             <div class="clear"></div>
         </div>
     </div>
@@ -152,7 +154,11 @@
                 this.video_loading = true;
                 let user_token = this.$store.getters.getProfile.token;
                 if(user_token != null && user_token.length > 0){
-                    this.fetch_video(user_token);
+                    this.fetch_video({
+                        token: user_token, 
+                        type: null,
+                        exclude: null
+                    });
                     this.videos_list.data = this.$store.getters.get_videos;
                 }
                 setTimeout(() => {

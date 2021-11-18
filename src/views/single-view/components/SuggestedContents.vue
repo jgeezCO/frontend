@@ -27,7 +27,7 @@
     
     export default {
         name: "SuggestedContents",
-        props: ["media"], 
+        props: ["media", "exclude"], 
         components: {
             VideoCard, GistCard
         },
@@ -41,11 +41,17 @@
         },
         created(){
             let token = this.$store.getters.getProfile.token;
+            let meta = {
+                token, 
+                type: null,
+                exclude: this.exclude
+            };
+
             if(this.media == "video"){
-                this.fetch_video(token, null);
+                this.fetch_video(meta);
             }
             if(this.media == "gist"){
-                this.fetch_gist(token, null);
+                this.fetch_gist(meta);
             }
         },
         mounted(){

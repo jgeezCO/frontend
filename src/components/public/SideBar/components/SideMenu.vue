@@ -11,7 +11,8 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="sb"><br><br><br> <br><br><br></div>
+
+        <div class="sb" v-if="menus.title == 'Gist'"><br><br><br> <br><br><br></div>
     </div>
 </template>
 

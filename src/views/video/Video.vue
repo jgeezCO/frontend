@@ -194,7 +194,12 @@
                 this.videos.data.filter(video => video.id != v_id);
             },
             bigVideoLoad: function(type = null){
-                this.fetch_video(null, type);
+                let meta = {
+                    token: null, 
+                    type: type,
+                    exclude: null
+                };
+                this.fetch_video(meta);
                 this.videos[0].data = this.$store.getters.get_videos;
 
                 setTimeout(() => {

@@ -1,7 +1,7 @@
 <template>
-    <div class="display">
+    <div class="display" :style="reduceSize == true ? 'margin-top:50px;' : ''">
         <center>
-            <img v-if="img.length > 0" :src="img" class="display-img">
+            <img v-if="img.length > 0" :src="img" class="display-img" :style="reduceSize == true ? 'width:100px;' : ''">
             <h3 class="noSpace">{{text}}</h3>
             <p class="noSpace" style="width: 300px;font-size:12px;">{{desc}}</p>
             
@@ -9,7 +9,7 @@
                 <a href="#" v-if="this.$store.getters.isLoggedIn == false" class="upload_btn">
                     Sign-Up / Sign-In
                 </a>
-
+                
                 <a href="#" v-if="this.$store.getters.isLoggedIn == true" class="upload_btn">
                     Upload
                 </a>
@@ -38,6 +38,10 @@
             button: {
                 type: Boolean,
                 default: true
+            },
+            reduceSize: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {

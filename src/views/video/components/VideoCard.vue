@@ -24,9 +24,10 @@
                                 <CardActions 
                                     type="video" 
                                     :id="card.id" 
-                                    :vtitle="card.title"
+                                    :vtitle="card.title" 
                                     v-on:video_edit="$emit('video_edit', card.id, edit_data)" 
-                                    v-on:delete_id="$emit('delete_id', card.id)"
+                                    v-on:delete_id="$emit('delete_id', card.id)" 
+                                    :profile="profile" 
                                 />
                             </div>
                             
@@ -58,7 +59,14 @@
 
     export default {
         name: "VideoCard",
-        props: ["card", "component"],
+        props: {
+            card: Object,
+            component: String,
+            profile: {
+                type: Boolean,
+                default: false
+            }
+        },
         components: {
             CardActions
         },

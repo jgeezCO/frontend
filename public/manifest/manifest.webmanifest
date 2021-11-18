@@ -1,0 +1,32 @@
+{
+    "name": "JGeez - Entainment Hub",
+    "short_name": "jgeez",
+    "theme_color": "#a5730e",
+    "background_color": "#121212",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/?source=pwa",
+    "description": "Enjoy loads of music, videos and gist",
+    "icons": [
+        {
+            "src": "manifest/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/jpg"
+        },
+        {
+            "src": "manifest/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/jpg"
+        },
+        {
+            "src": "manifest/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/jpg"
+        },
+        {
+            "src": "manifest/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/jpg"
+        }
+    ]
+}

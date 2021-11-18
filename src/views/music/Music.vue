@@ -27,7 +27,7 @@
                         <div v-if="music.tag == 'music'">
                             <div v-for="music_data in music.data" :key="music_data.id">
                                 <MusicCard 
-                                    :card="music_data"
+                                    :card="music_data" 
                                 />
                             </div>
                         </div>
@@ -38,17 +38,17 @@
 
 
         <div class="playlist_container clear">
-            <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div>
+            <!-- <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div> -->
 
-            <div class="header">
+            <!-- <div class="header">
                 <h4 class="left noSpace exclude">PLAYLIST</h4>
                 <div class="right noSpace exclude">
                     <a href="#" style="color:rgba(250,250,250,0.5);" @click="createPlaylistModal">Create Playlist ></a>
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div> -->
 
-            <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div>
+            <!-- <div class="demarcator" style="margin-bottom:20px;padding-bottom:10px;"></div> -->
 
             <div class="body">
                 <div class="loading-placeholder" v-if="playlist_loading == true">
@@ -100,23 +100,16 @@
             </div>
         </div>
         <div class="clear"></div>
-
-        <Dialog title="Create Playlist" v-if="vdialog == true" v-on:closeDialog="dialogVisible">
-            <CreatePlaylist />
-        </Dialog>
     </div>
 </template>
 
 <script>
     //import uuid from "uuid";
     
-    import {mapActions} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
     import MusicCard from "./components/MusicCard.vue";
     import PlaylistCard from "./components/PlaylistCard.vue";
     import AlbumCard from "./components/AlbumCard.vue";
-
-    import Dialog from "../../modal/Dialog.vue";
-    import CreatePlaylist from "./components/CreatePlaylist.vue";
 
     import Notification from "../../components/public/notification/Notification.vue";
     import Placeholder from '../../components/public/Placeholder.vue';
@@ -125,8 +118,7 @@
         name: 'Music',
         components: {
             MusicCard, PlaylistCard, AlbumCard,
-            Dialog, CreatePlaylist, Notification,
-            Placeholder
+            Notification, Placeholder
         },
         data: function(){
             return {
@@ -153,6 +145,9 @@
                 ]
             }
         },
+        computed: {
+            ...mapGetters(["get_music"])
+        },
         methods: {
             ...mapActions(["fetch_music"]),
             dialogVisible: function(type){
@@ -163,7 +158,7 @@
             },
             loadMusic: function(){
                 this.fetch_music(null);
-                this.music_types[0].data = this.$store.getters.get_music;
+                this.music_types[0].data = this.get_music;
 
                 setTimeout(() => {
                     this.music_loading = false;

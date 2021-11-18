@@ -1,4 +1,5 @@
 import axios from "axios";
+import Vue from "vue";
 import login from "../login";
 
 const state = {
@@ -33,16 +34,16 @@ const actions = {
             headers: headers
         })
         .then(response => { 
-            let gist_data = [];
             let temp_data = response.data;
             let profile_url = "";
 
             if(temp_data != null){
                 if(temp_data.length > 0){
-                    temp_data.forEach(element => {
+                    let gist_list = {};
+
+                    temp_data.forEach((element, index) => {
                         profile_url = element.post.author.profile.profile_picture;
-                        
-                        gist_data.push({
+                        gist_list = {
                             id: element.post.id, 
                             img: "/static/uploads/img/80/g1.png",
                             title: element.post.title,
@@ -57,9 +58,13 @@ const actions = {
                                 name: element.post.author.username,
                                 verified: element.post.author.profile.is_verified
                             }
+                        };
+                        
+                        commit("update_single_gist_data", {
+                            index: index,
+                            data: gist_list
                         });
                     });
-                    commit("update_gist_data", gist_data);
                 }
             }
         }).catch(error => {
@@ -82,6 +87,11 @@ const mutations = {
     update_gist_data: function(state, new_gist_data){
         if(Object.keys(new_gist_data).length > 0){
             state.gist_data = new_gist_data;
+        }
+    },
+    update_single_gist_data: function(state, new_gist_data){
+        if(Object.keys(new_gist_data).length > 0){
+            Vue.set(state.gist_data, new_gist_data.index, new_gist_data.data);
         }
     },
 };
